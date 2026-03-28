@@ -1,0 +1,13 @@
+{
+  "name": "code-lenses",
+  "owner": {
+    "name": "Bracken Spencer"
+  },
+  "plugins": [
+    {
+      "name": "code-lenses",
+      "source": "./claude/code-lenses",
+      "description": "Software design lenses for code review and implementation guidance"
+    }
+  ]
+}

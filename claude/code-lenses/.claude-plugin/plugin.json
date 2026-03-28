@@ -1,0 +1,11 @@
+{
+  "name": "code-lenses",
+  "version": "0.1.0",
+  "description": "Software design lenses for code review and implementation guidance: grug brain, Honest Code, Tidy First?, and A Philosophy of Software Design",
+  "author": {
+    "name": "Bracken Spencer",
+    "url": "https://github.com/brackendev"
+  },
+  "repository": "https://github.com/brackendev/code-lenses",
+  "keywords": ["review", "design", "grug", "honest-code", "tidy-first", "aposd", "skills"]
+}

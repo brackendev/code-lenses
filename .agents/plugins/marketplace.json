@@ -1,0 +1,20 @@
+{
+  "name": "code-lenses",
+  "interface": {
+    "displayName": "Code Lenses"
+  },
+  "plugins": [
+    {
+      "name": "code-lenses",
+      "source": {
+        "source": "local",
+        "path": "./codex/code-lenses"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
