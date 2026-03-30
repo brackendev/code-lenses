@@ -24,11 +24,23 @@ This repo includes repo-scoped marketplace metadata for Codex:
 | `./codex/code-lenses/.codex-plugin/plugin.json` | Codex plugin manifest |
 | `./.agents/plugins/marketplace.json` | Repo-level Codex marketplace entry |
 
-Open this repository in Codex with the repo-scoped marketplace metadata available. The marketplace entry points Codex to `./codex/code-lenses`, and the bundled skills live under `./codex/code-lenses/skills/`.
+To install this plugin in Codex:
+
+1. Open the repository root in Codex, not the `./codex/` subdirectory. Codex needs the repo root so it can see `./.agents/plugins/marketplace.json`.
+2. Restart Codex if this repo was already open before the marketplace file or plugin files were added or changed.
+3. Open the plugin directory:
+   - In the Codex app, open `Plugins`.
+   - In Codex CLI, run `codex` and enter `/plugins`.
+4. Find the repo marketplace entry and install `Code Lenses`.
+5. Start a new thread and ask Codex to use one of the bundled skills.
+
+The marketplace entry points Codex to `./codex/code-lenses`, and the bundled skills live under `./codex/code-lenses/skills/`.
 
 ## How To Use It
 
-Use the skill names directly in your prompt when you want Codex to apply a lens.
+After the plugin is installed, use the skill names directly in your prompt when you want Codex to apply a lens.
+
+You can also type `@` to select the plugin or one of its bundled skills explicitly.
 
 Examples:
 
