@@ -78,6 +78,17 @@ After all sub-agents complete, produce a unified report:
 
 [Positive observations from all lenses.]
 
+### Conflicts
+
+[When two lenses give contradictory advice on the same code, list each conflict here. State both positions and which lens each comes from. Do not pick a winner. Known tension points:]
+
+[- **Data design:** Honest Code wants flat, transparent data. APOSD wants data hidden behind module interfaces.]
+[- **Abstraction timing:** Grug delays abstraction until three repetitions. Tidy First extracts helpers whenever it eases the next change.]
+[- **Design investment:** Grug favors shipping the simplest working solution. APOSD favors investing 10-20% extra time in strategic design.]
+[- **Interface scope:** Grug says design for current needs only. APOSD says design somewhat general-purpose interfaces.]
+
+[Only include conflicts that actually appeared in the review. Omit this section if no lenses contradicted each other.]
+
 ### Recommended Actions
 
 1. [Highest-impact action across all lenses]
@@ -85,7 +96,7 @@ After all sub-agents complete, produce a unified report:
 3. [Next action]
 ```
 
-Deduplicate findings that overlap across lenses. When multiple lenses flag the same code, note the convergence.
+Deduplicate findings that overlap across lenses. When multiple lenses flag the same code, note the convergence. When lenses contradict each other on the same code, surface both positions in the Conflicts section and let the user decide.
 
 ## Usage Examples
 
