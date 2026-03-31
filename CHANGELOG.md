@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-03-31
+
+### Changed
+
+- `parse-dont-validate`: Add Clojure row to language-specific techniques table (`clojure.spec`/Malli, smart constructors, namespaced keys, tagged maps)
+
 ## [0.1.2] - 2026-03-31
 
 ### Added

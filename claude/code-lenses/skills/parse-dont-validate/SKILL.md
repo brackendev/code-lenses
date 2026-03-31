@@ -71,6 +71,7 @@ Shotgun validation is a symptom of unstructured types. The fix is a better type,
 | Go | Unexported struct fields with constructor functions, custom types wrapping primitives |
 | Java/Kotlin | Value classes, sealed interfaces, records with validation in constructor |
 | Swift | Enums with associated values, `RawRepresentable` with failable initializers |
+| Clojure | `clojure.spec`/Malli schemas with `conform`/coercion, smart constructor functions returning domain maps or throwing `ex-info`, namespaced keys for domain concepts, tagged maps with `:type`/`:kind` keys for sum types |
 
 ## Application Rules
 
