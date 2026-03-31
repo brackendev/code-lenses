@@ -4,12 +4,14 @@ Code Lenses is a set of review, debugging, and implementation-guidance skills fo
 
 ## What It Is
 
-Code Lenses helps an agent review or write code through four design lenses:
+Code Lenses helps an agent review or write code through six design lenses:
 
 - `grug`: keep implementations simple, local, and pragmatic
 - `aposd`: prefer deep modules and strong information hiding
 - `honest-code`: favor flat data, pure functions, and honest constructs
 - `tidy-first`: separate structural cleanup from behavioral change
+- `parse-dont-validate`: parse at boundaries, make illegal states unrepresentable
+- `legacy-code`: find seams, write characterization tests, modify untested code safely (review-only, no auto-applied implementation skill)
 
 The packaged skills are split into two groups:
 
@@ -29,11 +31,13 @@ The packaged skills are split into two groups:
 
 | Skill | Purpose |
 |-------|---------|
-| `review-all` | Run all four review lenses and aggregate the findings |
+| `review-all` | Run review lenses and aggregate findings (5 default, Legacy Code opt-in) |
 | `grug-review` | Review for complexity, over-engineering, and abstraction debt |
 | `aposd-review` | Review for module depth, information hiding, and complexity symptoms |
 | `honest-code-review` | Review for dishonest patterns using the Honest Code constructs |
 | `tidy-first-review` | Review for tidying opportunities and mixed structural and behavioral changes |
+| `parse-dont-validate-review` | Review for type-driven correctness, boundary parsing, and illegal states |
+| `legacy-code-review` | Review for missing tests, seams, and safe modification of untested code |
 | `grug-debug` | Debug through small repro, evidence, and one-change-at-a-time workflow |
 
 ### Auto-applied implementation skills
@@ -44,6 +48,7 @@ The packaged skills are split into two groups:
 | `aposd` | Apply deep modules and information-hiding principles |
 | `honest-code` | Prefer flat data, pure functions, and honest constructs |
 | `tidy-first` | Separate structural and behavioral change and tidy only where it helps |
+| `parse-dont-validate` | Parse at boundaries, make illegal states unrepresentable, use domain types |
 
 ## How To Use It
 
@@ -70,3 +75,4 @@ Both packages expose the same core lenses. The main difference is how they are i
 
 - This repo packages and distributes the Code Lenses plugin for Claude Code and Codex.
 - The skill content follows the Agent Skills format, so other compatible tools can reuse the `SKILL.md` directories if they integrate them separately.
+- Debug skills exist only for grug (`grug-debug`). The other lenses are review and implementation focused. Parse Don't Validate and Legacy Code do not have dedicated debug skills.

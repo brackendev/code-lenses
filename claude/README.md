@@ -1,6 +1,6 @@
 # Code Lenses for Claude Code
 
-Code Lenses provides Claude Code with a set of reusable review, debugging, and implementation-guidance commands built around grug brain, Honest Code, Tidy First?, and A Philosophy of Software Design.
+Code Lenses provides Claude Code with a set of reusable review, debugging, and implementation-guidance commands built around grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, and Working Effectively with Legacy Code.
 
 This package lives in `./claude/code-lenses`.
 
@@ -49,19 +49,48 @@ Invoke Code Lenses through slash commands.
 
 ### `/code-lenses:review-all [scope or options...]`
 
-Runs all four code lens reviews in parallel using the packaged Claude reviewer agents, then aggregates the findings.
+Runs five code lens reviews in parallel by default, then aggregates the findings. Legacy Code is opt-in.
 
 ```bash
+# Default 5 lenses on changed files
 /code-lenses:review-all
+
+# Default 5 lenses on a specific path or the full codebase
 /code-lenses:review-all src/api/
 /code-lenses:review-all all
+
+# Pick specific lenses
 /code-lenses:review-all grug aposd
 /code-lenses:review-all tidy-first src/services/
+
+# Include Legacy Code (opt-in, not in the default set)
+/code-lenses:review-all +legacy-code
+/code-lenses:review-all +legacy-code src/services/
+```
+
+### `/code-lenses:parse-dont-validate-review [scope or options...]`
+
+Reviews code for type-driven correctness using Parse Don't Validate and Make Illegal States Unrepresentable.
+
+```bash
+/code-lenses:parse-dont-validate-review
+/code-lenses:parse-dont-validate-review src/models/
+/code-lenses:parse-dont-validate-review all
+```
+
+### `/code-lenses:legacy-code-review [scope or options...]`
+
+Reviews code for safe modification opportunities using Working Effectively with Legacy Code techniques.
+
+```bash
+/code-lenses:legacy-code-review
+/code-lenses:legacy-code-review src/services/
+/code-lenses:legacy-code-review all
 ```
 
 ### `/code-lenses:honest-code-review [scope or options...]`
 
-Reviews code for dishonest patterns using the 11 Honest Code constructs.
+Reviews code for dishonest patterns using the Honest Code constructs.
 
 ```bash
 /code-lenses:honest-code-review
@@ -112,24 +141,4 @@ Debugs through reproduce, shrink, inspect, verify, and prove.
 
 ## Bundled Lenses
 
-### Review and debug commands
-
-| Skill | Purpose |
-|-------|---------|
-| `review-all` | Run all four review lenses and aggregate the findings |
-| `grug-review` | Review for complexity, over-engineering, and abstraction debt |
-| `aposd-review` | Review for module depth, information hiding, and complexity symptoms |
-| `honest-code-review` | Review for dishonest patterns using the Honest Code constructs |
-| `tidy-first-review` | Review for tidying opportunities and mixed structural and behavioral changes |
-| `grug-debug` | Debug through small repro, evidence, and one-change-at-a-time workflow |
-
-### Auto-triggered implementation skills
-
-These skills apply automatically based on conversation context and are not invoked directly as slash commands.
-
-| Skill | Triggers |
-|-------|----------|
-| `grug` | Simplicity, over-complexity, abstraction, architecture, refactoring, test design |
-| `honest-code` | Declarative design, pure functions, flat data, no classes, dishonest patterns |
-| `tidy-first` | Tidying before a change, guard clauses, reading order, dead code, structural prep |
-| `aposd` | Deep modules, information hiding, information leakage, interface depth, complexity symptoms |
+See the [root README](../README.md#bundled-lenses) for the full list of review, debug, and auto-triggered implementation skills.

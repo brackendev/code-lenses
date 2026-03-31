@@ -1,6 +1,6 @@
 # Code Lenses for Codex
 
-Code Lenses provides Codex with a set of reusable review, debugging, and implementation-guidance skills built around grug brain, Honest Code, Tidy First?, and A Philosophy of Software Design.
+Code Lenses provides Codex with a set of reusable review, debugging, and implementation-guidance skills built around grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, and Working Effectively with Legacy Code.
 
 This package lives in `./codex/code-lenses`.
 
@@ -50,27 +50,12 @@ Use grug-review on src/auth/.
 Use aposd-review on this module boundary change.
 Use tidy-first-review on these refactor edits.
 Use honest-code-review on this state management code.
+Use parse-dont-validate-review on the input handling code.
+Use legacy-code-review on this untested module.
 Use grug-debug on this failing test.
+Use review-all +legacy-code on the current diff.
 ```
 
 ## Bundled Lenses
 
-### Review and debug skills
-
-| Skill | Purpose |
-|-------|---------|
-| `review-all` | Run all four review lenses and aggregate the findings |
-| `grug-review` | Complexity and over-engineering review |
-| `aposd-review` | Module depth and information-hiding review |
-| `honest-code-review` | Honest Code construct review |
-| `tidy-first-review` | Tidying and mixed-change review |
-| `grug-debug` | Evidence-first debugging workflow |
-
-### Auto-applied implementation skills
-
-| Skill | Purpose |
-|-------|---------|
-| `grug` | Simplicity and anti-complexity guidance during implementation |
-| `aposd` | Deep module and information-hiding guidance |
-| `honest-code` | Honest constructs guidance during implementation |
-| `tidy-first` | Structural tidying guidance before behavioral change |
+See the [root README](../README.md#bundled-lenses) for the full list of review, debug, and auto-applied implementation skills.

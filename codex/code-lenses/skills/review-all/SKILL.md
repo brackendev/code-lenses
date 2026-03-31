@@ -1,6 +1,6 @@
 ---
 name: review-all
-description: Run all code lens reviews in parallel (grug, APOSD, Honest Code, Tidy First?)
+description: Run code lens reviews in parallel (default 5, Legacy Code opt-in)
 argument-hint: [scope or options...]
 user-invocable: true
 disable-model-invocation: true
@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 # Review All
 
-Run all four code lens reviews in parallel using Codex sub-agents, then aggregate findings into a unified report.
+Run code lens reviews in parallel using Codex sub-agents, then aggregate findings into a unified report. By default, five lenses run. Legacy Code is opt-in because it is situational (most valuable when code lacks tests or has hard dependencies).
 
 **Review Scope (optional):** "$ARGUMENTS"
 
@@ -26,16 +26,25 @@ Build a scope summary string (for example: "changed files: src/auth.ts, src/midd
 
 ### 2. Available Review Lenses
 
+**Default lenses (always run):**
+
 | Lens | Focus |
 |------|-------|
 | `grug-review` | Complexity demons, premature abstraction, over-engineering |
 | `aposd-review` | Module depth, information hiding, interface design |
 | `honest-code-review` | Dishonest patterns, classes vs data, mutable state, inheritance |
 | `tidy-first-review` | Structural tidying, mixed commits, reading order |
+| `parse-dont-validate-review` | Type-driven correctness, boundary parsing, illegal states |
+
+**Opt-in lenses (include by name):**
+
+| Lens | Focus |
+|------|-------|
+| `legacy-code-review` | Missing tests, seams, safe modification of untested code |
 
 ### 3. Launch Review Sub-Agents
 
-Launch all four reviews **in parallel** using Codex sub-agents. Each sub-agent receives the same scope summary.
+Launch the default five reviews **in parallel** using Codex sub-agents. Each sub-agent receives the same scope summary.
 
 For each lens:
 
@@ -46,7 +55,7 @@ For each lens:
 
 Start all requested sub-agents before waiting on any of them so the reviews run in parallel.
 
-If the user specified a subset (for example: "grug aposd"), launch only those lenses.
+If the user specified a subset (for example: "grug aposd"), launch only those lenses. If the user prefixes an opt-in lens with `+` (for example: "+legacy-code"), add it to the default set rather than replacing it.
 
 Do not rely on packaged reviewer agents in the Codex copy. The Codex version uses the review skills directly.
 
@@ -65,6 +74,8 @@ After all sub-agents complete, produce a unified report:
 | APOSD | [module depth level] | [one-sentence summary] |
 | Honest Code | [honesty level] | [one-sentence summary] |
 | Tidy First? | [structural health level] | [one-sentence summary] |
+| Parse Don't Validate | [type safety level] | [one-sentence summary] |
+| Legacy Code (if included) | [change safety level] | [one-sentence summary] |
 
 ### Critical Findings
 
@@ -86,6 +97,9 @@ After all sub-agents complete, produce a unified report:
 [- **Abstraction timing:** Grug delays abstraction until three repetitions. Tidy First extracts helpers whenever it eases the next change.]
 [- **Design investment:** Grug favors shipping the simplest working solution. APOSD favors investing 10-20% extra time in strategic design.]
 [- **Interface scope:** Grug says design for current needs only. APOSD says design somewhat general-purpose interfaces.]
+[- **Type investment:** Grug wants the simplest type that works. Parse Don't Validate wants domain types that encode invariants.]
+[- **Test strategy:** Legacy Code says write characterization tests to lock existing behavior. Tidy First says tidy the structure before changing behavior. When both apply, decide which unblocks the change.]
+[- **Seams vs composition:** Legacy Code recommends object seams (subclass, Extract Interface) as tactical rescue techniques to enable testing. Honest Code avoids inheritance and deep hierarchies. These seams are temporary scaffolding for testability, not end-state design.]
 
 [Only include conflicts that actually appeared in the review. Omit this section if no lenses contradicted each other.]
 
@@ -116,4 +130,10 @@ review-all all
 ```text
 review-all grug aposd
 review-all tidy-first honest-code src/api/
+```
+
+**Add Legacy Code to defaults:**
+```text
+review-all +legacy-code
+review-all +legacy-code src/services/
 ```

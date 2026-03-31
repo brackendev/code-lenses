@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-03-31
+
+### Added
+
+- `parse-dont-validate`: Auto-triggered skill applying Parse Don't Validate and Make Illegal States Unrepresentable principles to code changes
+- `parse-dont-validate-review`: Review code for type-driven correctness, boundary parsing, and illegal states with severity tiers UNGUARDED, LEAKING, LOOSE
+- `legacy-code-review`: Review code for safe modification using Working Effectively with Legacy Code techniques with severity tiers UNTESTED, BRITTLE, RIGID
+- `parse-dont-validate-reviewer`, `legacy-code-reviewer` agents for parallel review execution
+- `honest-code` Construct 12: Push Effects to the Edges, based on Gary Bernhardt's Functional Core, Imperative Shell pattern
+
+### Changed
+
+- `honest-code`: Add Construct 12 (Push Effects to the Edges, from Gary Bernhardt) alongside the 11 original constructs from honestcode.software
+- `honest-code-review`: Updated to evaluate code against all constructs including Construct 12
+- `review-all`: Expanded from four to five default parallel review lenses (adding Parse Don't Validate), with Legacy Code available as opt-in
+
 ## [0.1.1] - 2026-03-31
 
 ### Changed

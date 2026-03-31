@@ -1,6 +1,6 @@
 ---
 name: honest-code-review
-description: Review code for dishonest patterns using the 11 Honest Code constructs
+description: Review code for dishonest patterns using the Honest Code constructs (11 from honestcode.software, 1 extended)
 argument-hint: [scope or options...]
 effort: high
 user-invocable: true
@@ -9,7 +9,7 @@ disable-model-invocation: true
 
 # Honest Code Review
 
-Review code against the 11 [Honest Code](https://honestcode.software) constructs by Adam Zachary Wasserman. Identify dishonest patterns (crime scenes) and suggest rescues (honest alternatives).
+Review code against the [Honest Code](https://honestcode.software) constructs. Constructs 1 through 11 are by Adam Zachary Wasserman. Construct 12 extends the philosophy with Gary Bernhardt's Functional Core, Imperative Shell pattern. Identify dishonest patterns (crime scenes) and suggest rescues (honest alternatives).
 
 All review output uses direct, professional voice. Reference constructs by name and number.
 
@@ -46,7 +46,7 @@ Filter to source/test/config files relevant to behavior. Skip generated files, l
 
 If no files are found (and no explicit scope), ask user what to review.
 
-## The 11 Constructs (Cheat Sheet)
+## The Constructs (Cheat Sheet)
 
 Use this framework to evaluate code. Each construct defines an "instead of" (dishonest) and "use" (honest) pattern.
 
@@ -63,6 +63,7 @@ Use this framework to evaluate code. Each construct defines an "instead of" (dis
 | 9 | Constrain AI | Accept 500-line AI-generated classes | Honest architecture as prompt, small functions |
 | 10 | Declare What, Not How | Mutable variables, imperative validation | Type declarations, pure functions, system-enforced constraints |
 | 11 | Rescue, Don't Rewrite | Big-bang rewrite | Extract one pure function, strangler pattern |
+| 12 | Push Effects to the Edges | Business logic interleaved with I/O and side effects | Functional core (pure), imperative shell (I/O at boundaries) |
 
 ## Review Process
 
@@ -74,7 +75,7 @@ For each file in scope:
 
 1. Read file (or diff hunk when scoped to changes).
 2. Locate related tests (same module or nearby patterns).
-3. Map code constructs against the 11-construct cheat sheet.
+3. Map code constructs against the cheat sheet above.
 4. Note file size risk if file is large (500+ LOC).
 
 ### 2) Detect Dishonest Patterns
@@ -91,6 +92,7 @@ Active dishonest patterns causing real cost:
 - Mock-heavy tests that pass while integration fails (Construct 8)
 - Dual state sources (client + server) that can diverge (Construct 3)
 - Swallowed exceptions hiding real failures (Construct 6)
+- Business logic functions that read from databases, call APIs, or write files mid-calculation (Construct 12)
 
 #### SUSPECT (Medium)
 
@@ -102,6 +104,7 @@ Patterns trending toward dishonesty:
 - Defensive error handling that masks root cause (Construct 6)
 - Imperative logic where declarative would work (Construct 4, 10)
 - Inline retry or fallback logic (Construct 6)
+- Functions mixing calculation with logging or metrics emission (Construct 12)
 
 #### WITNESS (Low)
 
@@ -123,6 +126,7 @@ Call out code that follows the constructs well:
 - Declarative HTML/attributes over imperative DOM (Construct 4)
 - Errors raised at source, handled at boundary (Construct 6)
 - Single source of truth for state (Construct 3)
+- Clear functional core / imperative shell separation (Construct 12)
 
 ### 4) Suggest Rescues
 

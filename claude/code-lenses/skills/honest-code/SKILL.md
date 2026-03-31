@@ -2,17 +2,19 @@
 name: honest-code
 description: >-
   Trigger on: "honest code", "declarative", "pure functions", "flat data", "no
-  classes", "no inheritance", "no state", "let it crash", "dishonest", or when
-  user asks about Honest Code constructs. Apply the 11 Honest Code constructs
-  from honestcode.software during implementation.
+  classes", "no inheritance", "no state", "let it crash", "dishonest",
+  "functional core", "imperative shell", "side effects", "push effects", or
+  when user asks about Honest Code constructs. Apply the Honest Code
+  constructs during implementation (11 from honestcode.software, 1 extended
+  from Gary Bernhardt).
 user-invocable: false
 ---
 
 # Honest Code
 
-Apply the 11 [Honest Code](https://honestcode.software) constructs by Adam Zachary Wasserman to every code change. Honest software uses constructs that tell the truth about what they do.
+Apply the [Honest Code](https://honestcode.software) constructs to every code change. Constructs 1 through 11 are by Adam Zachary Wasserman. Construct 12 extends the philosophy with Gary Bernhardt's Functional Core, Imperative Shell pattern. Honest software uses constructs that tell the truth about what they do.
 
-## The 11 Constructs
+## The Constructs
 
 Follow these constructs when writing or changing code. When you detect an "instead of" pattern, suggest the corresponding "use" alternative. Reference the construct by name.
 
@@ -92,6 +94,13 @@ Let the type system and runtime enforce constraints instead of writing validatio
 **Use:** Extract one pure function this sprint. Strangler pattern: wrap old, build new alongside. Show faster tests, fewer bugs. Find one ally. Let it spread.
 
 Rewrites fail. Incremental rescue succeeds.
+
+### 12. Push Effects to the Edges
+
+**Instead of:** Business logic interleaved with database calls, HTTP requests, file I/O, and logging. Functions that are half calculation, half side effect.
+**Use:** Functional core: pure functions that take data and return data. Imperative shell: a thin outer layer that performs I/O, calls the core, and writes results.
+
+Structure each feature as: read inputs (shell) -> compute decision (core) -> write outputs (shell). The core is easy to test (`assert f(input) == expected`) because it has no I/O. The shell is thin enough to verify by inspection. Based on Gary Bernhardt's [Boundaries](https://www.destroyallsoftware.com/talks/boundaries) talk. Extends Constructs 2 and 3 from function-level purity to architecture-level separation.
 
 ## Application Rules
 
