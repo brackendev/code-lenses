@@ -6,12 +6,12 @@ Code Lenses is a set of review, debugging, and implementation-guidance skills fo
 
 Code Lenses helps an agent review or write code through six design lenses:
 
-- `grug`: keep implementations simple, local, and pragmatic
-- `aposd`: prefer deep modules and strong information hiding
-- `honest-code`: favor flat data, pure functions, and honest constructs
-- `tidy-first`: separate structural cleanup from behavioral change
-- `parse-dont-validate`: parse at boundaries, make illegal states unrepresentable
-- `legacy-code`: find seams, write characterization tests, modify untested code safely (review-only, no auto-applied implementation skill)
+- `grug`: keep implementations simple, local, and pragmatic ([The Grug Brained Developer](https://grugbrain.dev/))
+- `aposd`: prefer deep modules and strong information hiding ([A Philosophy of Software Design](https://web.stanford.edu/~ouster/cgi-bin/book.php) by John Ousterhout)
+- `honest-code`: favor flat data, pure functions, and honest constructs ([Honest Code](https://honestcode.software) by Adam Zachary Wasserman, with [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/talks/boundaries) by Gary Bernhardt)
+- `tidy-first`: separate structural cleanup from behavioral change ([Tidy First?](https://www.oreilly.com/library/view/tidy-first/9781098151232/) by Kent Beck)
+- `parse-dont-validate`: parse at boundaries, make illegal states unrepresentable ([Parse, Don't Validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) by Alexis King)
+- `legacy-code`: find seams, write characterization tests, modify untested code safely ([Working Effectively with Legacy Code](https://www.oreilly.com/library/view/working-effectively-with/0131177052/) by Michael Feathers) (review-only, no auto-applied implementation skill)
 
 The packaged skills are split into two groups:
 
