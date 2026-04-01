@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-04-01
+
+### Changed
+
+- `review-all`: Reduce default lenses from five to four. Move APOSD to opt-in alongside Legacy Code to reduce conflicting advice during reviews.
+- `aposd`: Change to explicit implementation skill. Invoke with `/code-lenses:aposd` (Claude) or `Use aposd` (Codex).
+- `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`: Make user-invocable. The agent may still apply them automatically when relevant, but explicit invocation is now guaranteed.
+- Add "Best for" column to all skill tables in the root README with concrete scenarios and tech stack examples.
+
 ## [0.1.3] - 2026-03-31
 
 ### Changed

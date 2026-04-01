@@ -6,7 +6,7 @@ description: >-
   "before I change this", "structural change", "reading order", "guard clauses",
   "extract helper", "dead code", or when preparing code structure before a
   behavioral change.
-user-invocable: false
+user-invocable: true
 ---
 
 # Tidy First? Philosophy

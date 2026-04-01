@@ -49,23 +49,24 @@ Invoke Code Lenses through slash commands.
 
 ### `/code-lenses:review-all [scope or options...]`
 
-Runs five code lens reviews in parallel by default, then aggregates the findings. Legacy Code is opt-in.
+Runs four code lens reviews in parallel by default, then aggregates the findings. APOSD and Legacy Code are opt-in.
 
 ```bash
-# Default 5 lenses on changed files
+# Default 4 lenses on changed files
 /code-lenses:review-all
 
-# Default 5 lenses on a specific path or the full codebase
+# Default 4 lenses on a specific path or the full codebase
 /code-lenses:review-all src/api/
 /code-lenses:review-all all
 
 # Pick specific lenses
-/code-lenses:review-all grug aposd
+/code-lenses:review-all grug honest-code
 /code-lenses:review-all tidy-first src/services/
 
-# Include Legacy Code (opt-in, not in the default set)
+# Include opt-in lenses
+/code-lenses:review-all +aposd
 /code-lenses:review-all +legacy-code
-/code-lenses:review-all +legacy-code src/services/
+/code-lenses:review-all +aposd +legacy-code src/services/
 ```
 
 ### `/code-lenses:parse-dont-validate-review [scope or options...]`
@@ -139,6 +140,46 @@ Debugs through reproduce, shrink, inspect, verify, and prove.
 /code-lenses:grug-debug test_login_redirect
 ```
 
+### `/code-lenses:aposd`
+
+Applies A Philosophy of Software Design principles to the current implementation task. This skill is explicit, not auto-applied. Invoke it when designing module boundaries, choosing interface depth, or hiding complexity behind narrow interfaces.
+
+```bash
+/code-lenses:aposd
+```
+
+### `/code-lenses:grug`
+
+Applies grug brain philosophy to the current implementation task. Invoke when you want simplicity, pragmatism, and resistance to complexity.
+
+```bash
+/code-lenses:grug
+```
+
+### `/code-lenses:honest-code`
+
+Applies the Honest Code constructs to the current implementation task. Invoke when you want flat data, pure functions, and effects pushed to the edges.
+
+```bash
+/code-lenses:honest-code
+```
+
+### `/code-lenses:tidy-first`
+
+Applies Tidy First? philosophy to the current implementation task. Invoke when you want to separate structural cleanup from behavioral changes.
+
+```bash
+/code-lenses:tidy-first
+```
+
+### `/code-lenses:parse-dont-validate`
+
+Applies Parse Don't Validate principles to the current implementation task. Invoke when you want typed boundaries, domain types, and illegal states made unrepresentable.
+
+```bash
+/code-lenses:parse-dont-validate
+```
+
 ## Bundled Lenses
 
-See the [root README](../README.md#bundled-lenses) for the full list of review, debug, and auto-triggered implementation skills.
+See the [root README](../README.md#bundled-lenses) for the full list of review, debug, and implementation skills.

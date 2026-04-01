@@ -2,18 +2,13 @@
 name: aposd
 description: >-
   Apply A Philosophy of Software Design principles when designing modules,
-  interfaces, or error handling. Use when user says "deep module", "shallow
-  module", "information hiding", "information leakage", "complexity symptoms",
-  "change amplification", "cognitive load", "unknown unknowns", "pull complexity
-  downward", "define errors out of existence", "general-purpose", "strategic
-  programming", or when designing module boundaries or choosing interface
-  depth.
-user-invocable: false
+  interfaces, or error handling.
+user-invocable: true
 ---
 
 # A Philosophy of Software Design
 
-Apply principles from [A Philosophy of Software Design](https://web.stanford.edu/~ouster/cgi-bin/book.php) by John Ousterhout (2nd edition, 2021) to every code change. The core mission: manage complexity through deep modules, information hiding, and strategic design.
+When invoked, apply principles from [A Philosophy of Software Design](https://web.stanford.edu/~ouster/cgi-bin/book.php) by John Ousterhout (2nd edition, 2021) to the current implementation task. The core mission: manage complexity through deep modules, information hiding, and strategic design.
 
 ## Complexity Defined
 

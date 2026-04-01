@@ -6,7 +6,7 @@ description: >-
   "illegal states", "unrepresentable", "type-driven", "branded type", "newtype",
   "smart constructor", "validate at boundary", "parse at boundary", or when
   designing data types, input handling, or domain models.
-user-invocable: false
+user-invocable: true
 ---
 
 # Parse, Don't Validate

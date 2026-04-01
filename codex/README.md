@@ -37,15 +37,21 @@ Examples:
 ```text
 Use review-all on the current diff.
 Use grug-review on src/auth/.
-Use aposd-review on this module boundary change.
 Use tidy-first-review on these refactor edits.
 Use honest-code-review on this state management code.
 Use parse-dont-validate-review on the input handling code.
+Use aposd-review on this module boundary change.
 Use legacy-code-review on this untested module.
 Use grug-debug on this failing test.
+Use review-all +aposd on the current diff.
 Use review-all +legacy-code on the current diff.
+Use grug for this refactor.
+Use honest-code for this service rewrite.
+Use tidy-first before changing this handler.
+Use parse-dont-validate for these input types.
+Use aposd to guide this module boundary design.
 ```
 
 ## Bundled Lenses
 
-See the [root README](../README.md#bundled-lenses) for the full list of review, debug, and auto-applied implementation skills.
+See the [root README](../README.md#bundled-lenses) for the full list of review, debug, and implementation skills.
