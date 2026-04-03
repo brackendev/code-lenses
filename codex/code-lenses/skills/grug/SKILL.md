@@ -6,7 +6,7 @@ description: >-
   abstractions, selecting tools/dependencies/frameworks, writing tests, or
   when the user asks to keep things simple ("grug", "simplify", "too
   complex", "complexity demon", "keep it simple").
-user-invocable: true
+user-invocable: false
 ---
 
 # Grug Brain Coding Philosophy

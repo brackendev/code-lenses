@@ -3,7 +3,7 @@ name: aposd
 description: >-
   Apply A Philosophy of Software Design principles when designing modules,
   interfaces, or error handling.
-user-invocable: true
+user-invocable: false
 ---
 
 # A Philosophy of Software Design

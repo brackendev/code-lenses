@@ -7,7 +7,7 @@ description: >-
   when user asks about Honest Code constructs. Apply the Honest Code
   constructs during implementation (11 from honestcode.software, 1 extended
   from Gary Bernhardt).
-user-invocable: true
+user-invocable: false
 ---
 
 # Honest Code

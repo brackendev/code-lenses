@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-04-03
+
+### Changed
+
+- `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `aposd`: Revert to auto-triggered (description-based pattern matching) instead of user-invocable. The agent activates these skills automatically when conversation context matches trigger patterns in the skill description.
+
 ## [0.1.4] - 2026-04-01
 
 ### Changed
