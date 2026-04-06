@@ -32,7 +32,7 @@ The packaged skills are split into three groups:
 
 | Skill | Purpose | Best for |
 |-------|---------|----------|
-| `review-all` | Run review lenses and aggregate findings (4 default, APOSD and Legacy Code opt-in) | Cross-cutting PRs touching UI state, API parsing, and refactors; any change where you want lens conflicts surfaced before merge |
+| `review-all` | Run review lenses and aggregate findings with optional fix (4 default, APOSD and Legacy Code opt-in) | Cross-cutting PRs touching UI state, API parsing, and refactors; any change where you want lens conflicts surfaced before merge; pass `fix` to apply non-conflicting findings |
 | `grug-review` | Review for complexity, over-engineering, and abstraction debt | Services accreting factories and managers; React apps with provider and custom-hook layers around simple state |
 | `honest-code-review` | Review for dishonest patterns using the Honest Code constructs | Class-heavy TypeScript or Java service code; frontends duplicating server state in client stores |
 | `tidy-first-review` | Review for tidying opportunities and mixed structural and behavioral changes | Large PRs mixing cleanup and feature work; long handlers or hooks before a bug fix |

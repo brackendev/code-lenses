@@ -1,6 +1,6 @@
 ---
 name: review-all
-description: Run code lens reviews in parallel (default 4, APOSD and Legacy Code opt-in)
+description: Run code lens reviews in parallel with optional fix (default 4, APOSD and Legacy Code opt-in)
 argument-hint: [scope or options...]
 allowed-tools: Agent, Bash, Read, Grep, Glob
 user-invocable: true
@@ -9,7 +9,7 @@ disable-model-invocation: true
 
 # Review All
 
-Run code lens reviews in parallel using specialized agents, then aggregate findings into a unified report. By default, four lenses run. APOSD and Legacy Code are opt-in because they are situational (APOSD is most valuable for module boundary and interface design; Legacy Code is most valuable when code lacks tests or has hard dependencies).
+Run code lens reviews in parallel using specialized agents, then aggregate findings into a unified report. Pass `fix` to apply non-conflicting findings after the review. By default, four lenses run. APOSD and Legacy Code are opt-in because they are situational (APOSD is most valuable for module boundary and interface design; Legacy Code is most valuable when code lacks tests or has hard dependencies).
 
 **Review Scope (optional):** "$ARGUMENTS"
 
@@ -22,6 +22,7 @@ Identify what to review:
 - If the user provided a scope argument, use it as-is
 - If no argument, run `git diff --name-only` and `git diff --cached --name-only` to identify changed files
 - If no changed files and no argument, ask the user what to review
+- If the arguments contain `fix`, enable fix mode and remove `fix` from the arguments before processing scope and lens selection
 
 Build a scope summary string (for example: "changed files: src/auth.ts, src/middleware.ts" or "path: src/api/") to pass to each agent.
 
@@ -108,6 +109,31 @@ After all agents complete, produce a unified report:
 
 Deduplicate findings that overlap across lenses. When multiple lenses flag the same code, note the convergence. When lenses contradict each other on the same code, surface both positions in the Conflicts section and let the user decide.
 
+### 5. Apply Fixes (when `fix` modifier is present)
+
+After presenting the unified report, apply the non-conflicting findings.
+
+Launch a general-purpose agent with:
+- The full unified report as context
+- Instructions to apply all findings from Critical Findings and Other Findings
+- Instructions to skip any finding listed in the Conflicts section (where lenses disagree)
+- Instructions to prioritize Critical Findings over Other Findings
+- Instructions to make minimal, targeted edits that address each finding
+
+After the fix agent completes, append a summary to the report:
+
+```markdown
+### Fixes Applied
+
+| File | Change | Source Lens |
+|------|--------|-------------|
+| [file path] | [what changed] | [lens that suggested it] |
+
+### Skipped (conflicting advice)
+
+[Any findings skipped due to lens conflicts. Omit this section if none.]
+```
+
 ## Usage Examples
 
 **Full review (default):**
@@ -133,4 +159,11 @@ Deduplicate findings that overlap across lenses. When multiple lenses flag the s
 /review-all +aposd
 /review-all +legacy-code
 /review-all +aposd +legacy-code src/services/
+```
+
+**Review and fix:**
+```
+/review-all fix
+/review-all fix src/api/
+/review-all +aposd fix
 ```
