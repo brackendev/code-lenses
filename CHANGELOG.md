@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Packaging:** Added an APM-detectable root `plugin.json` to the Codex package so `apm install --target codex brackendev/code-lenses/codex/code-lenses` works for per-project installs.
+
 ## [0.1.6] - 2026-04-06
 
 ### Added

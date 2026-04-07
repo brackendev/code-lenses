@@ -1,57 +1,52 @@
 # Code Lenses for Codex
 
-Code Lenses provides Codex with a set of reusable review, debugging, and implementation-guidance skills built around grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, and Working Effectively with Legacy Code.
-
-This package lives in `./codex/code-lenses`.
-
-## What It Provides
-
-Code Lenses helps Codex:
-
-- review the current diff through multiple design lenses
-- debug through a minimal reproduction and evidence-first workflow
-- bias implementation work toward simpler, cleaner code decisions
-
-This package is used through skills referenced in prompts in Codex.
+Install, update, and use the `code-lenses` package in Codex.
 
 ## Install
 
-Install the Codex skills from GitHub with the built-in `skill-installer` skill:
+Per-project:
 
-```text
-$skill-installer https://github.com/brackendev/code-lenses
+```bash
+apm install --target codex brackendev/code-lenses/codex/code-lenses
 ```
 
-Restart Codex to pick up new skills.
+Global:
 
-The Codex package in this repo lives at `./codex/code-lenses`, and the bundled skills live under `./codex/code-lenses/skills/`.
+```bash
+apm install -g --target codex brackendev/code-lenses/codex/code-lenses
+```
 
-## How To Use It
+Per-project installs deploy these skills into `.agents/skills/`.
 
-After the skills are installed, use the skill names directly in your prompt when you want Codex to apply a lens.
+APM 0.8.11 currently warns that Codex does not have native user-scope deployment support, so the global commands above are not reliable today. Prefer per-project Codex installs.
 
-You can also type `@` to select one of the installed skills explicitly.
+## Update
 
-Examples:
+Update all project-scoped installs from the project root:
+
+```bash
+apm deps update --target codex
+```
+
+Update one package:
+
+```bash
+apm deps update --target codex brackendev/code-lenses/codex/code-lenses
+```
+
+Update global installs:
+
+```bash
+apm deps update -g --target codex brackendev/code-lenses/codex/code-lenses
+```
+
+Codex global updates have the same current limitation as Codex global installs.
+
+## Use
 
 ```text
 Use review-all on the current diff.
 Use grug-review on src/auth/.
-Use tidy-first-review on these refactor edits.
-Use honest-code-review on this state management code.
-Use parse-dont-validate-review on the input handling code.
-Use aposd-review on this module boundary change.
-Use legacy-code-review on this untested module.
 Use grug-debug on this failing test.
-Use review-all +aposd on the current diff.
-Use review-all +legacy-code on the current diff.
 Use grug for this refactor.
-Use honest-code for this service rewrite.
-Use tidy-first before changing this handler.
-Use parse-dont-validate for these input types.
-Use aposd to guide this module boundary design.
 ```
-
-## Bundled Lenses
-
-See the [root README](../README.md#bundled-lenses) for the full list of review, debug, and implementation skills.
