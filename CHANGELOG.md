@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-04-12
+
 ### Changed
 
+- All review skills (`grug-review`, `honest-code-review`, `tidy-first-review`, `aposd-review`, `parse-dont-validate-review`, `legacy-code-review`, `review-all`): Increase effort level from `high` to `max` for deeper analysis.
 - **Packaging:** Added an APM-detectable root `plugin.json` to the Codex package so `apm install --target codex brackendev/code-lenses/codex/code-lenses` works for per-project installs.
 
 ## [0.1.6] - 2026-04-06

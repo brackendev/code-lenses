@@ -4,6 +4,7 @@ description: Run code lens reviews in parallel with optional fix (default 4, APO
 argument-hint: [scope or options...]
 user-invocable: true
 disable-model-invocation: true
+effort: max
 ---
 
 # Review All

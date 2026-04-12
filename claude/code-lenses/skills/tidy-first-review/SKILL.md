@@ -2,7 +2,7 @@
 name: tidy-first-review
 description: Review code for tidying opportunities using Tidy First? philosophy
 argument-hint: [scope or options...]
-effort: high
+effort: max
 user-invocable: true
 disable-model-invocation: true
 ---

@@ -2,7 +2,7 @@
 name: grug-review
 description: Review changed code for complexity demons through grug brain philosophy
 argument-hint: [scope or options...]
-effort: high
+effort: max
 user-invocable: true
 disable-model-invocation: true
 ---
