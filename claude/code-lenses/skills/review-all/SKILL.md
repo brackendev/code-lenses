@@ -5,7 +5,6 @@ argument-hint: [scope or options...]
 allowed-tools: Agent, Bash, Read, Grep, Glob
 user-invocable: true
 disable-model-invocation: true
-effort: max
 ---
 
 # Review All
