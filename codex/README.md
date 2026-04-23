@@ -42,6 +42,20 @@ apm deps update -g --target codex brackendev/code-lenses/codex/code-lenses
 
 Codex global updates have the same current limitation as Codex global installs.
 
+## Uninstall
+
+Remove a per-project install:
+
+```bash
+apm uninstall --target codex brackendev/code-lenses/codex/code-lenses
+```
+
+Remove a global install:
+
+```bash
+apm uninstall -g --target codex brackendev/code-lenses/codex/code-lenses
+```
+
 ## Use
 
 ```text
