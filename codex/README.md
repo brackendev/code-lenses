@@ -1,6 +1,10 @@
 # Code Lenses for Codex
 
-Install, update, and use the `code-lenses` package in Codex.
+Install the `code-lenses` package in Codex via APM.
+
+> **Global installs:** APM 0.8.11 warns that Codex has no native user-scope deployment. The `-g` flag is shown below for completeness but is not reliable today. Prefer per-project installs.
+
+APM deploys skills into `.agents/skills/`.
 
 ## Install
 
@@ -10,53 +14,27 @@ Per-project:
 apm install --target codex brackendev/code-lenses/codex/code-lenses
 ```
 
-Global:
-
-```bash
-apm install -g --target codex brackendev/code-lenses/codex/code-lenses
-```
-
-Per-project installs deploy these skills into `.agents/skills/`.
-
-APM 0.8.11 currently warns that Codex does not have native user-scope deployment support, so the global commands above are not reliable today. Prefer per-project Codex installs.
+Global: add `-g`.
 
 ## Update
 
-Update all project-scoped installs from the project root:
-
 ```bash
-apm deps update --target codex
+apm deps update --target codex                                                # every project install
+apm deps update --target codex brackendev/code-lenses/codex/code-lenses       # this package
+apm deps update -g --target codex brackendev/code-lenses/codex/code-lenses    # global install
 ```
-
-Update one package:
-
-```bash
-apm deps update --target codex brackendev/code-lenses/codex/code-lenses
-```
-
-Update global installs:
-
-```bash
-apm deps update -g --target codex brackendev/code-lenses/codex/code-lenses
-```
-
-Codex global updates have the same current limitation as Codex global installs.
 
 ## Uninstall
 
-Remove a per-project install:
+Add `-g` for global:
 
 ```bash
 apm uninstall brackendev/code-lenses/codex/code-lenses
 ```
 
-Remove a global install:
-
-```bash
-apm uninstall -g brackendev/code-lenses/codex/code-lenses
-```
-
 ## Use
+
+Codex skills are model-invoked. Phrase requests in natural language:
 
 ```text
 Use review-all on the current diff.

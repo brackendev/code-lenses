@@ -2,30 +2,13 @@
 
 Software design lenses for code review and implementation guidance, packaged for Claude Code and Codex.
 
-## Choose Your Platform
+## Skills
 
-- [Claude README](./claude/README.md)
-  Install, update, and use Code Lenses in Claude Code with either APM or the native Claude marketplace.
-- [Codex README](./codex/README.md)
-  Install, update, and use Code Lenses in Codex with APM.
+**Review and debug:** `review-all`, `grug-review`, `honest-code-review`, `tidy-first-review`, `parse-dont-validate-review`, `aposd-review`, `legacy-code-review`, `grug-debug`
 
-## Included Skills
+**Implementation guidance:** `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `aposd`
 
-Review and debug:
+## Install
 
-- `review-all`
-- `grug-review`
-- `honest-code-review`
-- `tidy-first-review`
-- `parse-dont-validate-review`
-- `aposd-review`
-- `legacy-code-review`
-- `grug-debug`
-
-Implementation:
-
-- `grug`
-- `honest-code`
-- `tidy-first`
-- `parse-dont-validate`
-- `aposd`
+- [Claude Code](./claude/README.md) — APM or the native Claude marketplace.
+- [Codex](./codex/README.md) — APM.

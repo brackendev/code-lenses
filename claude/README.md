@@ -1,87 +1,61 @@
 # Code Lenses for Claude Code
 
-Install, update, and use the `code-lenses` package in Claude Code.
+Install the `code-lenses` package in Claude Code via APM or the native Claude marketplace.
 
-## Install
+## APM
 
-### With APM
+APM deploys skills into `.claude/skills/`.
 
-Per-project:
+Install (per-project):
 
 ```bash
 apm install --target claude brackendev/code-lenses/claude/code-lenses
 ```
 
-Global:
+Install (global): add `-g`.
+
+Update:
 
 ```bash
-apm install -g --target claude brackendev/code-lenses/claude/code-lenses
+apm deps update --target claude                                                # every project install
+apm deps update --target claude brackendev/code-lenses/claude/code-lenses      # this package
+apm deps update -g --target claude brackendev/code-lenses/claude/code-lenses   # global install
 ```
 
-APM deploys these skills into `.claude/skills/`.
-
-Remove it with:
+Uninstall (add `-g` for global):
 
 ```bash
 apm uninstall brackendev/code-lenses/claude/code-lenses
 ```
 
-Remove a global install with:
+## Claude Marketplace
 
-```bash
-apm uninstall -g brackendev/code-lenses/claude/code-lenses
-```
-
-### With Claude Marketplace
+Add the marketplace once:
 
 ```bash
 claude plugins marketplace add brackendev/code-lenses
+```
+
+Install:
+
+```bash
 claude plugins install code-lenses@code-lenses
 ```
 
-Remove them with:
+Update:
+
+```bash
+claude plugins marketplace update code-lenses   # refresh marketplace metadata
+claude plugins update code-lenses
+```
+
+If the plugin was installed outside the default user scope, pass `-s <scope>` to the update command (for example `-s project`).
+
+Uninstall:
 
 ```bash
 claude plugins uninstall code-lenses
 ```
-
-## Update
-
-### APM Installs
-
-Update all project-scoped installs from the project root:
-
-```bash
-apm deps update --target claude
-```
-
-Update one package:
-
-```bash
-apm deps update --target claude brackendev/code-lenses/claude/code-lenses
-```
-
-Update global installs:
-
-```bash
-apm deps update -g --target claude brackendev/code-lenses/claude/code-lenses
-```
-
-### Claude Marketplace
-
-Refresh marketplace metadata:
-
-```bash
-claude plugins marketplace update code-lenses
-```
-
-Update installed plugins:
-
-```bash
-claude plugins update code-lenses
-```
-
-If the plugin was installed outside the default user scope, pass the matching scope to the update command, for example `claude plugins update -s project code-lenses`.
 
 ## Use
 
