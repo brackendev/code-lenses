@@ -23,13 +23,13 @@ APM deploys these skills into `.claude/skills/`.
 Remove it with:
 
 ```bash
-apm uninstall --target claude brackendev/code-lenses/claude/code-lenses
+apm uninstall brackendev/code-lenses/claude/code-lenses
 ```
 
 Remove a global install with:
 
 ```bash
-apm uninstall -g --target claude brackendev/code-lenses/claude/code-lenses
+apm uninstall -g brackendev/code-lenses/claude/code-lenses
 ```
 
 ### With Claude Marketplace
