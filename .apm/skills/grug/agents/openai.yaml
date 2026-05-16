@@ -1,0 +1,8 @@
+interface:
+  display_name: "Grug"
+  short_description: "Apply grug brain developer philosophy while writing or changing code."
+  default_prompt: "Use grug for this implementation."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: true

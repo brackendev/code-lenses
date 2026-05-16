@@ -1,0 +1,8 @@
+interface:
+  display_name: "Tidy First Review"
+  short_description: "Review code for tidying opportunities using Tidy First? philosophy."
+  default_prompt: "Use tidy-first-review on the current diff."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: false

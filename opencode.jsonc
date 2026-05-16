@@ -1,0 +1,20 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "skill": {
+      "aposd": "allow",
+      "aposd-review": "allow",
+      "grug": "allow",
+      "grug-debug": "allow",
+      "grug-review": "allow",
+      "honest-code": "allow",
+      "honest-code-review": "allow",
+      "legacy-code-review": "allow",
+      "parse-dont-validate": "allow",
+      "parse-dont-validate-review": "allow",
+      "review-all": "allow",
+      "tidy-first": "allow",
+      "tidy-first-review": "allow"
+    }
+  }
+}

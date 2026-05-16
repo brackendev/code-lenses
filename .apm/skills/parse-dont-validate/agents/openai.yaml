@@ -1,0 +1,8 @@
+interface:
+  display_name: "Parse Don't Validate"
+  short_description: "Apply Parse Don't Validate philosophy when handling input or designing types."
+  default_prompt: "Use parse-dont-validate for this boundary."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: true

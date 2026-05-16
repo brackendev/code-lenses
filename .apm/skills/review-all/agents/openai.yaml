@@ -1,0 +1,8 @@
+interface:
+  display_name: "Review All"
+  short_description: "Run all code lens reviews in parallel and aggregate findings into a unified report."
+  default_prompt: "Use review-all on the current diff."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: false

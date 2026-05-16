@@ -1,0 +1,16 @@
+name: code-lenses
+version: 0.1.9
+description: Software design lenses for code review and implementation guidance (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Legacy Code), deployed to every runtime APM supports.
+author: Bracken Spencer
+license: MIT
+target: all
+type: skill
+dependencies:
+  apm: []
+  mcp: []
+devDependencies:
+  apm: []
+compilation:
+  target: all
+  strategy: distributed
+  source_attribution: true

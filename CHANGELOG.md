@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.9]
+
+### Changed
+
+- Repackaged as a single APM `type: skill` plugin. Install with `apm install brackendev/code-lenses --target all` at project scope or add `-g` for user scope. The legacy `brackendev/code-lenses/claude/code-lenses` and `brackendev/code-lenses/codex/code-lenses` install paths are removed.
+- One install now deploys 13 skills to every runtime APM supports (Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, Windsurf) instead of separate per-runtime packages.
+- `review-all` runs the lens skills directly as parallel sub-agents instead of dispatching to named reviewer subagents.
+
+### Removed
+
+- Removed the per-runtime reviewer subagents (`grug-reviewer`, `honest-code-reviewer`, `tidy-first-reviewer`, `parse-dont-validate-reviewer`, `aposd-reviewer`, `legacy-code-reviewer`). The review skills now act directly.
+- Removed the Claude marketplace (`.claude-plugin/marketplace.json`) and Codex marketplace (`.agents/plugins/marketplace.json`) entries. The plugin installs through APM only.
+
 ## [0.1.8] - 2026-04-13
 
 ### Removed

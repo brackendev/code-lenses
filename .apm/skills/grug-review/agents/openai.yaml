@@ -1,0 +1,8 @@
+interface:
+  display_name: "Grug Review"
+  short_description: "Review code for complexity demons through grug brain philosophy."
+  default_prompt: "Use grug-review on the current diff."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: false

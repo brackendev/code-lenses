@@ -1,0 +1,8 @@
+interface:
+  display_name: "Honest Code"
+  short_description: "Apply the Honest Code constructs during implementation."
+  default_prompt: "Use honest-code on this implementation."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: true

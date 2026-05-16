@@ -1,0 +1,8 @@
+interface:
+  display_name: "APOSD Review"
+  short_description: "Review code for module depth, information hiding, and complexity using A Philosophy of Software Design."
+  default_prompt: "Use aposd-review on the current diff."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: false
