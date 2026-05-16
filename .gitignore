@@ -1,6 +1,0 @@
-.DS_Store
-!apm.yml
-
-# APM dependencies
-apm_modules/
-apm.lock.yaml
