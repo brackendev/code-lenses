@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.11]
+
+### Fixed
+
+- Remove Claude Code-specific tool name from `grug-review`, `honest-code-review`, `tidy-first-review`, `parse-dont-validate-review`, `aposd-review`, and `legacy-code-review`. The skill bodies told the host to "Use Bash tool for scope discovery," which named a tool that only exists on Claude Code. The instruction is now runtime-neutral and reads "Run these commands for scope discovery."
+- `review-all`: Remove the partial runtime example list from the sub-agent launch instruction. The skill now relies on the existing "whatever sub-agent mechanism the host runtime provides" wording without naming a subset of runtimes.
+
 ## [0.1.10]
 
 ### Fixed

@@ -34,7 +34,7 @@ Always run the full review flow. Do not provide reduced-depth modes.
 
 ## Context Gathering
 
-Use Bash tool for scope discovery:
+Run these commands for scope discovery:
 
 - `git status --short`
 - `git diff --name-only`

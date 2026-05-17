@@ -45,7 +45,7 @@ Build a scope summary string (for example: "changed files: src/auth.ts, src/midd
 
 ### 3. Launch Review Sub-Agents
 
-Launch the default four reviews **in parallel** using whatever sub-agent mechanism the host runtime provides (for example, Claude Code's Task tool, Codex sub-agents, OpenCode sub-agents, Gemini sub-agents). Each sub-agent receives the same scope summary.
+Launch the default four reviews **in parallel** using whatever sub-agent mechanism the host runtime provides. Each sub-agent receives the same scope summary.
 
 For each lens:
 
