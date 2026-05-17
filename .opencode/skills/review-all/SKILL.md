@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 # Review All
 
-Run code lens reviews in parallel using Codex sub-agents, then aggregate findings into a unified report. Pass `fix` to apply non-conflicting findings after the review. By default, four lenses run. APOSD and Legacy Code are opt-in because they are situational (APOSD is most valuable for module boundary and interface design; Legacy Code is most valuable when code lacks tests or has hard dependencies).
+Run code lens reviews in parallel using the host runtime's sub-agent mechanism, then aggregate findings into a unified report. Pass `fix` to apply non-conflicting findings after the review. By default, four lenses run. APOSD and Legacy Code are opt-in because they are situational (APOSD is most valuable for module boundary and interface design; Legacy Code is most valuable when code lacks tests or has hard dependencies).
 
 **Review Scope (optional):** "$ARGUMENTS"
 
@@ -45,7 +45,7 @@ Build a scope summary string (for example: "changed files: src/auth.ts, src/midd
 
 ### 3. Launch Review Sub-Agents
 
-Launch the default four reviews **in parallel** using Codex sub-agents. Each sub-agent receives the same scope summary.
+Launch the default four reviews **in parallel** using whatever sub-agent mechanism the host runtime provides (for example, Claude Code's Task tool, Codex sub-agents, OpenCode sub-agents, Gemini sub-agents). Each sub-agent receives the same scope summary.
 
 For each lens:
 
@@ -58,7 +58,7 @@ Start all requested sub-agents before waiting on any of them so the reviews run 
 
 If the user specified a subset (for example: "grug honest-code"), launch only those lenses. If the user prefixes an opt-in lens with `+` (for example: "+aposd" or "+legacy-code"), add it to the default set rather than replacing it.
 
-Do not rely on packaged reviewer agents in the Codex copy. The Codex version uses the review skills directly.
+Each sub-agent invokes the review skill directly. Do not delegate to any packaged reviewer agent; no such agents are bundled with this plugin.
 
 ### 4. Aggregate Results
 

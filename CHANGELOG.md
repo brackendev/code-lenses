@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.10]
+
+### Fixed
+
+- `review-all`: Remove Codex-specific wording from the skill body. The previous text instructed every host to "launch sub-agents using Codex," which caused non-Codex runtimes (Claude Code, OpenCode, Gemini, Cursor, Copilot, Windsurf) to call the Codex MCP server instead of their own sub-agent mechanism. The skill is now runtime-neutral and uses whatever sub-agent mechanism the host runtime provides.
+
 ## [0.1.9]
 
 ### Changed
