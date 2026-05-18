@@ -1,0 +1,8 @@
+interface:
+  display_name: "Grug Fix"
+  short_description: "Apply the smallest correct fix to a bug through grug brain philosophy; pass --report to diagnose without editing files."
+  default_prompt: "Use grug-fix on this failing test."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: false

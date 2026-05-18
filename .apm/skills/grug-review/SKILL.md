@@ -22,16 +22,15 @@ Apply these laws in order:
 4. **Respect existing fences.** Before flagging deletion or redesign, infer why existing code exists (Chesterton's Fence).
 5. **Trap unavoidable complexity.** When complexity is required, prefer narrow boundaries and simple callers.
 
-## Inputs and Scope
+## Arguments
 
-Interpret user input naturally:
+Interpret naturally. This skill is a pure report. It does not mutate the workspace and carries no `--report` flag (there is nothing to invert).
 
 | Input | Action |
 |-------|--------|
 | (no argument) | Review changed files only (staged + unstaged) |
-| `path/to/dir` | Review files under directory |
-| `path/to/file.ts` | Review specific file |
 | `all` | Review full codebase (sample high-risk and high-traffic modules) |
+| `<path>` `<glob>` | Review files under the path or matching the pattern |
 
 Optional modifiers can appear anywhere in user input:
 

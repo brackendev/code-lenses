@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.12]
+
+### Added
+
+- `CONVENTIONS.md` at the repository root documenting the canonical argument grammar, scope vocabulary, and mutation default for every user-invocable skill. Three rules: skills accept natural-language keywords and bare paths with `--report` as the only sanctioned flag; file-aware skills share a three-row scope vocabulary (`(no argument)`, `all`, `<path>` `<glob>`); skills that can mutate the workspace apply changes by default and accept `--report` to preview. Documents the `+aposd` / `+legacy-code` additive sigil and the problem-input grammar as recognized exemptions.
+- `--report` flag on `/grug-fix` and `/fix-all` to produce the findings or proposed fix without modifying any files.
+
+### Changed
+
+- Renamed `/grug-debug` to `/grug-fix`. The skill applies the fix and adds a regression test by default; pass `--report` to diagnose and propose the fix without editing files. Update saved invocations from `/grug-debug` to `/grug-fix`.
+- Renamed `/review-all` to `/fix-all`. The skill aggregates findings from the default code lenses in parallel, prints a unified report, then applies non-conflicting findings by default. Pass `--report` to print the aggregated report and skip the apply phase. Update saved invocations from `/review-all` to `/fix-all`.
+- The user-invocable review skills (`/aposd-review`, `/grug-review`, `/honest-code-review`, `/legacy-code-review`, `/parse-dont-validate-review`, `/tidy-first-review`) now present their argument table under a single `## Arguments` heading with three canonical scope rows: `(no argument)`, `all`, and `<path>` `<glob>`. Behavior is unchanged.
+
+### Removed
+
+- The `fix` modifier on `/review-all` (now `/fix-all`) is removed. Mutation is now the default; pass `--report` to opt out of applying fixes. Update saved invocations from `/review-all <scope> fix` to `/fix-all <scope>`.
+
 ## [0.1.11]
 
 ### Fixed

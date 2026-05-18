@@ -1,18 +1,36 @@
 ---
-name: review-all
-description: Run code lens reviews in parallel with optional fix (default 4, APOSD and Legacy Code opt-in)
-argument-hint: [scope or options...]
+name: fix-all
+description: Apply non-conflicting fixes from default code lenses in parallel (APOSD and Legacy Code opt-in). Use --report to aggregate findings without writing.
+argument-hint: [scope] [lenses] [+aposd|+legacy-code] [--report]
 user-invocable: true
 disable-model-invocation: true
 ---
 
-# Review All
+# Fix All
 
-Run code lens reviews in parallel using the host runtime's sub-agent mechanism, then aggregate findings into a unified report. Pass `fix` to apply non-conflicting findings after the review. By default, four lenses run. APOSD and Legacy Code are opt-in because they are situational (APOSD is most valuable for module boundary and interface design; Legacy Code is most valuable when code lacks tests or has hard dependencies).
+Run code lens reviews in parallel using the host runtime's sub-agent mechanism, aggregate findings into a unified report, then apply non-conflicting findings. By default, four lenses run. APOSD and Legacy Code are opt-in because they are situational (APOSD is most valuable for module boundary and interface design; Legacy Code is most valuable when code lacks tests or has hard dependencies).
+
+This skill mutates by default. Pass `--report` to produce the aggregated findings report and skip the apply phase.
 
 **Review Scope (optional):** "$ARGUMENTS"
 
-## Review Workflow
+## Arguments
+
+Interpret naturally. This skill mutates by default. Pass `--report` to aggregate findings without writing.
+
+| Input | Effect |
+|-------|--------|
+| (no argument) | Apply fixes from default four lenses to changed files (staged + unstaged) |
+| `all` | Apply fixes from default four lenses across the full codebase (sampled for high-risk and high-traffic modules) |
+| `<path>` `<glob>` | Apply fixes from default four lenses scoped to the path or pattern |
+| `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate` |
+| `+aposd` | Add the APOSD lens to the default set (documented exemption) |
+| `+legacy-code` | Add the Legacy Code lens to the default set (documented exemption) |
+| `--report` | Aggregate findings and print the report; skip the apply phase |
+
+The `+aposd` and `+legacy-code` sigils are exemptions from the bare-keyword rule because a bare lens name selects a subset of the default lenses; the `+` distinguishes "add to defaults" from "subset of defaults". See CONVENTIONS.md exemptions for the rationale.
+
+## Workflow
 
 ### 1. Determine Review Scope
 
@@ -21,7 +39,7 @@ Identify what to review:
 - If the user provided a scope argument, use it as-is
 - If no argument, run `git diff --name-only` and `git diff --cached --name-only` to identify changed files
 - If no changed files and no argument, ask the user what to review
-- If the arguments contain `fix`, enable fix mode and remove `fix` from the arguments before processing scope and lens selection
+- If the arguments contain `--report`, enable report-only mode and remember to skip Step 5
 
 Build a scope summary string (for example: "changed files: src/auth.ts, src/middleware.ts" or "path: src/api/") to pass to each sub-agent.
 
@@ -65,7 +83,7 @@ Each sub-agent invokes the review skill directly. Do not delegate to any package
 After all sub-agents complete, produce a unified report:
 
 ```markdown
-## Review All: [scope]
+## Fix All: [scope]
 
 ### Verdicts
 
@@ -113,7 +131,9 @@ After all sub-agents complete, produce a unified report:
 
 Deduplicate findings that overlap across lenses. When multiple lenses flag the same code, note the convergence. When lenses contradict each other on the same code, surface both positions in the Conflicts section and let the user decide.
 
-### 5. Apply Fixes (when `fix` modifier is present)
+### 5. Apply Fixes
+
+Skipped when `--report` is active.
 
 After presenting the unified report, apply the non-conflicting findings.
 
@@ -140,34 +160,38 @@ After the fix sub-agent completes, append a summary to the report:
 
 ## Usage Examples
 
-**Full review (default):**
+**Full default run (apply fixes from default four lenses to changed files):**
 ```text
-review-all
+fix-all
+```
+
+**Report only (no fixes applied):**
+```text
+fix-all --report
 ```
 
 **Specific scope:**
 ```text
-review-all src/api/
-review-all src/auth.ts
-review-all all
+fix-all src/api/
+fix-all src/auth.ts
+fix-all all
 ```
 
 **Subset of lenses:**
 ```text
-review-all grug honest-code
-review-all tidy-first parse-dont-validate src/api/
+fix-all grug honest-code
+fix-all tidy-first parse-dont-validate src/api/
 ```
 
 **Add opt-in lenses to defaults:**
 ```text
-review-all +aposd
-review-all +legacy-code
-review-all +aposd +legacy-code src/services/
+fix-all +aposd
+fix-all +legacy-code
+fix-all +aposd +legacy-code src/services/
 ```
 
-**Review and fix:**
+**Combine scope with report mode:**
 ```text
-review-all fix
-review-all fix src/api/
-review-all +aposd fix
+fix-all src/api/ --report
+fix-all +aposd --report
 ```

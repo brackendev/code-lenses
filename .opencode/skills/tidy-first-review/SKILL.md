@@ -12,16 +12,15 @@ Review code for tidying opportunities using the [Tidy First?](https://www.oreill
 
 All review output uses direct, professional voice. Reference tidyings by name and number.
 
-## Inputs and Scope
+## Arguments
 
-Interpret user input naturally:
+Interpret naturally. This skill is a pure report. It does not mutate the workspace and carries no `--report` flag (there is nothing to invert).
 
 | Input | Action |
 |-------|--------|
 | (no argument) | Review changed files only (staged + unstaged) |
-| `path/to/dir` | Review files under directory |
-| `path/to/file.ts` | Review specific file |
 | `all` | Review full codebase (sample high-risk and high-traffic modules) |
+| `<path>` `<glob>` | Review files under the path or matching the pattern |
 
 Optional modifiers can appear anywhere in user input:
 

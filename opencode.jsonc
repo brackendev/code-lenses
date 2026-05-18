@@ -4,15 +4,15 @@
     "skill": {
       "aposd": "allow",
       "aposd-review": "allow",
+      "fix-all": "allow",
       "grug": "allow",
-      "grug-debug": "allow",
+      "grug-fix": "allow",
       "grug-review": "allow",
       "honest-code": "allow",
       "honest-code-review": "allow",
       "legacy-code-review": "allow",
       "parse-dont-validate": "allow",
       "parse-dont-validate-review": "allow",
-      "review-all": "allow",
       "tidy-first": "allow",
       "tidy-first-review": "allow"
     }

@@ -1,0 +1,8 @@
+interface:
+  display_name: "Fix All"
+  short_description: "Apply non-conflicting findings from code lenses in parallel; pass --report to preview aggregated findings without writing."
+  default_prompt: "Use fix-all on the current diff."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: false

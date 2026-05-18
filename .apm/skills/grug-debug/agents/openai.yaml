@@ -1,8 +1,0 @@
-interface:
-  display_name: "Grug Debug"
-  short_description: "Debug problems through grug brain philosophy with structured investigation."
-  default_prompt: "Use grug-debug on this failing test."
-  brand_color: "#F97316"
-
-policy:
-  allow_implicit_invocation: false

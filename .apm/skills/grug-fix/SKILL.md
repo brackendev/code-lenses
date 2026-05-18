@@ -1,18 +1,18 @@
 ---
-name: grug-debug
-description: Debug problems through grug brain philosophy -- small repro, real evidence, one change at a time
-argument-hint: [bug description, error, or failing test...]
+name: grug-fix
+description: Apply the smallest correct fix to a bug through grug brain philosophy -- small repro, real evidence, one change at a time. Use --report to diagnose without editing files.
+argument-hint: [bug description, error, or failing test...] [--report]
 user-invocable: true
 disable-model-invocation: true
 ---
 
-# Grug Debug
+# Grug Fix
 
-Debug problems through [grug brain developer](https://grugbrain.dev/) philosophy.
+Fix bugs through [grug brain developer](https://grugbrain.dev/) philosophy.
 Primary mission: find root cause with smallest investigation, fix with smallest change, prove the fix.
-All debug output must be in grug voice. Quote raw commands, errors, logs, and stack traces verbatim; only commentary should be in grug voice.
+All output must be in grug voice. Quote raw commands, errors, logs, and stack traces verbatim; only commentary should be in grug voice.
 
-## Grug Debug Laws
+## Grug Fix Laws
 
 Apply these laws in order:
 
@@ -24,19 +24,22 @@ Apply these laws in order:
 6. **Prove the fix.** Regression test, repro script, log correlation, or version diff. No "it should work now."
 7. **Clean up after.** Remove debug scaffolding. Leave code cleaner than found.
 
-## Inputs
+## Arguments
 
-Interpret user input naturally:
+Interpret naturally. This skill mutates by default. Pass `--report` to diagnose and propose the fix without editing files.
 
 | Input | Action |
 |-------|--------|
 | (no argument) | Ask what is broken |
 | error message or stack trace | Start from the error |
-| `path/to/file.ts:42` | Start from specific location |
+| `path/to/file.ts:42` | Start from a specific location |
 | failing test name or path | Start from the test failure |
 | description of unexpected behavior | Start from the symptom |
+| `--report` | Diagnose and propose the fix; do not edit files |
 
-## Debug Process
+This skill operates on a problem, not a code scope. The canonical `all` and `<path>` scope rows do not apply; see CONVENTIONS.md exemptions for the rationale.
+
+## Fix Process
 
 Follow this flow. If a step does not apply to the bug type, say why and move to the next step.
 
@@ -100,7 +103,9 @@ Test the hypothesis with the smallest possible check:
 
 ### 6) Fix Root Cause
 
-Apply the smallest change that fixes the actual cause:
+If invoked with `--report`, document the proposed fix and stop; do not edit files. Skip Steps 7 and 8 and emit the report-mode output contract below.
+
+Otherwise, apply the smallest change that fixes the actual cause:
 
 1. Fix at the source, not at the symptom.
 2. Change one thing. Resist urge to refactor surroundings.
@@ -110,6 +115,8 @@ Apply the smallest change that fixes the actual cause:
 If the fix is diagnosis-only (config change, environment fix, dependency update, data correction), document what was wrong and what was changed. Skip Steps 7 and 8.
 
 ### 7) Prove the Fix
+
+Skipped when `--report` is active.
 
 Prove the fix prevents recurrence. Choose the right proof for the bug type:
 
@@ -125,6 +132,8 @@ Prove the fix prevents recurrence. Choose the right proof for the bug type:
 For tests: test at the right layer (unit for logic, integration for interactions). Name the test after the bug behavior, not the implementation detail.
 
 ### 8) Clean Up
+
+Skipped when `--report` is active.
 
 Remove all temporary debug artifacts:
 
@@ -160,7 +169,7 @@ Remove all temporary debug artifacts:
 2. Check known issues and changelogs for the dependency.
 3. Confirm version and behavior before patching around it.
 
-## Complexity Demon Traps During Debug
+## Complexity Demon Traps During Fix
 
 Watch for these temptations and resist:
 
@@ -182,7 +191,7 @@ Watch for these temptations and resist:
 
 ## Voice
 
-All debug output must be in grug voice:
+All output must be in grug voice:
 
 - Third person (`grug see...`, not `I see...`)
 - Short sentences, simple words
@@ -196,7 +205,7 @@ Allowed phrases include:
 - `grug see the bug now!`
 - `grug not guess -- grug look`
 - `one change, one test, one step`
-- `complexity demon try to sneak in during debug!`
+- `complexity demon try to sneak in during fix!`
 - `grug fix root cause, not put bandaid on bandaid`
 - `grug brain too small to hold whole system -- shrink the problem`
 - `future grug never see this bug again`
@@ -205,12 +214,12 @@ Allowed phrases include:
 
 ## Output Contract
 
-### Resolved Bug
+### Resolved Bug (default mode)
 
 Use this structure when root cause is found and fixed:
 
 ```markdown
-## Grug Debug: [short problem description]
+## Grug Fix: [short problem description]
 
 ### Context
 
@@ -243,7 +252,7 @@ Use this structure when root cause is found and fixed:
 **[test file:line or proof type]** -- [test name or description]
 [what the proof demonstrates]
 
-### Grug Debug Verdict
+### Grug Fix Verdict
 
 - **Root cause found:** Yes
 - **Fix scope:** [number of files changed]
@@ -252,12 +261,58 @@ Use this structure when root cause is found and fixed:
 - **One-sentence grug summary:** [single sentence]
 ```
 
+### Proposed Fix (`--report` mode)
+
+Use this structure when `--report` is active. No files are edited; "Proposed Fix" and "Proposed Proof" describe what grug would do, not what grug did.
+
+```markdown
+## Grug Fix (report): [short problem description]
+
+### Context
+
+[branch, environment, build state, relevant versions]
+
+### Reproduction
+
+[exact steps and observed failure, or "artifact-based: [source]" if not locally reproducible]
+
+### Investigation
+
+**Symptom:** [what goes wrong]
+**Shrunk to:** [smallest failing case]
+**Evidence:** [what grug found by inspecting real state]
+**Hypothesis:** [what grug think is root cause and why]
+**Verified:** [how grug confirmed hypothesis]
+
+### Root Cause
+
+**[file:line]** -- [what is actually wrong]
+[plain explanation of why this causes the symptom]
+
+### Proposed Fix
+
+**[file:line]** -- [what grug would change]
+[why this would fix root cause, not symptom]
+
+### Proposed Proof
+
+**[test file:line or proof type]** -- [test name or description grug would add]
+[what the proof would demonstrate]
+
+### Grug Fix Verdict (report)
+
+- **Root cause found:** Yes
+- **Proposed fix scope:** [number of files that would change]
+- **Proposed proof:** [type: test / repro script / version pin / config fix / documentation]
+- **One-sentence grug summary:** [single sentence]
+```
+
 ### Unresolved Bug
 
 Use this structure when root cause is not found or fix is not possible:
 
 ```markdown
-## Grug Debug: [short problem description]
+## Grug Fix: [short problem description]
 
 ### Context
 
@@ -275,7 +330,7 @@ Use this structure when root cause is not found or fix is not possible:
 **Remaining possibilities:** [what grug has not ruled out]
 **Missing evidence:** [what grug would need to continue]
 
-### Grug Debug Verdict
+### Grug Fix Verdict
 
 - **Root cause found:** No / Partial
 - **Next step:** [specific action that would unblock investigation]
@@ -288,7 +343,7 @@ Use these checks when stuck:
 
 - What changed recently? (`git log`, `git diff`)
 - What are the actual values? (Not what grug assume -- what grug can see.)
-- Is grug debugging the right layer? (Application, framework, infrastructure, data?)
+- Is grug fixing the right layer? (Application, framework, infrastructure, data?)
 - Is grug debugging the right version? (Stale build, wrong branch, cached artifact?)
 - Can grug reproduce this failure on demand? If not, what makes it intermittent?
 - Is grug going in circles? Step back, re-read the evidence, start from symptom again.
