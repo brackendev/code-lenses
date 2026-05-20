@@ -1,12 +1,12 @@
 ---
-name: fix-all
+name: all-fix
 description: Apply non-conflicting fixes from default code lenses in parallel (APOSD and Legacy Code opt-in). Use --report to aggregate findings without writing.
 argument-hint: [scope] [lenses] [+aposd|+legacy-code] [--report]
 user-invocable: true
 disable-model-invocation: true
 ---
 
-# Fix All
+# All Fix
 
 Run code lens reviews in parallel using the host runtime's sub-agent mechanism, aggregate findings into a unified report, then apply non-conflicting findings. By default, four lenses run. APOSD and Legacy Code are opt-in because they are situational (APOSD is most valuable for module boundary and interface design; Legacy Code is most valuable when code lacks tests or has hard dependencies).
 
@@ -83,7 +83,7 @@ Each sub-agent invokes the review skill directly. Do not delegate to any package
 After all sub-agents complete, produce a unified report:
 
 ```markdown
-## Fix All: [scope]
+## All Fix: [scope]
 
 ### Verdicts
 
@@ -162,36 +162,36 @@ After the fix sub-agent completes, append a summary to the report:
 
 **Full default run (apply fixes from default four lenses to changed files):**
 ```text
-fix-all
+all-fix
 ```
 
 **Report only (no fixes applied):**
 ```text
-fix-all --report
+all-fix --report
 ```
 
 **Specific scope:**
 ```text
-fix-all src/api/
-fix-all src/auth.ts
-fix-all all
+all-fix src/api/
+all-fix src/auth.ts
+all-fix all
 ```
 
 **Subset of lenses:**
 ```text
-fix-all grug honest-code
-fix-all tidy-first parse-dont-validate src/api/
+all-fix grug honest-code
+all-fix tidy-first parse-dont-validate src/api/
 ```
 
 **Add opt-in lenses to defaults:**
 ```text
-fix-all +aposd
-fix-all +legacy-code
-fix-all +aposd +legacy-code src/services/
+all-fix +aposd
+all-fix +legacy-code
+all-fix +aposd +legacy-code src/services/
 ```
 
 **Combine scope with report mode:**
 ```text
-fix-all src/api/ --report
-fix-all +aposd --report
+all-fix src/api/ --report
+all-fix +aposd --report
 ```

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.13] - 2026-05-20
+
+### Changed
+
+- The `fix-all` skill is renamed to `all-fix` to adopt the noun-first canonical naming pattern (`<target>-<verb>`) shared across the agent-skills family. The verb suffix `-fix` consistently signals a mutating quality pipeline. Operators with a saved `/fix-all` invocation should replace it with `/all-fix`. The skill's behavior, default lens set, additive `+aposd` and `+legacy-code` sigils, and `--report` flag are unchanged; only the name moves.
+
 ## [0.1.12]
 
 ### Added

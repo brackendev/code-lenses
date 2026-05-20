@@ -57,9 +57,9 @@ Each user-invocable skill that takes arguments uses these headings in this order
 
 ## Worked Examples
 
-### Mutating with `--report`: `/fix-all`
+### Mutating with `--report`: `/all-fix`
 
-`/fix-all` runs the default code-lens reviews in parallel, prints the aggregated report, then applies non-conflicting findings. `--report` skips only the apply phase. Its Arguments table:
+`/all-fix` runs the default code-lens reviews in parallel, prints the aggregated report, then applies non-conflicting findings. `--report` skips only the apply phase. Its Arguments table:
 
 | Input | Effect |
 |-------|--------|
@@ -104,9 +104,9 @@ Lead-in: "Interpret naturally. This skill mutates by default. Pass `--report` to
 
 Two exemptions from the canonical grammar are recognized in this plugin:
 
-### Additive lens sigils in `/fix-all`
+### Additive lens sigils in `/all-fix`
 
-`/fix-all` uses `+aposd` and `+legacy-code` to add opt-in lenses to its default set. Bare names already serve a different role in `/fix-all`: a bare lens name selects a subset of the defaults (`/fix-all grug honest-code` runs only those two). The `+` sigil disambiguates additive from subset semantics in a way bare phrases cannot express compactly. The sigil is permitted only in this skill.
+`/all-fix` uses `+aposd` and `+legacy-code` to add opt-in lenses to its default set. Bare names already serve a different role in `/all-fix`: a bare lens name selects a subset of the defaults (`/all-fix grug honest-code` runs only those two). The `+` sigil disambiguates additive from subset semantics in a way bare phrases cannot express compactly. The sigil is permitted only in this skill.
 
 ### Problem-input grammar in `/grug-fix`
 
