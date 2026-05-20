@@ -34,7 +34,7 @@ The `all` keyword has one uniform meaning across skills: widen the selected scop
 
 A skill that can mutate the workspace applies its changes when invoked. The operator passes `--report` to receive a description of what the skill would do without modifying any files. Only the literal token `--report` enables report-only mode; natural-language synonyms ("preview", "dry run") are scope input, not mode triggers.
 
-Command verbs reinforce the default. Skills named `/fix-*`, `/sync-*`, `/commit`, `/prune-*`, `/rebuild-*` mutate by default.
+Command suffixes reinforce the default. The family follows a noun-first `<target>-<verb>` pattern. Skills with suffixes `-fix`, `-sync`, `-prune`, `-rebuild` (verbs that imply action) mutate by default; in this package, `/all-fix` and `/grug-fix`. Bare verbs `/commit` and `/pause` are session-scoped exceptions.
 
 ## Classification Taxonomy
 

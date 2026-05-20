@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.14] - 2026-05-20
+
+### Changed
+
+- `CONVENTIONS.md` Rule 3 now states the mutation default with noun-first canonical phrasing (`Skills with suffixes -fix, -sync, -prune, -rebuild ... mutate by default`) instead of the legacy verb-first prefix patterns (`/fix-*`, `/sync-*`, `/prune-*`, `/rebuild-*`). The change keeps the rule aligned with the rest of the agent-skills family after the noun-first rename.
+- `CONTRIBUTING.md` is aligned to the family-wide structural template (Layout / APM lockfile rule / Adding or modifying a skill / Validation / Skill conventions). A `CONVENTIONS.md` row is added to the Layout table, a version-bump step is added to the skill-modification procedure, and a new Skill conventions section documents the user-invocable / model-invocable distinction with package-specific example skills.
+
 ## [0.1.13] - 2026-05-20
 
 ### Changed
