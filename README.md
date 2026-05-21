@@ -2,7 +2,7 @@
 
 Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys 13 skills (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Legacy Code) to every runtime APM supports: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, and Windsurf.
 
-Skills follow the [Agent Skills](https://agentskills.io) open standard. Fix and review skills appear as slash commands (`/all-fix`, `/grug-review`, and so on); the five implementation-guidance skills activate automatically from conversation context. See [CONVENTIONS.md](CONVENTIONS.md) for the canonical argument grammar, scope vocabulary, and mutation default that every user-invocable skill follows.
+Skills follow the [Agent Skills](https://agentskills.io) open standard. Fix and review skills appear as slash commands (`/lenses-fix`, `/grug-review`, and so on); the five implementation-guidance skills activate automatically from conversation context. See [CONVENTIONS.md](CONVENTIONS.md) for the canonical argument grammar, scope vocabulary, and mutation default that every user-invocable skill follows.
 
 Source: <https://github.com/brackendev/code-lenses>. APM shorthand: `brackendev/code-lenses`.
 
@@ -29,13 +29,13 @@ Slash commands run inside your agent runtime (Claude Code, Codex CLI, OpenCode, 
 Run every default lens in parallel against the current diff, aggregate findings, and apply non-conflicting fixes:
 
 ```bash
-/all-fix
+/lenses-fix
 ```
 
 Aggregate findings without writing any files:
 
 ```bash
-/all-fix --report
+/lenses-fix --report
 ```
 
 Review changed files through a single lens (review skills never mutate):
@@ -50,8 +50,8 @@ Review changed files through a single lens (review skills never mutate):
 Add an opt-in lens to the default set:
 
 ```bash
-/all-fix +aposd
-/all-fix +legacy-code
+/lenses-fix +aposd
+/lenses-fix +legacy-code
 ```
 
 Fix a failing test through grug brain philosophy:
@@ -74,17 +74,17 @@ The implementation-guidance lenses (`grug`, `honest-code`, `tidy-first`, `parse-
 
 Mutating skills that apply changes by default. Each accepts `--report` to preview the work without writing.
 
-#### `/all-fix [scope] [lenses] [+aposd|+legacy-code] [--report]`
+#### `/lenses-fix [scope] [lenses] [+aposd|+legacy-code] [--report]`
 
 Run code lens reviews in parallel, print a unified report, then apply non-conflicting findings. Default lenses: `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`. Prefix a lens with `+` to add it to the defaults (`+aposd`, `+legacy-code`). Pass `--report` to aggregate findings and skip the apply phase.
 
 ```bash
-/all-fix
-/all-fix src/auth.ts
-/all-fix grug honest-code
-/all-fix +aposd
-/all-fix --report
-/all-fix src/api/ --report
+/lenses-fix
+/lenses-fix src/auth.ts
+/lenses-fix grug honest-code
+/lenses-fix +aposd
+/lenses-fix --report
+/lenses-fix src/api/ --report
 ```
 
 #### `/grug-fix <error or failing test> [--report]`

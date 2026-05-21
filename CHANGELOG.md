@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.15] - 2026-05-21
+
+### Changed
+
+- The `all-fix` skill is renamed to `lenses-fix` so the noun half of the canonical `<target>-<verb>` pattern names what the skill actually targets (the code-design lenses), not an inaccurate scope. The previous name suggested a meta-runner over every fix skill in the family; the skill in fact runs the default code lenses in parallel and applies their non-conflicting findings. Operators with a saved `/all-fix` invocation should replace it with `/lenses-fix`. The skill's behavior, default lens set, additive `+aposd` and `+legacy-code` sigils, and `--report` flag are unchanged; only the name moves.
+
 ## [0.1.14] - 2026-05-20
 
 ### Changed

@@ -34,7 +34,7 @@ The `all` keyword has one uniform meaning across skills: widen the selected scop
 
 A skill that can mutate the workspace applies its changes when invoked. The operator passes `--report` to receive a description of what the skill would do without modifying any files. Only the literal token `--report` enables report-only mode; natural-language synonyms ("preview", "dry run") are scope input, not mode triggers.
 
-Command suffixes reinforce the default. The family follows a noun-first `<target>-<verb>` pattern. Skills with suffixes `-fix`, `-sync`, `-prune`, `-rebuild` (verbs that imply action) mutate by default; in this package, `/all-fix` and `/grug-fix`. Bare verbs `/commit` and `/pause` are session-scoped exceptions.
+Command suffixes reinforce the default. The family follows a noun-first `<target>-<verb>` pattern. Skills with suffixes `-fix`, `-sync`, `-prune`, `-rebuild` (verbs that imply action) mutate by default; in this package, `/lenses-fix` and `/grug-fix`. Bare verbs `/commit` and `/pause` are session-scoped exceptions.
 
 ## Classification Taxonomy
 
@@ -57,9 +57,9 @@ Each user-invocable skill that takes arguments uses these headings in this order
 
 ## Worked Examples
 
-### Mutating with `--report`: `/all-fix`
+### Mutating with `--report`: `/lenses-fix`
 
-`/all-fix` runs the default code-lens reviews in parallel, prints the aggregated report, then applies non-conflicting findings. `--report` skips only the apply phase. Its Arguments table:
+`/lenses-fix` runs the default code-lens reviews in parallel, prints the aggregated report, then applies non-conflicting findings. `--report` skips only the apply phase. Its Arguments table:
 
 | Input | Effect |
 |-------|--------|
@@ -104,9 +104,9 @@ Lead-in: "Interpret naturally. This skill mutates by default. Pass `--report` to
 
 Two exemptions from the canonical grammar are recognized in this plugin:
 
-### Additive lens sigils in `/all-fix`
+### Additive lens sigils in `/lenses-fix`
 
-`/all-fix` uses `+aposd` and `+legacy-code` to add opt-in lenses to its default set. Bare names already serve a different role in `/all-fix`: a bare lens name selects a subset of the defaults (`/all-fix grug honest-code` runs only those two). The `+` sigil disambiguates additive from subset semantics in a way bare phrases cannot express compactly. The sigil is permitted only in this skill.
+`/lenses-fix` uses `+aposd` and `+legacy-code` to add opt-in lenses to its default set. Bare names already serve a different role in `/lenses-fix`: a bare lens name selects a subset of the defaults (`/lenses-fix grug honest-code` runs only those two). The `+` sigil disambiguates additive from subset semantics in a way bare phrases cannot express compactly. The sigil is permitted only in this skill.
 
 ### Problem-input grammar in `/grug-fix`
 

@@ -2,8 +2,8 @@
   "$schema": "https://opencode.ai/config.json",
   "permission": {
     "skill": {
-      "all-fix": "allow",
       "aposd": "allow",
+      "lenses-fix": "allow",
       "aposd-review": "allow",
       "grug": "allow",
       "grug-fix": "allow",
