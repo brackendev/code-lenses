@@ -1,7 +1,7 @@
 ---
 name: legacy-code-review
 description: Review code for safe modification opportunities using Working Effectively with Legacy Code techniques
-argument-hint: [scope or options...]
+argument-hint: "[scope or options...]"
 user-invocable: true
 disable-model-invocation: true
 ---

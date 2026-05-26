@@ -1,7 +1,7 @@
 ---
 name: grug-fix
 description: "Apply the smallest correct fix to a bug through grug brain philosophy -- small repro, real evidence, one change at a time. Use --report to diagnose without editing files."
-argument-hint: [bug description, error, or failing test...] [--report]
+argument-hint: "[bug description, error, or failing test...] [--report]"
 user-invocable: true
 disable-model-invocation: true
 ---

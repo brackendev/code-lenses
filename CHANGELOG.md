@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.17] - 2026-05-26
+
+### Fixed
+
+- Quote the YAML `argument-hint` frontmatter in all eight skills. Unquoted square brackets were parsed as YAML flow sequences, which caused `lenses-fix` and `grug-fix` to fail with "did not find expected key" errors when the value contained multiple bracket groups. The remaining six review skills had single bracket groups that parsed as arrays instead of strings rather than failing outright.
+
 ## [0.1.16] - 2026-05-26
 
 ### Fixed

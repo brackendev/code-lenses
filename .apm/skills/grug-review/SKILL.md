@@ -1,7 +1,7 @@
 ---
 name: grug-review
 description: Review changed code for complexity demons through grug brain philosophy
-argument-hint: [scope or options...]
+argument-hint: "[scope or options...]"
 user-invocable: true
 disable-model-invocation: true
 ---

@@ -1,7 +1,7 @@
 ---
 name: lenses-fix
 description: "Apply non-conflicting fixes from default code lenses in parallel (APOSD and Legacy Code opt-in). Use --report to aggregate findings without writing."
-argument-hint: [scope] [lenses] [+aposd|+legacy-code] [--report]
+argument-hint: "[scope] [lenses] [+aposd|+legacy-code] [--report]"
 user-invocable: true
 disable-model-invocation: true
 ---
