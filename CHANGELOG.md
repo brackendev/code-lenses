@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.16] - 2026-05-26
+
+### Fixed
+
+- Quote the YAML `description` frontmatter in `grug-fix` and `lenses-fix` so the `--` sequences are not misinterpreted as YAML block indicators. The unquoted values caused YAML parse errors that prevented both skills from loading.
+
 ## [0.1.15] - 2026-05-21
 
 ### Changed
