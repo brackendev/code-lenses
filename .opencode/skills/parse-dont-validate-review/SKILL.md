@@ -1,6 +1,6 @@
 ---
 name: parse-dont-validate-review
-description: Review code for type-driven correctness using Parse Don't Validate and Make Illegal States Unrepresentable
+description: "Review code for type-driven correctness using Parse Don't Validate and Make Illegal States Unrepresentable"
 argument-hint: "[scope or options...]"
 user-invocable: true
 disable-model-invocation: true

@@ -1,6 +1,6 @@
 ---
 name: aposd-review
-description: Review code for module depth, information hiding, and complexity using A Philosophy of Software Design
+description: "Review code for module depth, information hiding, and complexity using A Philosophy of Software Design"
 argument-hint: "[scope or options...]"
 user-invocable: true
 disable-model-invocation: true

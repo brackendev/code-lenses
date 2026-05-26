@@ -1,6 +1,6 @@
 ---
 name: honest-code-review
-description: Review code for dishonest patterns using the Honest Code constructs (11 from honestcode.software, 1 extended)
+description: "Review code for dishonest patterns using the Honest Code constructs (11 from honestcode.software, 1 extended)"
 argument-hint: "[scope or options...]"
 user-invocable: true
 disable-model-invocation: true
