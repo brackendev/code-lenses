@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.19] - 2026-05-28
+
+### Added
+
+- `CONVENTIONS.md` gains Rule 4: vendored and generated paths are excluded by default from mutating skills that walk the workspace. Two filters apply together (`.gitignore` matches plus a hardcoded floor of dependency directories, build outputs, and lock files). The override rides on Rule 1's existing `<path>` `<glob>` grammar; no new flag is introduced. The Author Checklist gains a matching item. The pure-report review skills are advisory under Rule 4 because reading is not modification.
+- `/lenses-fix` gains a `## Scope` section that restates Rule 4 in context. `/grug-fix` gains a `## Scope` section that describes how the filter applies when a bug entry point resolves into a vendored path: the skill diagnoses but does not write unless the operator explicitly names the vendored file.
+
 ## [0.1.18] - 2026-05-26
 
 ### Fixed

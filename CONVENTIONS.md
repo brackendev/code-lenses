@@ -4,7 +4,7 @@ This document defines the canonical argument grammar, scope vocabulary, and muta
 
 Model-auto-triggered skills (the five implementation-guidance lenses `aposd`, `grug`, `honest-code`, `parse-dont-validate`, `tidy-first`) are out of scope. They have no user-facing argument surface.
 
-## Three Rules
+## Four Rules
 
 ### Rule 1: Argument grammar
 
@@ -35,6 +35,31 @@ The `all` keyword has one uniform meaning across skills: widen the selected scop
 A skill that can mutate the workspace applies its changes when invoked. The operator passes `--report` to receive a description of what the skill would do without modifying any files. Only the literal token `--report` enables report-only mode; natural-language synonyms ("preview", "dry run") are scope input, not mode triggers.
 
 Command suffixes reinforce the default. The family follows a noun-first `<target>-<verb>` pattern. Skills with suffixes `-fix`, `-sync`, `-prune`, `-rebuild` (verbs that imply action) mutate by default; in this package, `/lenses-fix` and `/grug-fix`. Bare verbs `/commit` and `/pause` are session-scoped exceptions.
+
+### Rule 4: Vendored and generated paths are excluded by default
+
+A mutating skill that walks the workspace excludes vendored, generated, and dependency-locked paths from its scope. The operator opts back in per file by naming the path explicitly. No new `--name` flag is introduced; the override rides on Rule 1's `<path>` `<glob>` row.
+
+The boundary statement: Rule 4 applies to mutating skills that discover candidate files from the workspace. It does not apply to skills whose target set is defined by an explicit project operation, template, dependency model, git operation, or named path argument.
+
+**Exclusion set.** Two filters apply together. A path that matches either filter is excluded.
+
+1. `.gitignore`-matched paths. Anything excluded by the project's `.gitignore`, `.git/info/exclude`, or the global excludes file is out of scope. Resolve membership with `git check-ignore -v -- <path>`.
+2. Hardcoded floor (excluded even when the project tracks the path):
+
+   | Category | Patterns |
+   |----------|----------|
+   | Dependency directories | `node_modules/`, `vendor/`, `third_party/`, `.bundle/` |
+   | Build outputs | `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/` |
+   | Lock files | `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock` |
+
+**Override.** When the operator names a vendored or generated file in the arguments through the `<path>` `<glob>` row, the filter does not apply to that target. Naming `vendor/foo.clj` directly is treated as informed consent. The filter remains active for broad scopes: `(no argument)`, `all`, or a directory whose contents include vendored sub-paths.
+
+**Reporting.** The skill includes a single "skipped N vendored or generated paths" line in its results when the filter excluded any path. Under `--report`, the skill emits the full list so the operator can audit scope.
+
+**Scope of Rule 4 in this plugin.** Applies to `/lenses-fix` and `/grug-fix`, both of which discover candidate files from the workspace. The pure-report skills (`/grug-review`, `/honest-code-review`, `/tidy-first-review`, `/parse-dont-validate-review`, `/aposd-review`, `/legacy-code-review`) read the workspace but never mutate, so the filter is advisory: they may still report findings against vendored code, since reading is not modification.
+
+The file-aware mutating skills include a one-line reference to Rule 4 in their own `## Mutation` or `## Scope` section.
 
 ## Classification Taxonomy
 
@@ -128,6 +153,7 @@ When adding or modifying a user-invocable skill:
 - Opt-in rows (`#N`, `pr`, `commit`) appear only when the skill genuinely supports them.
 - Mutating skill: default applies changes; a `--report` row is present unless preview is meaningless or the action is small and reversible (state the reason in the lead-in).
 - Pure report: no `--report` flag; the lead-in states "carries no `--report` flag (there is nothing to invert)".
+- Mutating skills that walk the workspace include a one-line Rule 4 reference in their `## Mutation` or `## Scope` section. Exempt skills (those whose target set is defined by an explicit operation, template, dependency model, git operation, or named path) carry no reference.
 - Mirror at `.opencode/skills/<name>/SKILL.md` is byte-identical to `.apm/skills/<name>/SKILL.md` (verify with `diff -q`).
 - `opencode.jsonc` `permission.skill` lists the skill with `"allow"`.
 - `agents/openai.yaml` carries `interface.display_name`, `short_description`, `default_prompt`, and `policy.allow_implicit_invocation`.

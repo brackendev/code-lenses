@@ -39,6 +39,10 @@ Interpret naturally. This skill mutates by default. Pass `--report` to diagnose 
 
 This skill operates on a problem, not a code scope. The canonical `all` and `<path>` scope rows do not apply; see CONVENTIONS.md exemptions for the rationale.
 
+## Scope
+
+When the bug entry point (error message, stack trace, or failing test) resolves into a vendored, generated, or dependency-locked path, the skill diagnoses but does not write. Reporting includes the file path and the reason. The operator may then pass the path explicitly to authorize the edit. The filter covers `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). A `<file>:<line>` argument that names a vendored file is informed consent and the filter does not apply. The full policy is Rule 4 in CONVENTIONS.md.
+
 ## Fix Process
 
 Follow this flow. If a step does not apply to the bug type, say why and move to the next step.

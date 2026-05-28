@@ -30,6 +30,10 @@ Interpret naturally. This skill mutates by default. Pass `--report` to aggregate
 
 The `+aposd` and `+legacy-code` sigils are exemptions from the bare-keyword rule because a bare lens name selects a subset of the default lenses; the `+` distinguishes "add to defaults" from "subset of defaults". See CONVENTIONS.md exemptions for the rationale.
 
+## Scope
+
+This skill excludes vendored, generated, and dependency-locked paths from the file set it walks. The filter combines `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). Lens findings are never applied to code inside those paths under broad scopes. Naming a vendored path directly through `<path>` or `<glob>` bypasses the filter for that target. The full policy is Rule 4 in CONVENTIONS.md.
+
 ## Workflow
 
 ### 1. Determine Review Scope
