@@ -1,6 +1,6 @@
 # code-lenses
 
-Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys 13 skills (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Legacy Code) to every runtime APM supports: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, and Windsurf.
+Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys the full set (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Legacy Code) to every runtime APM supports: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, and Windsurf.
 
 Skills follow the [Agent Skills](https://agentskills.io) open standard. Fix and review skills appear as slash commands (`/lenses-fix`, `/grug-review`, and so on); the five implementation-guidance skills activate automatically from conversation context. See [CONVENTIONS.md](CONVENTIONS.md) for the canonical argument grammar, scope vocabulary, and mutation default that every user-invocable skill follows.
 
@@ -67,6 +67,21 @@ Diagnose without editing files:
 ```
 
 The implementation-guidance lenses (`grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `aposd`) activate automatically when their domain comes up. They cannot be invoked directly.
+
+## Command guide
+
+A quick guide to every slash command. The detailed entries under [Skills](#skills) cover arguments and examples.
+
+| Command | Use it when | What it does |
+|---------|-------------------|--------------|
+| `/lenses-fix` | You want a multi-lens review with fixes applied | Runs the default lenses in parallel, prints one report, and applies non-conflicting findings |
+| `/grug-fix` | A bug or failing test needs a careful fix | Fixes it through grug brain philosophy and adds a regression test |
+| `/grug-review` | Code feels too complex | Reviews for complexity demons (report only) |
+| `/honest-code-review` | Code may hide dishonest patterns | Reviews against the Honest Code constructs (report only) |
+| `/tidy-first-review` | Code needs tidying before a change | Reviews for tidying opportunities (report only) |
+| `/parse-dont-validate-review` | Types should make illegal states unrepresentable | Reviews for type-driven correctness (report only) |
+| `/aposd-review` | Modules feel shallow or leaky | Reviews module depth and information hiding (report only) |
+| `/legacy-code-review` | Untested code needs safe changes | Reviews for safe-modification seams (report only) |
 
 ## Skills
 
