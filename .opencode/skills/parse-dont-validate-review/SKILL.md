@@ -1,9 +1,13 @@
 ---
 name: parse-dont-validate-review
-description: "Review code for type-driven correctness using Parse Don't Validate and Make Illegal States Unrepresentable"
+description: >-
+  Review code for type-driven correctness using Parse Don't Validate and Make
+  Illegal States Unrepresentable: parsing at boundaries, illegal states, and
+  pushing validation into types. Use when asked to review types or boundary
+  handling, or when the user says "parse don't validate", "make illegal states
+  unrepresentable", or "validate at the boundary". Read-only report.
 argument-hint: "[scope or options...]"
 user-invocable: true
-disable-model-invocation: true
 ---
 
 # Parse Don't Validate Review

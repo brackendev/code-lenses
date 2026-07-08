@@ -1,9 +1,13 @@
 ---
 name: grug-review
-description: "Review changed code for complexity demons through grug brain philosophy"
+description: >-
+  Review changed code for excess complexity through grug brain philosophy:
+  over-engineering, premature abstraction, and tangled control flow. Use when
+  asked to review for complexity or simplicity, or when the user says "is this
+  too complex", "review for over-engineering", "complexity demon", or "grug".
+  Read-only report.
 argument-hint: "[scope or options...]"
 user-invocable: true
-disable-model-invocation: true
 ---
 
 # Grug Review

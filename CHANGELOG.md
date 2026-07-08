@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.21] - 2026-07-08
+
+### Changed
+
+- The six review commands (`/aposd-review`, `/grug-review`, `/honest-code-review`, `/legacy-code-review`, `/parse-dont-validate-review`, `/tidy-first-review`) can now be invoked by the agent from a natural-language request, not only by typing the slash command. Each remains a read-only report that makes no changes. Their descriptions are rewritten as activation triggers so the agent runs them in the right context.
+
 ## [0.1.20] - 2026-06-15
 
 ### Changed

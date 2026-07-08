@@ -1,9 +1,13 @@
 ---
 name: tidy-first-review
-description: "Review code for tidying opportunities using Tidy First? philosophy"
+description: >-
+  Review code for small structural tidyings using Tidy First? philosophy: guard
+  clauses, dead code, naming, and reading order, before a behavior change. Use
+  when asked to review for tidying or cleanup, or when the user says "tidy
+  first", "clean up before changing", "guard clauses", or "dead code".
+  Read-only report.
 argument-hint: "[scope or options...]"
 user-invocable: true
-disable-model-invocation: true
 ---
 
 # Tidy First? Review

@@ -1,9 +1,13 @@
 ---
 name: honest-code-review
-description: "Review code for dishonest patterns using the Honest Code constructs (11 from honestcode.software, 1 extended)"
+description: >-
+  Review code for dishonest patterns using the Honest Code constructs: hidden
+  side effects, misleading names, control flow through exceptions, and nulls.
+  Use when asked for an "honest code review", or when the user mentions
+  "dishonest", "hidden side effects", "pure functions", or "is this function
+  honest". Read-only report.
 argument-hint: "[scope or options...]"
 user-invocable: true
-disable-model-invocation: true
 ---
 
 # Honest Code Review

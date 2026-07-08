@@ -1,9 +1,13 @@
 ---
 name: legacy-code-review
-description: "Review code for safe modification opportunities using Working Effectively with Legacy Code techniques"
+description: >-
+  Review code for safe modification using Working Effectively with Legacy Code:
+  seams, characterization tests, and breaking dependencies before changing
+  untested code. Use when asked how to safely change or add tests to legacy
+  code, or when the user mentions "legacy code", "seams", "characterization
+  tests", or "add tests before refactoring". Read-only report.
 argument-hint: "[scope or options...]"
 user-invocable: true
-disable-model-invocation: true
 ---
 
 # Legacy Code Review

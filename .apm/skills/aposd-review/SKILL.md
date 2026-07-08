@@ -1,9 +1,13 @@
 ---
 name: aposd-review
-description: "Review code for module depth, information hiding, and complexity using A Philosophy of Software Design"
+description: >-
+  Review code for design quality using A Philosophy of Software Design: module
+  depth, information hiding, interface complexity, and error handling. Use when
+  asked to review or critique a design, or when the user mentions "deep vs
+  shallow modules", "information hiding", "is this module too shallow", "APOSD",
+  or "A Philosophy of Software Design". Read-only report.
 argument-hint: "[scope or options...]"
 user-invocable: true
-disable-model-invocation: true
 ---
 
 # APOSD Review
