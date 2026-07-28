@@ -2,10 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.1.22] - 2026-07-29
+
+### Removed
+
+- The package manifest no longer declares the top-level `target: all` field. The APM manifest schema deprecates the `all` value: a parser treats the field as though it were absent and falls through to the `--target` flag or filesystem auto-detection, and the value is scheduled to become a hard parse error in a future APM release. Removing the field makes that fall-through behavior permanent. Installation behavior is unchanged, because APM already resolved targets by auto-detection rather than from this field. The separate `compilation.target` setting is not affected.
 
 ## [0.1.21] - 2026-07-08
 
@@ -63,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The `fix-all` skill is renamed to `all-fix` to adopt the noun-first canonical naming pattern (`<target>-<verb>`) shared across the agent-skills family. The verb suffix `-fix` consistently signals a mutating quality pipeline. Operators with a saved `/fix-all` invocation should replace it with `/all-fix`. The skill's behavior, default lens set, additive `+aposd` and `+legacy-code` sigils, and `--report` flag are unchanged; only the name moves.
 
-## [0.1.12]
+## [0.1.12] - 2026-05-18
 
 ### Added
 
@@ -80,20 +85,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The `fix` modifier on `/review-all` (now `/fix-all`) is removed. Mutation is now the default; pass `--report` to opt out of applying fixes. Update saved invocations from `/review-all <scope> fix` to `/fix-all <scope>`.
 
-## [0.1.11]
+## [0.1.11] - 2026-05-18
 
 ### Fixed
 
 - Remove Claude Code-specific tool name from `grug-review`, `honest-code-review`, `tidy-first-review`, `parse-dont-validate-review`, `aposd-review`, and `legacy-code-review`. The skill bodies told the host to "Use Bash tool for scope discovery," which named a tool that only exists on Claude Code. The instruction is now runtime-neutral and reads "Run these commands for scope discovery."
 - `review-all`: Remove the partial runtime example list from the sub-agent launch instruction. The skill now relies on the existing "whatever sub-agent mechanism the host runtime provides" wording without naming a subset of runtimes.
 
-## [0.1.10]
+## [0.1.10] - 2026-05-18
 
 ### Fixed
 
 - `review-all`: Remove Codex-specific wording from the skill body. The previous text instructed every host to "launch sub-agents using Codex," which caused non-Codex runtimes (Claude Code, OpenCode, Gemini, Cursor, Copilot, Windsurf) to call the Codex MCP server instead of their own sub-agent mechanism. The skill is now runtime-neutral and uses whatever sub-agent mechanism the host runtime provides.
 
-## [0.1.9]
+## [0.1.9] - 2026-05-16
 
 ### Changed
 
