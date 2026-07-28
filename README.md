@@ -1,6 +1,6 @@
 # code-lenses
 
-Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys the full set (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Legacy Code) to every runtime APM supports: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, Windsurf, and Kiro.
+Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys the full set (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Legacy Code) to every runtime in APM's default target set: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, Windsurf, and Kiro. Antigravity is supported by naming it explicitly with `--target antigravity`.
 
 Skills follow the [Agent Skills](https://agentskills.io) open standard. The fix skills are user-only slash commands (`/lenses-fix`, `/grug-fix`). The six review skills are also slash commands (`/grug-review` and the rest), and because they are read-only reports the agent can run them from conversation context as well. The five implementation-guidance skills activate automatically from conversation context. See [CONVENTIONS.md](CONVENTIONS.md) for the canonical argument grammar, scope vocabulary, and mutation default that every user-invocable skill follows.
 
