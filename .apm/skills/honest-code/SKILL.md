@@ -1,18 +1,18 @@
 ---
 name: honest-code
 description: >-
-  Trigger on: "honest code", "declarative", "pure functions", "flat data", "no
-  classes", "no inheritance", "no state", "let it crash", "dishonest",
-  "functional core", "imperative shell", "side effects", "push effects", or
-  when user asks about Honest Code constructs. Apply the Honest Code
-  constructs during implementation (11 from honestcode.software, 1 extended
-  from Gary Bernhardt).
+  Apply the Honest Code constructs while writing or changing code: flat data
+  over classes, pure functions, flat composition over inheritance, errors
+  raised at the source, and effects pushed to the edges. Use when the user
+  asks for honest or declarative code, or mentions pure functions, side
+  effects, flat data, avoiding classes, inheritance, or state, "let it crash",
+  "dishonest" code, or "functional core, imperative shell".
 user-invocable: false
 ---
 
 # Honest Code
 
-Apply the [Honest Code](https://honestcode.software) constructs to every code change. Constructs 1 through 11 are by Adam Zachary Wasserman. Construct 12 extends the philosophy with Gary Bernhardt's Functional Core, Imperative Shell pattern. Honest software uses constructs that tell the truth about what they do.
+Apply the [Honest Code](https://honestcode.software) constructs to the current task. Constructs 1 through 11 are by Adam Zachary Wasserman. Construct 12 extends the philosophy with Gary Bernhardt's Functional Core, Imperative Shell pattern. Honest software uses constructs that tell the truth about what they do.
 
 ## The Constructs
 

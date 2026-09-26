@@ -33,7 +33,7 @@ Optional modifiers can appear anywhere in user input:
 | Focus | `tests only`, `architecture`, `data layer`, `state management` |
 | Output shape | `verdict only`, `no approvals`, `problems only` |
 
-Always run the full review flow. Do not provide reduced-depth modes.
+Output-shape modifiers change what the report shows, not how much of the scope the review covers.
 
 ## Context Gathering
 
@@ -68,8 +68,6 @@ Use this framework to evaluate code. Each construct defines an "instead of" (dis
 | 12 | Push Effects to the Edges | Business logic interleaved with I/O and side effects | Functional core (pure), imperative shell (I/O at boundaries) |
 
 ## Review Process
-
-Run all steps for every review. Do not skip steps.
 
 ### 1) Build Evidence Per File
 
@@ -185,12 +183,3 @@ Use this structure unless user asked for a shorter variant:
 ```
 
 If no issues found, say so explicitly and still provide the metric table.
-
-## When This Skill Is Most Useful
-
-- Before commit or PR
-- During review of class hierarchies or mutable state
-- When tests require extensive mock setup
-- When state management feels duplicated
-- When considering a rewrite vs. incremental rescue
-- When evaluating AI-generated code for honesty

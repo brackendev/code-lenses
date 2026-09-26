@@ -43,7 +43,7 @@ Optional modifiers can appear anywhere in user input:
 | Focus | `tests only`, `architecture`, `api layer`, `performance` |
 | Output shape | `verdict only`, `no approvals`, `problems only` |
 
-Always run the full review flow. Do not provide reduced-depth modes.
+Output-shape modifiers change what the report shows, not how much of the scope the review covers.
 
 ## Context Gathering
 
@@ -59,8 +59,6 @@ Filter to source/test/config files relevant to behavior. Skip generated files, l
 If no files are found (and no explicit scope), ask user what to review.
 
 ## Review Process
-
-Run all steps for every review. Do not skip steps for speed.
 
 ### 1) Build Evidence Per File
 
@@ -215,11 +213,3 @@ Use these checks when unsure:
 - Would simple duplication be clearer than this abstraction?
 - Is this pattern consistent with rest of codebase?
 - Is this 100% effort for 20% value?
-
-## When This Skill Is Most Useful
-
-- Before commit or PR
-- During review of complex refactors
-- While inheriting unknown code
-- When implementation feels over-engineered
-- When deciding whether to delete or simplify existing architecture

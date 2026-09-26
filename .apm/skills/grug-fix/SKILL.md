@@ -37,11 +37,11 @@ Interpret naturally. This skill mutates by default. Pass `--report` to diagnose 
 | description of unexpected behavior | Start from the symptom |
 | `--report` | Diagnose and propose the fix; do not edit files |
 
-This skill operates on a problem, not a code scope. The canonical `all` and `<path>` scope rows do not apply; see CONVENTIONS.md exemptions for the rationale.
+This skill operates on a problem, not a code scope, so it does not accept `all` or a path as a scope.
 
 ## Scope
 
-When the bug entry point (error message, stack trace, or failing test) resolves into a vendored, generated, or dependency-locked path, the skill diagnoses but does not write. Reporting includes the file path and the reason. The operator may then pass the path explicitly to authorize the edit. The filter covers `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). A `<file>:<line>` argument that names a vendored file is informed consent and the filter does not apply. The full policy is Rule 4 in CONVENTIONS.md.
+When the bug entry point (error message, stack trace, or failing test) resolves into a vendored, generated, or dependency-locked path, the skill diagnoses but does not write. Reporting includes the file path and the reason. The operator may then pass the path explicitly to authorize the edit. The filter covers `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). A `<file>:<line>` argument that names a vendored file is informed consent and the filter does not apply.
 
 ## Fix Process
 
@@ -351,13 +351,3 @@ Use these checks when stuck:
 - Is grug debugging the right version? (Stale build, wrong branch, cached artifact?)
 - Can grug reproduce this failure on demand? If not, what makes it intermittent?
 - Is grug going in circles? Step back, re-read the evidence, start from symptom again.
-
-## When This Skill Is Most Useful
-
-- Failing tests with unclear cause
-- Regressions after recent changes
-- Bugs reported by users with reproduction steps
-- Flaky tests that fail intermittently
-- Unexpected behavior that "should work"
-- Production errors with stack traces or logs
-- Config, build, or environment issues

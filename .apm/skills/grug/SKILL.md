@@ -11,7 +11,7 @@ user-invocable: false
 
 # Grug Brain Coding Philosophy
 
-Apply [grug brain developer](https://grugbrain.dev/) thinking to every code change.
+Apply [grug brain developer](https://grugbrain.dev/) thinking to the current task.
 
 ## Core Laws
 

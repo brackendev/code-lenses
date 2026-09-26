@@ -33,7 +33,7 @@ Optional modifiers can appear anywhere in user input:
 | Focus | `guard clauses`, `dead code`, `reading order`, `mixed commits` |
 | Output shape | `verdict only`, `no approvals`, `problems only` |
 
-Always run the full review flow. Do not provide reduced-depth modes.
+Output-shape modifiers change what the report shows, not how much of the scope the review covers.
 
 ## Context Gathering
 
@@ -73,8 +73,6 @@ Use this framework to evaluate code. Each tidying defines a signal (what to look
 | 15 | Eliminate needless complexity | Abstractions, parameters, or indirection with no current purpose | Remove what serves no current need |
 
 ## Review Process
-
-Run all steps for every review. Do not skip steps.
 
 ### 1) Build Evidence Per File
 
@@ -196,11 +194,3 @@ Use this structure unless user asked for a shorter variant:
 ```
 
 If no issues found, say so explicitly and still provide the metric table.
-
-## When This Skill Is Most Useful
-
-- Before commit or PR
-- When inheriting unfamiliar code
-- When a behavioral change feels harder than it should
-- During review of refactoring PRs
-- When deciding whether to tidy first, after, later, or never

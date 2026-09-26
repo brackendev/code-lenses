@@ -11,7 +11,7 @@ user-invocable: false
 
 # Tidy First? Philosophy
 
-Apply the [Tidy First?](https://www.oreilly.com/library/view/tidy-first/9781098151232/) philosophy by Kent Beck (O'Reilly, 2023) to every code change. Core rule: separate structural changes from behavioral changes.
+Apply the [Tidy First?](https://www.oreilly.com/library/view/tidy-first/9781098151232/) philosophy by Kent Beck (O'Reilly, 2023) to the current task. Core rule: separate structural changes from behavioral changes.
 
 ## The Cardinal Rule
 

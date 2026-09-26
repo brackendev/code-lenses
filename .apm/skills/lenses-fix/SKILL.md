@@ -28,11 +28,11 @@ Interpret naturally. This skill mutates by default. Pass `--report` to aggregate
 | `+legacy-code` | Add the Legacy Code lens to the default set (documented exemption) |
 | `--report` | Aggregate findings and print the report; skip the apply phase |
 
-The `+aposd` and `+legacy-code` sigils are exemptions from the bare-keyword rule because a bare lens name selects a subset of the default lenses; the `+` distinguishes "add to defaults" from "subset of defaults". See CONVENTIONS.md exemptions for the rationale.
+A bare lens name selects a subset of the default lenses. The `+` prefix adds a lens to the defaults instead.
 
 ## Scope
 
-This skill excludes vendored, generated, and dependency-locked paths from the file set it walks. The filter combines `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). Lens findings are never applied to code inside those paths under broad scopes. Naming a vendored path directly through `<path>` or `<glob>` bypasses the filter for that target. The full policy is Rule 4 in CONVENTIONS.md.
+This skill excludes vendored, generated, and dependency-locked paths from the file set it walks. The filter combines `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). Lens findings are never applied to code inside those paths under broad scopes. Naming a vendored path directly through `<path>` or `<glob>` bypasses the filter for that target.
 
 ## Workflow
 
@@ -80,7 +80,7 @@ Start all requested sub-agents before waiting on any of them so the reviews run 
 
 If the user specified a subset (for example: "grug honest-code"), launch only those lenses. If the user prefixes an opt-in lens with `+` (for example: "+aposd" or "+legacy-code"), add it to the default set rather than replacing it.
 
-Each sub-agent invokes the review skill directly. Do not delegate to any packaged reviewer agent; no such agents are bundled with this plugin.
+Each sub-agent invokes the review skill directly, not a separate reviewer agent.
 
 ### 4. Aggregate Results
 

@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.25] - 2026-09-26
+
+### Changed
+
+- The `grug`, `honest-code`, `parse-dont-validate`, and `tidy-first` lenses now apply to the current task rather than to every code change, matching `aposd`. A lens that triggers once no longer claims unrelated later edits in the session.
+- The six review commands no longer forbid shorter output. Output-shape modifiers such as `verdict only` and `problems only` now change only what the report shows, and the review still covers the full scope.
+- The `honest-code` skill description now states what the skill does before listing the phrases that activate it. The description covers the same topics as before: honest or declarative code, pure functions, side effects, flat data, avoiding classes, inheritance, or state, "let it crash", and "functional core, imperative shell".
+- `/lenses-fix` and `/grug-fix` no longer refer to a `CONVENTIONS.md` file, which is not installed with the skills. The rules they relied on are already stated in each skill.
+
 ## [0.1.24] - 2026-09-16
 
 ### Changed

@@ -35,7 +35,7 @@ Optional modifiers can appear anywhere in user input:
 | Focus | `seams only`, `test coverage`, `dependencies`, `entry points` |
 | Output shape | `verdict only`, `no approvals`, `problems only` |
 
-Always run the full review flow. Do not provide reduced-depth modes.
+Output-shape modifiers change what the report shows, not how much of the scope the review covers.
 
 ## Context Gathering
 
@@ -65,8 +65,6 @@ Use this framework to evaluate code:
 | Wrap method/class | Wrapping existing behavior to add pre/post behavior without modifying the original. Useful when the original cannot be safely changed. |
 
 ## Review Process
-
-Run all steps for every review. Do not skip steps.
 
 ### 1) Build Evidence Per File
 
@@ -192,12 +190,3 @@ Use this structure unless user asked for a shorter variant:
 ```
 
 If no issues found, say so explicitly and still provide the metric table.
-
-## When This Skill Is Most Useful
-
-- Before modifying code that has no tests
-- When inheriting an unfamiliar codebase
-- When a bug fix needs a regression test but the code resists testing
-- When planning how to add tests to a legacy module
-- When deciding between modifying in place vs. sprouting new code
-- When hard dependencies prevent instantiating code in a test harness

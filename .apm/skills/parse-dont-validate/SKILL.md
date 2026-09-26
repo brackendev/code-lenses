@@ -11,7 +11,7 @@ user-invocable: false
 
 # Parse, Don't Validate
 
-Apply [Parse, Don't Validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) by Alexis King and the [Make Illegal States Unrepresentable](https://blog.janestreet.com/effective-ml-revisited/) principle (coined by Yaron Minsky; see also [Scott Wlaschin's explainer](https://fsharpforfunandprofit.com/posts/designing-with-types-making-illegal-states-unrepresentable/)) to every code change. Core rule: transform unstructured input into typed, validated representations at the boundary, then use those representations everywhere else.
+Apply [Parse, Don't Validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) by Alexis King and the [Make Illegal States Unrepresentable](https://blog.janestreet.com/effective-ml-revisited/) principle (coined by Yaron Minsky; see also [Scott Wlaschin's explainer](https://fsharpforfunandprofit.com/posts/designing-with-types-making-illegal-states-unrepresentable/)) to the current task. Core rule: transform unstructured input into typed, validated representations at the boundary, then use those representations everywhere else.
 
 ## The Core Distinction
 

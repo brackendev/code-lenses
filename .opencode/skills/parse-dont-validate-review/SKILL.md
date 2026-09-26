@@ -33,7 +33,7 @@ Optional modifiers can appear anywhere in user input:
 | Focus | `types only`, `boundaries`, `input handling`, `domain models` |
 | Output shape | `verdict only`, `no approvals`, `problems only` |
 
-Always run the full review flow. Do not provide reduced-depth modes.
+Output-shape modifiers change what the report shows, not how much of the scope the review covers.
 
 ## Context Gathering
 
@@ -61,8 +61,6 @@ Use this framework to evaluate code:
 | No shotgun validation | Same invariant checked in one place (the parse function), not scattered across the codebase. |
 
 ## Review Process
-
-Run all steps for every review. Do not skip steps.
 
 ### 1) Build Evidence Per File
 
@@ -174,12 +172,3 @@ Use this structure unless user asked for a shorter variant:
 ```
 
 If no issues found, say so explicitly and still provide the metric table.
-
-## When This Skill Is Most Useful
-
-- When designing input handling or API boundaries
-- When domain types use raw primitives (string IDs, untyped config)
-- When the same validation appears in multiple places
-- When state is modeled with booleans and nulls instead of unions
-- When reviewing data flow from external systems into business logic
-- When evaluating whether types encode the right invariants

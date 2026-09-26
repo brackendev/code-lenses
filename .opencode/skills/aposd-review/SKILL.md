@@ -33,7 +33,7 @@ Optional modifiers can appear anywhere in user input:
 | Focus | `interfaces only`, `error handling`, `module boundaries`, `data layer` |
 | Output shape | `verdict only`, `no approvals`, `problems only` |
 
-Always run the full review flow. Do not provide reduced-depth modes.
+Output-shape modifiers change what the report shows, not how much of the scope the review covers.
 
 ## Context Gathering
 
@@ -63,8 +63,6 @@ Use this framework to evaluate code:
 | Strategic design | Small design investments per change. Incremental improvement over tactical shortcuts. |
 
 ## Review Process
-
-Run all steps for every review. Do not skip steps.
 
 ### 1) Build Evidence Per File
 
@@ -179,12 +177,3 @@ Use this structure unless user asked for a shorter variant:
 ```
 
 If no issues found, say so explicitly and still provide the metric table.
-
-## When This Skill Is Most Useful
-
-- When designing new modules or APIs
-- When reviewing module boundary changes
-- When error handling feels scattered across layers
-- When a small change requires touching many files
-- When inheriting a codebase and assessing design quality
-- When deciding between deep and shallow decomposition
