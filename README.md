@@ -91,7 +91,7 @@ Mutating skills that apply changes by default. Each accepts `--report` to previe
 
 #### `/lenses-fix [scope] [lenses] [+aposd|+legacy-code] [--report]`
 
-Run code lens reviews in parallel, print a unified report, then apply non-conflicting findings. Default lenses: `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`. Prefix a lens with `+` to add it to the defaults (`+aposd`, `+legacy-code`). Pass `--report` to aggregate findings and skip the apply phase.
+Run code lens reviews in parallel, print a unified report, then apply non-conflicting findings. Default lenses: `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`. Name lenses to run only those, including `aposd` and `legacy-code`. Prefix a lens with `+` to add it to the defaults (`+aposd`, `+legacy-code`). Fixes are applied in order: characterization tests first, then structural changes, then behavioral changes, each labeled by kind so they can be committed separately. Findings that need a commit split or a design decision are reported but not applied. Pass `--report` to aggregate findings and skip the apply phase.
 
 ```bash
 /lenses-fix

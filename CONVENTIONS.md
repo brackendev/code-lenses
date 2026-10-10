@@ -91,7 +91,7 @@ Each user-invocable skill that takes arguments uses these headings in this order
 | (no argument) | Apply fixes from default four lenses to changed files (staged + unstaged) |
 | `all` | Apply fixes from default four lenses across the full codebase (sampled for high-risk and high-traffic modules) |
 | `<path>` `<glob>` | Apply fixes from default four lenses scoped to the path or pattern |
-| `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate` |
+| `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `aposd`, `legacy-code` |
 | `+aposd` | Add the APOSD lens to the default set (documented exemption) |
 | `+legacy-code` | Add the Legacy Code lens to the default set (documented exemption) |
 | `--report` | Aggregate findings and print the report; skip the apply phase |
@@ -131,7 +131,7 @@ Two exemptions from the canonical grammar are recognized in this plugin:
 
 ### Additive lens sigils in `/lenses-fix`
 
-`/lenses-fix` uses `+aposd` and `+legacy-code` to add opt-in lenses to its default set. Bare names already serve a different role in `/lenses-fix`: a bare lens name selects a subset of the defaults (`/lenses-fix grug honest-code` runs only those two). The `+` sigil disambiguates additive from subset semantics in a way bare phrases cannot express compactly. The sigil is permitted only in this skill.
+`/lenses-fix` uses `+aposd` and `+legacy-code` to add opt-in lenses to its default set. Bare names already serve a different role in `/lenses-fix`: a bare lens name runs only the named lenses (`/lenses-fix grug honest-code` runs only those two, and `/lenses-fix aposd` runs APOSD alone). The `+` sigil disambiguates additive from subset semantics in a way bare phrases cannot express compactly. The sigil is permitted only in this skill.
 
 ### Problem-input grammar in `/grug-fix`
 

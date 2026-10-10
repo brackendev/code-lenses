@@ -23,12 +23,12 @@ Interpret naturally. This skill mutates by default. Pass `--report` to aggregate
 | (no argument) | Apply fixes from default four lenses to changed files (staged + unstaged) |
 | `all` | Apply fixes from default four lenses across the full codebase (sampled for high-risk and high-traffic modules) |
 | `<path>` `<glob>` | Apply fixes from default four lenses scoped to the path or pattern |
-| `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate` |
+| `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `aposd`, `legacy-code` |
 | `+aposd` | Add the APOSD lens to the default set (documented exemption) |
 | `+legacy-code` | Add the Legacy Code lens to the default set (documented exemption) |
 | `--report` | Aggregate findings and print the report; skip the apply phase |
 
-A bare lens name selects a subset of the default lenses. The `+` prefix adds a lens to the defaults instead.
+A bare lens name runs only the named lenses, and any of the six lenses can be named. The `+` prefix adds a lens to the defaults instead.
 
 ## Scope
 
@@ -54,7 +54,7 @@ Build a scope summary string (for example: "changed files: src/auth.ts, src/midd
 | Lens | Focus |
 |------|-------|
 | `grug-review` | Complexity demons, premature abstraction, over-engineering |
-| `honest-code-review` | Dishonest patterns, classes vs data, mutable state, inheritance |
+| `honest-code-review` | Hidden side effects, misleading names, control flow through exceptions, nulls |
 | `tidy-first-review` | Structural tidying, mixed commits, reading order |
 | `parse-dont-validate-review` | Type-driven correctness, boundary parsing, illegal states |
 
@@ -78,7 +78,7 @@ For each lens:
 
 Start all requested sub-agents before waiting on any of them so the reviews run in parallel.
 
-If the user specified a subset (for example: "grug honest-code"), launch only those lenses. If the user prefixes an opt-in lens with `+` (for example: "+aposd" or "+legacy-code"), add it to the default set rather than replacing it.
+If the user specified a subset (for example: "grug honest-code" or "aposd"), launch only those lenses. If the user prefixes an opt-in lens with `+` (for example: "+aposd" or "+legacy-code"), add it to the default set rather than replacing it.
 
 Each sub-agent invokes the review skill directly, not a separate reviewer agent.
 
@@ -118,6 +118,7 @@ After all sub-agents complete, produce a unified report:
 
 [- **Abstraction timing:** Grug delays abstraction until three repetitions. Tidy First extracts helpers whenever it eases the next change.]
 [- **Type investment:** Grug wants the simplest type that works. Parse Don't Validate wants domain types that encode invariants. Resolution: use the cheapest type that permanently deletes a class of bugs.]
+[- **Data shape:** Honest Code wants data as plain records with no methods. Parse Don't Validate wants constrained values wrapped in newtypes or branded types that only a parse function can create. A plain record produced only by a parse function satisfies both.]
 [- **Data design (when APOSD included):** Honest Code wants flat, transparent data. APOSD wants data hidden behind module interfaces.]
 [- **Design investment (when APOSD included):** Grug favors shipping the simplest working solution. APOSD favors investing 10-20% extra time in strategic design.]
 [- **Interface scope (when APOSD included):** Grug says design for current needs only. APOSD says design somewhat general-purpose interfaces.]
@@ -141,21 +142,36 @@ Skipped when `--report` is active.
 
 After presenting the unified report, apply the non-conflicting findings.
 
+Some findings are not code edits and are reported instead of applied:
+
+- **Mixed structural and behavioral changes** (Tidy First). The fix is to split the work into separate commits, which an edit cannot do.
+- **Architectural Honest Code findings.** Moving state to a single source of truth, changing performance architecture before profiling, and replacing a rewrite with a rescue all need a design decision beyond a local edit.
+
 Launch a sub-agent with:
 - The full unified report as context
-- Instructions to apply all findings from Critical Findings and Other Findings
+- Instructions to apply all findings from Critical Findings and Other Findings, except the report-only findings above
 - Instructions to skip any finding listed in the Conflicts section (where lenses disagree)
-- Instructions to prioritize Critical Findings over Other Findings
+- Instructions to apply findings in this order:
+  1. Characterization tests from Legacy Code, when that lens ran, so existing behavior is locked before any other edit
+  2. Structural changes that do not alter behavior (Tidy First tidyings, renames, extractions, dead code removal)
+  3. Behavioral changes (new types, changed error handling, changed signatures), Critical Findings before Other Findings
 - Instructions to make minimal, targeted edits that address each finding
+- Instructions to classify each applied change as Test, Structural, or Behavioral
 
 After the fix sub-agent completes, append a summary to the report:
 
 ```markdown
 ### Fixes Applied
 
-| File | Change | Source Lens |
-|------|--------|-------------|
-| [file path] | [what changed] | [lens that suggested it] |
+| File | Change | Kind | Source Lens |
+|------|--------|------|-------------|
+| [file path] | [what changed] | [Test / Structural / Behavioral] | [lens that suggested it] |
+
+[When both Structural and Behavioral changes were applied, state that the structural changes should be committed before the behavioral ones, in separate commits.]
+
+### Reported, Not Applied
+
+[Mixed-commit findings and architectural findings, each with the lens and the recommended next step. Omit this section if none.]
 
 ### Skipped (conflicting advice)
 
@@ -185,6 +201,7 @@ lenses-fix all
 ```text
 lenses-fix grug honest-code
 lenses-fix tidy-first parse-dont-validate src/api/
+lenses-fix aposd src/services/
 ```
 
 **Add opt-in lenses to defaults:**

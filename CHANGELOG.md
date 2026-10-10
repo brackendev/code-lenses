@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.26] - 2026-10-10
+
+### Changed
+
+- `/lenses-fix` applies fixes in a fixed order: Legacy Code characterization tests first, then structural changes, then behavioral changes. The fix summary labels each change as Test, Structural, or Behavioral so structural and behavioral work can be committed separately.
+- `/lenses-fix` no longer tries to apply findings that an edit cannot resolve. Tidy First findings about mixed structural and behavioral commits, and Honest Code findings that need an architectural decision, appear in a new "Reported, Not Applied" section.
+- `/lenses-fix` now accepts `aposd` and `legacy-code` as bare lens names, so either lens can run on its own or with a chosen subset.
+- `/lenses-fix` lists the tension between Honest Code's plain records and Parse Don't Validate's constrained types among its known conflicts, and describes the Honest Code lens by the patterns it reviews.
+
 ## [0.1.25] - 2026-09-26
 
 ### Changed
