@@ -1,9 +1,13 @@
 ---
 name: grug-fix
-description: "Apply the smallest correct fix to a bug through grug brain philosophy -- small repro, real evidence, one change at a time. Use --report to diagnose without editing files."
+description: >-
+  Apply the smallest correct fix to a bug through grug brain philosophy: small
+  reproduction, real evidence, one change at a time. Use when the user asks
+  for a grug fix, or asks to fix a bug, error, or failing test through grug
+  brain philosophy. Edits files and adds a regression test by default. Use
+  --report to diagnose without editing files.
 argument-hint: "[bug description, error, or failing test...] [--report]"
 user-invocable: true
-disable-model-invocation: true
 ---
 
 # Grug Fix

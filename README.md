@@ -2,7 +2,7 @@
 
 Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys the full set (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Legacy Code) to every runtime in APM's default target set: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, Windsurf, Kiro, and Grok Build. Antigravity is supported by naming it explicitly with `--target antigravity`.
 
-Skills follow the [Agent Skills](https://agentskills.io) open standard. The fix skills are user-only slash commands (`/lenses-fix`, `/grug-fix`). The six review skills are also slash commands (`/grug-review` and the rest), and because they are read-only reports the agent can run them from conversation context as well. The five implementation-guidance skills activate automatically from conversation context. See [CONVENTIONS.md](CONVENTIONS.md) for the canonical argument grammar, scope vocabulary, and mutation default that every user-invocable skill follows.
+Skills follow the [Agent Skills](https://agentskills.io) open standard. The review and fix skills are slash commands (`/grug-review`, `/lenses-fix`, and the rest), and the agent can also run each of them from a natural-language request. The six review skills are read-only reports. The fix skills (`/lenses-fix`, `/grug-fix`) edit files by default. The five implementation-guidance skills activate automatically from conversation context. See [CONVENTIONS.md](CONVENTIONS.md) for the canonical argument grammar, scope vocabulary, and mutation default that every user-invocable skill follows.
 
 Source: <https://github.com/brackendev/code-lenses>. APM shorthand: `brackendev/code-lenses`.
 

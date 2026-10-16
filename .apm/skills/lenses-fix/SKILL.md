@@ -1,9 +1,13 @@
 ---
 name: lenses-fix
-description: "Apply non-conflicting fixes from default code lenses in parallel (APOSD and Legacy Code opt-in). Use --report to aggregate findings without writing."
+description: >-
+  Apply non-conflicting fixes from the default code lenses (grug, Honest Code,
+  Tidy First, Parse Don't Validate) run in parallel, with APOSD and Legacy
+  Code opt-in. Use when the user asks to run the code lenses and apply the
+  results, or to fix the findings from a lens review. Writes fixes by default.
+  Use --report to aggregate findings without writing.
 argument-hint: "[scope] [lenses] [+aposd|+legacy-code] [--report]"
 user-invocable: true
-disable-model-invocation: true
 ---
 
 # Lenses Fix

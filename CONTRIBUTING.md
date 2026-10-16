@@ -58,7 +58,8 @@ For the argument grammar, scope vocabulary, and mutation defaults that every use
 
 | Setting | When to use |
 |---------|-------------|
-| `user-invocable: true`, `disable-model-invocation: true` | User-only slash command (for example `lenses-fix`, `grug-fix`). |
-| `user-invocable: false` (or omitted) | Model-invoked from conversation context (for example `grug`, `honest-code`). |
+| `user-invocable: true`, `disable-model-invocation: true` | User-only slash command, for a skill whose changes reach beyond the working tree or are hard to undo. |
+| `user-invocable: true`, no `disable-model-invocation` | Slash command the model can also run from a natural-language request (for example `grug-review`, `lenses-fix`). Write the description as a trigger. |
+| `user-invocable: false` | Model-invoked from conversation context (for example `grug`, `honest-code`). |
 
 Every skill carries `agents/openai.yaml` whose `policy.allow_implicit_invocation` matches the table above (`true` for model-invoked, `false` for user-only).

@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.27] - 2026-10-17
+
+### Changed
+
+- In Claude Code and Codex, the agent can now run `/lenses-fix` and `/grug-fix` from a natural-language request, as it already could for the review commands. Their descriptions now state when to use each one. Both still edit files by default and accept `--report`.
+
 ## [0.1.26] - 2026-10-10
 
 ### Changed
