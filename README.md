@@ -24,7 +24,7 @@ Update with `apm update [-g]`. Remove with `apm uninstall brackendev/code-lenses
 
 ## Quick start
 
-Slash commands run inside your agent runtime (Claude Code, Codex CLI, OpenCode, and the rest), not at a shell prompt. The shell-styled code blocks below are formatted that way for readability.
+Slash commands run inside your agent runtime (Claude Code, Codex CLI, OpenCode, and the rest), not at a shell prompt. The shell-styled code blocks below are formatted that way for readability. OpenCode does not list skills as slash commands, so attach a skill there with `@grug-review` or pick it from the `/skills` list, then type the arguments.
 
 Run every default lens in parallel against the current diff, aggregate findings, and apply non-conflicting fixes:
 

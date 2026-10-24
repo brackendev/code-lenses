@@ -154,8 +154,6 @@ When adding or modifying a user-invocable skill:
 - Mutating skill: default applies changes; a `--report` row is present unless preview is meaningless or the action is small and reversible (state the reason in the lead-in).
 - Pure report: no `--report` flag; the lead-in states "carries no `--report` flag (there is nothing to invert)".
 - Mutating skills that walk the workspace include a one-line Rule 4 reference in their `## Mutation` or `## Scope` section. Exempt skills (those whose target set is defined by an explicit operation, template, dependency model, git operation, or named path) carry no reference.
-- Mirror at `.opencode/skills/<name>/SKILL.md` is byte-identical to `.apm/skills/<name>/SKILL.md` (verify with `diff -q`).
-- `opencode.jsonc` `permission.skill` lists the skill with `"allow"`.
 - `agents/openai.yaml` carries `interface.display_name`, `short_description`, `default_prompt`, and `policy.allow_implicit_invocation`.
 - Cross-references in `README.md` and `CHANGELOG.md` are updated.
 - Any exemption from the canonical grammar is documented in this file's Exemptions section.
