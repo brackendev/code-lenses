@@ -35,6 +35,7 @@ A module's cost is its interface. Its value is its functionality.
 - Each module should provide a meaningful abstraction that hides implementation complexity.
 - Warning signs of shallow modules: pass-through methods, classes that add no new abstraction, interfaces that mirror the implementation.
 - Aim for interfaces that are obvious to use without reading the implementation.
+- Evaluate interface depth when designing a new module, not only when reviewing an existing one.
 
 ## Information Hiding
 
@@ -81,9 +82,7 @@ Design interfaces that are somewhat general-purpose, even for specific use cases
 
 ## Application Rules
 
-- When designing a new module, evaluate interface depth. Simple interface with powerful implementation is the goal.
-- When information leaks between modules, restructure to hide the shared decision.
-- When error handling spreads across many layers, define errors out of existence or aggregate.
+- When detecting code that conflicts with a principle above, suggest the change that principle describes. Reference the principle by name.
 - APOSD provides module-level design guidance. The grug skill provides anti-complexity instinct. Both can apply to the same code.
 - **Error handling composition with honest-code:** Honest Code says "raise at source, handle at boundary." APOSD says "define errors out of existence." Apply APOSD first: if the interface can be redesigned so the error cannot occur, do that. When errors remain, apply honest-code: raise at source, handle at the boundary, never swallow.
 - For the full treatment, see "A Philosophy of Software Design" by John Ousterhout.

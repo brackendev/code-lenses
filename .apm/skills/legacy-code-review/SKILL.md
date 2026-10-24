@@ -74,13 +74,12 @@ For each file in scope:
 2. Search for related test files (same module, test directory, naming conventions).
 3. Map dependencies: what does this code import, instantiate, or call? Which are hard dependencies (concrete classes, globals, static methods)?
 4. Identify public entry points and internal coupling.
-5. Estimate test coverage: are there tests? Do they cover the paths being changed?
 
 ### 2) Assess Legacy Risk
 
 Evaluate each file or module:
 
-1. **Test coverage:** Are there existing tests? Do they cover the code being changed?
+1. **Test coverage:** Are there existing tests? Do they cover the paths being changed?
 2. **Dependency weight:** How many hard dependencies does this code have? Can it be instantiated in a test harness?
 3. **Change risk:** Would modifying this code risk breaking behavior that is not covered by tests?
 4. **Seam availability:** Are there existing seams (interfaces, dependency injection, configuration) that allow testing without modifying production code?
@@ -109,7 +108,7 @@ Code trending toward legacy risk:
 
 #### RIGID (Low)
 
-Structural issues limiting future testability:
+Structural issues limiting future testability. When the same dependency also blocks tests for untested code, report it once under UNTESTED:
 
 - No seams available: concrete classes instantiated directly, no interfaces
 - Constructor does real work (I/O, network, database) making instantiation in tests expensive
@@ -121,11 +120,10 @@ Structural issues limiting future testability:
 
 Call out code that already follows legacy code techniques:
 
-- Existing seams (interfaces, dependency injection) enabling isolated testing
+- Existing seams (interfaces, dependency injection, clear dependency boundaries) enabling isolated testing with test doubles
 - Characterization tests that document current behavior
 - Sprout methods/classes adding new behavior without modifying untested code
 - Wrapper patterns isolating new behavior from legacy code
-- Clear dependency boundaries allowing test doubles
 
 ### 5) Recommend Rescue Strategy
 
@@ -142,11 +140,10 @@ For each finding, suggest a specific technique from the checklist:
 - Do not flag code as untested if tests exist in a non-obvious location. Search broadly before flagging.
 - Do not recommend breaking dependencies that are stable, well-tested, and unlikely to change.
 - Code without tests that is stable and never changes is lower priority than code without tests that is about to change.
-- Do not assume missing context; mark uncertain findings as uncertain.
+- Do not assume missing context or claim certainty without evidence from code, tests, or explicit constraints. Mark uncertain findings as uncertain.
 - Prefer fewer high-confidence findings over many weak findings.
 - Every finding must include specific file reference (`file:line`) and concrete symptom.
 - If uncertain why code exists, say so and reference Chesterton's Fence.
-- Do not claim certainty without evidence from code, tests, or explicit constraints.
 
 ## Output Contract
 

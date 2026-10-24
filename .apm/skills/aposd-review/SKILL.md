@@ -110,8 +110,8 @@ Patterns trending toward deeper complexity problems:
 Minor design-level issues:
 
 - Interface could be slightly more general without added complexity
-- Naming reveals implementation rather than purpose
-- Default configuration values could reduce caller burden
+- A name reveals implementation rather than purpose, while the parameter types and return shapes do not
+- Configuration parameters that callers already set to the same value, where a default would reduce caller burden without moving a design decision
 - Small modules that could combine for a deeper abstraction
 
 ### 4) Identify Deep Design
@@ -129,11 +129,10 @@ Call out code that follows APOSD principles well:
 
 - Do not flag shallow modules required by framework conventions (controller classes in MVC, route handlers, middleware signatures).
 - Depth is relative to the problem domain. A three-line utility function is not shallow if the interface matches.
-- Do not assume missing context; mark uncertain findings as uncertain.
+- Do not assume missing context or claim certainty without evidence from code, tests, or explicit constraints. Mark uncertain findings as uncertain.
 - Prefer fewer high-confidence findings over many weak findings.
 - Every finding must include specific file reference (`file:line`) and concrete symptom.
 - If uncertain why code exists, say so and investigate before flagging.
-- Do not claim certainty without evidence from code, tests, or explicit constraints.
 
 ## Output Contract
 

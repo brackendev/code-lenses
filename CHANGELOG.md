@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.30] - 2026-10-24
+
+### Fixed
+
+- `/grug-fix` and `/lenses-fix` add a "skipped N vendored or generated paths" line to the report when the vendored-path filter excludes any path, and list those paths under `--report`, as Rule 4 of `CONVENTIONS.md` requires.
+
+### Changed
+
+- The review skills assign one severity tier to code that used to match two. `aposd-review`, `honest-code-review`, `parse-dont-validate-review`, and `tidy-first-review` state what separates each lower-tier entry from the higher one, and `legacy-code-review` reports a dependency that also blocks tests for untested code once, under UNTESTED.
+- `/lenses-fix` leaves every conflict between lenses to the user. It can name an option that satisfies both lenses, but it no longer presents that option as the resolution.
+- The lens and review skills state each rule once. Lists such as "What Grug Never Do", "What Tidy First Never Does", and the Application Rules in `aposd` and `parse-dont-validate` repeated earlier rules, so their details now live in those rules.
+
 ## [0.1.29] - 2026-10-24
 
 ### Removed

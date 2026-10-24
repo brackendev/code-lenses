@@ -44,18 +44,16 @@ Choose timing based on the relationship between the tidying and the next behavio
 - **Tidy first:** The tidying makes the next behavioral change easier to write, review, or understand. This is the most common case.
 - **Tidy after:** The behavioral change is done but revealed structural debt. Tidy in a follow-up commit.
 - **Tidy later:** The tidying is real but not blocking current work. Note it as a TODO or issue.
-- **Tidy never:** The code works, nobody needs to change it, and tidying risks introducing bugs. Leave it alone.
+- **Tidy never:** The code works, nobody needs to change it, and tidying risks introducing bugs. Leave it alone. Tidying code that is not about to change is speculative tidying.
 
 Decision heuristic: "Will this tidying make the next change easier? If yes, tidy first. If the code area is cold (rarely changed), tidy never."
 
 ## Structure Enables Behavior
 
-Good structure makes behavioral changes small, safe, and obvious. Bad structure makes behavioral changes risky, scattered, and hard to review. Tidying is not gold-plating or cleaning up for fun. It is investment that pays off in the immediate next change. If the tidying does not make the next change easier, skip it. When structure is right, it can reveal behavioral changes that were not obvious before.
+Good structure makes behavioral changes small, safe, and obvious. Bad structure makes behavioral changes risky, scattered, and hard to review. Tidying is not gold-plating or cleaning up for fun. It is investment that pays off in the immediate next change. When structure is right, it can reveal behavioral changes that were not obvious before.
 
 ## What Tidy First Never Does
 
-- Never mixes structural and behavioral changes in one commit.
-- Never tidies code that is not about to change (speculative tidying).
 - Never rewrites working code for aesthetic preference.
 - Never introduces speculative abstraction layers. Tidyings add local, behavior-preserving structure (extracting a helper, wrapping an interface) that makes the next change easier.
 - Never tidies without understanding the code's purpose first.

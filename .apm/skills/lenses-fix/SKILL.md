@@ -14,8 +14,6 @@ user-invocable: true
 
 Run code lens reviews in parallel using the host runtime's sub-agent mechanism, aggregate findings into a unified report, then apply non-conflicting findings. By default, four lenses run. APOSD and Legacy Code are opt-in because they are situational (APOSD is most valuable for module boundary and interface design; Legacy Code is most valuable when code lacks tests or has hard dependencies).
 
-This skill mutates by default. Pass `--report` to produce the aggregated findings report and skip the apply phase.
-
 **Review Scope (optional):** "$ARGUMENTS"
 
 ## Arguments
@@ -36,7 +34,7 @@ A bare lens name runs only the named lenses, and any of the six lenses can be na
 
 ## Scope
 
-This skill excludes vendored, generated, and dependency-locked paths from the file set it walks. The filter combines `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). Lens findings are never applied to code inside those paths under broad scopes. Naming a vendored path directly through `<path>` or `<glob>` bypasses the filter for that target.
+This skill excludes vendored, generated, and dependency-locked paths from the file set it walks. The filter combines `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). Lens findings are never applied to code inside those paths under broad scopes. Naming a vendored path directly through `<path>` or `<glob>` bypasses the filter for that target. When the filter excludes any path, add a single "skipped N vendored or generated paths" line to the report. Under `--report`, list every skipped path.
 
 ## Workflow
 
@@ -71,20 +69,16 @@ Build a scope summary string (for example: "changed files: src/auth.ts, src/midd
 
 ### 3. Launch Review Sub-Agents
 
-Launch the default four reviews **in parallel** using whatever sub-agent mechanism the host runtime provides. Each sub-agent receives the same scope summary.
+Launch the requested reviews **in parallel** using whatever sub-agent mechanism the host runtime provides. Start all of them before waiting on any of them. Each sub-agent receives the same scope summary.
 
 For each lens:
 
-- Start one sub-agent with a prompt telling it to apply exactly that review skill
+- Start one sub-agent with a prompt telling it to invoke exactly that review skill directly, not a separate reviewer agent
 - Use the prompt shape: "Review the following scope using the `[skill-name]` skill: [scope summary]. [any user modifiers]"
 - Tell the sub-agent to return the full output contract for that lens
 - Tell the sub-agent not to edit files
 
-Start all requested sub-agents before waiting on any of them so the reviews run in parallel.
-
-If the user specified a subset (for example: "grug honest-code" or "aposd"), launch only those lenses. If the user prefixes an opt-in lens with `+` (for example: "+aposd" or "+legacy-code"), add it to the default set rather than replacing it.
-
-Each sub-agent invokes the review skill directly, not a separate reviewer agent.
+Launch only the lenses the arguments select (see Arguments).
 
 ### 4. Aggregate Results
 
@@ -118,15 +112,15 @@ After all sub-agents complete, produce a unified report:
 
 ### Conflicts
 
-[When two lenses give contradictory advice on the same code, list each conflict here. State both positions and which lens each comes from. Do not pick a winner. Known tension points:]
+[When two lenses give contradictory advice on the same code, list each conflict here. State both positions and which lens each comes from. Do not pick a winner. An option that satisfies both lenses may be named, but the user decides. Known tension points:]
 
 [- **Abstraction timing:** Grug delays abstraction until three repetitions. Tidy First extracts helpers whenever it eases the next change.]
-[- **Type investment:** Grug wants the simplest type that works. Parse Don't Validate wants domain types that encode invariants. Resolution: use the cheapest type that permanently deletes a class of bugs.]
+[- **Type investment:** Grug wants the simplest type that works. Parse Don't Validate wants domain types that encode invariants. An option that satisfies both: use the cheapest type that permanently deletes a class of bugs.]
 [- **Data shape:** Honest Code wants data as plain records with no methods. Parse Don't Validate wants constrained values wrapped in newtypes or branded types that only a parse function can create. A plain record produced only by a parse function satisfies both.]
 [- **Data design (when APOSD included):** Honest Code wants flat, transparent data. APOSD wants data hidden behind module interfaces.]
 [- **Design investment (when APOSD included):** Grug favors shipping the simplest working solution. APOSD favors investing 10-20% extra time in strategic design.]
 [- **Interface scope (when APOSD included):** Grug says design for current needs only. APOSD says design somewhat general-purpose interfaces.]
-[- **Test strategy (when Legacy Code included):** Legacy Code says write characterization tests to lock existing behavior. Tidy First says tidy the structure before changing behavior. When both apply, decide which unblocks the change.]
+[- **Test strategy (when Legacy Code included):** Legacy Code says write characterization tests to lock existing behavior. Tidy First says tidy the structure before changing behavior. When both apply, the user decides which unblocks the change.]
 [- **Seams vs composition (when Legacy Code included):** Legacy Code recommends object seams (subclass, Extract Interface) as tactical rescue techniques to enable testing. Honest Code avoids inheritance and deep hierarchies. These seams are temporary scaffolding for testability, not end-state design.]
 
 [Only include conflicts that actually appeared in the review. Omit this section if no lenses contradicted each other.]
@@ -138,7 +132,7 @@ After all sub-agents complete, produce a unified report:
 3. [Next action]
 ```
 
-Deduplicate findings that overlap across lenses. When multiple lenses flag the same code, note the convergence. When lenses contradict each other on the same code, surface both positions in the Conflicts section and let the user decide.
+Deduplicate findings that overlap across lenses. When multiple lenses flag the same code, note the convergence. List contradictions in the Conflicts section.
 
 ### 5. Apply Fixes
 

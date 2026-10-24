@@ -16,7 +16,7 @@ Apply the [Honest Code](https://honestcode.software) constructs to the current t
 
 ## The Constructs
 
-Follow these constructs when writing or changing code. When you detect an "instead of" pattern, suggest the corresponding "use" alternative. Reference the construct by name.
+Follow these constructs when writing or changing code.
 
 ### 1. Data Is Data (Ch 3)
 

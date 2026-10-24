@@ -80,7 +80,7 @@ For each file in scope:
 
 ### 2) Detect Dishonest Patterns
 
-Map code against the "instead of" column of each construct. Each finding references a specific construct by name and number.
+Map code against the "instead of" column of each construct.
 
 #### CRIME SCENE (High)
 
@@ -101,7 +101,7 @@ Patterns trending toward dishonesty:
 - Unnecessary indirection or wrapper layers (Construct 5)
 - Premature caching without profiling evidence (Construct 7)
 - Growing state surface area (Construct 3)
-- Defensive error handling that masks root cause (Construct 6)
+- Defensive error handling that still reports a failure but masks the root cause, such as rethrowing a generic error (Construct 6)
 - Imperative logic where declarative would work (Construct 4, 10)
 - Inline retry or fallback logic (Construct 6)
 - Functions mixing calculation with logging or metrics emission (Construct 12)
@@ -113,7 +113,7 @@ Minor style-level issues:
 - Clever expressions hiding simple intent (Construct 10)
 - Single-implementation interfaces (Construct 5)
 - Boilerplate exceeding logic (Construct 4)
-- Imperative validation where type system could enforce (Construct 10)
+- An isolated imperative validation check, in one place, where the type system could enforce the constraint (Construct 10)
 
 ### 3) Identify Honest Patterns
 
@@ -135,11 +135,10 @@ For each dishonest pattern found, propose the corresponding "use" alternative fr
 ## False-Positive Guardrails
 
 - Do not flag patterns required by protocol, security, correctness, or framework constraints unless a simpler viable alternative is clear.
-- Do not assume missing context; mark uncertain findings as uncertain.
+- Do not assume missing context or claim certainty without evidence from code, tests, or explicit constraints. Mark uncertain findings as uncertain.
 - Prefer fewer high-confidence findings over many weak findings.
 - Every finding must include specific file reference (`file:line`) and concrete symptom.
 - If uncertain why code exists, say so and reference Chesterton's Fence.
-- Do not claim certainty without evidence from code, tests, or explicit constraints.
 
 ## Output Contract
 

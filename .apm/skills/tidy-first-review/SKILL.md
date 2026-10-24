@@ -120,7 +120,7 @@ Patterns trending toward structural debt:
 Minor structural issues:
 
 - Reading order could be improved, callers after callees (Tidying 11)
-- Cohesion order could be improved, related functions far apart (Tidying 12)
+- Cohesion order could be improved, related functions far apart, but a reader can follow one change without jumping between file sections (Tidying 12)
 - Implicit parameters where explicit would clarify (Tidying 4)
 - Minor redundant complexity that could be eliminated (Tidying 15)
 
@@ -140,11 +140,10 @@ Call out code that follows Tidy First principles well:
 
 - Do not flag patterns required by framework or language constraints unless a simpler viable alternative is clear.
 - Do not recommend tidying code that is not about to change (speculative tidying).
-- Do not assume missing context; mark uncertain findings as uncertain.
+- Do not assume missing context or claim certainty without evidence from code, tests, or explicit constraints. Mark uncertain findings as uncertain.
 - Prefer fewer high-confidence findings over many weak findings.
 - Every finding must include specific file reference (`file:line`) and concrete symptom.
 - If uncertain why code exists, say so and reference Chesterton's Fence.
-- Do not claim certainty without evidence from code, tests, or explicit constraints.
 
 ## Output Contract
 

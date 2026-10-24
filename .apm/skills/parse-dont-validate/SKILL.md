@@ -37,7 +37,7 @@ The boundary is where unstructured data enters the system: user input, API respo
 Use the type system to encode invariants:
 
 - **Sum types / discriminated unions** for states that are mutually exclusive (e.g., `Loading | Loaded | Error` instead of `{ loading: boolean, error: string | null, data: T | null }`).
-- **Branded types / newtypes / smart constructors** for constrained primitives (e.g., `NonEmptyString`, `PositiveInt`, `Email`, `UserId`).
+- **Branded types / newtypes / smart constructors** for constrained primitives (e.g., `NonEmptyString`, `PositiveInt`, `Email`, `UserId`) instead of raw primitives (`string`, `int`, `any`) that represent domain concepts.
 - **Required fields over optional** when the data is always present after parsing.
 
 ### 3. Let the Types Carry the Proof
@@ -75,9 +75,7 @@ Shotgun validation is a symptom of unstructured types. The fix is a better type,
 
 ## Application Rules
 
-- When detecting raw primitives (`string`, `int`, `any`) used to represent domain concepts, suggest a domain type with a parse constructor.
-- When detecting repeated validation of the same invariant, suggest parsing once at the boundary.
-- When detecting states modeled with multiple booleans or nullable fields, suggest a sum type / discriminated union.
+- When detecting code that matches an "Instead of" pattern, suggest the corresponding "Use" pattern. Reference the principle by name and number.
 - Consider the project's language when suggesting types. The principle applies everywhere, but the mechanism differs.
 - **Composition with APOSD:** APOSD says "define errors out of existence." Parse Don't Validate says "make invalid states unconstructable." These reinforce each other: parse at the boundary to eliminate errors, design deep module interfaces that accept only parsed types.
 - **Composition with honest-code:** Honest Code Construct 10 says "Declare What, Not How." Parsed types are declarations of what valid data looks like. They complement each other.

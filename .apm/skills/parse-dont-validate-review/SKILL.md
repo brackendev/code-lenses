@@ -83,15 +83,14 @@ Active type-safety problems causing real cost:
 - Raw primitives (`string`, `int`, `any`, `object`) used to represent domain concepts across module boundaries
 - Same validation check repeated in 3+ locations (shotgun validation)
 - States modeled with multiple booleans or nullable fields instead of sum types (e.g., `{ loading: boolean, error: string | null, data: T | null }`)
-- Business logic functions accepting unvalidated input that could fail on invalid data
-- No parse step at system boundaries: raw request/response bodies passed directly to business logic
+- No parse step at system boundaries: business logic accepts unvalidated input, such as raw request or response bodies, that could fail on invalid data
 
 #### LEAKING (Medium)
 
 Patterns trending toward validation problems:
 
 - Validation at boundary exists but returns the original unstructured type instead of a parsed domain type
-- Optional fields used where a sum type would better represent the state space
+- A single optional field used where a sum type would better represent the state space
 - Partial parsing: some fields parsed into domain types, others left as raw primitives
 - Type assertions or casts used instead of parsing (`as Email`, `(Email) input`)
 - Error messages from deep in the system that belong at the boundary
@@ -100,7 +99,7 @@ Patterns trending toward validation problems:
 
 Minor type-safety issues:
 
-- Primitive obsession for a single concept (e.g., `userId: string` instead of `UserId`)
+- Primitive obsession for a single concept that stays inside one module (e.g., `userId: string` instead of `UserId`)
 - Validation logic that could be a parse constructor but is not yet causing duplication
 - Boolean parameters that could be a union type for clarity
 - Missing exhaustiveness checks on discriminated unions or enums
@@ -124,11 +123,10 @@ For each anti-pattern found, propose the corresponding parse-driven alternative.
 
 - Do not flag raw primitives in internal utility functions where domain types would add overhead without safety benefit (e.g., string concatenation helpers).
 - Do not flag dynamically-typed languages for missing branded types when the language has no type system. Suggest runtime parse functions instead.
-- Do not assume missing context; mark uncertain findings as uncertain.
+- Do not assume missing context or claim certainty without evidence from code, tests, or explicit constraints. Mark uncertain findings as uncertain.
 - Prefer fewer high-confidence findings over many weak findings.
 - Every finding must include specific file reference (`file:line`) and concrete symptom.
 - If uncertain why code exists, say so and reference Chesterton's Fence.
-- Do not claim certainty without evidence from code, tests, or explicit constraints.
 
 ## Output Contract
 

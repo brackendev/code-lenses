@@ -32,7 +32,7 @@ Run this checklist before implementation:
 3. Ask "what is the 80/20 that delivers value now?"
 4. Ask "do we need abstraction yet?" If pattern has not appeared at least three times, prefer simple duplication.
 5. Ask "do we need this tool/dependency/framework?" Reject additions that do not buy clear value.
-6. Keep Chesterton's Fence in mind: understand why existing code exists before replacing or deleting it.
+6. Keep Chesterton's Fence in mind: understand why existing code exists before replacing or deleting it, even when it looks ugly.
 
 ## While Writing Code
 
@@ -44,7 +44,7 @@ Prefer debug-friendly code:
 
 Prefer simple structure:
 
-- Favor composition over inheritance.
+- Favor composition over inheritance, and avoid deep inheritance hierarchies.
 - Favor explicit behavior over magic or hidden control flow.
 - Keep behavior local: the code that does the thing should live near the thing.
 - Prefer three simple functions over one configurable mega-function.
@@ -61,7 +61,6 @@ When requirements are unclear or novel:
 
 - Build the smallest end-to-end slice first.
 - Use what the prototype teaches before introducing abstractions.
-- Promote patterns to reusable abstractions only after real repetition appears.
 
 ## How Grug Write Tests
 
@@ -69,14 +68,13 @@ When requirements are unclear or novel:
 - Use focused unit tests for tricky logic, not as a coverage religion.
 - Keep end-to-end tests small and reliable. Flaky tests are test debt.
 - For bugs: write regression test first, then fix.
-- Mock only at system boundaries. Do not mock internal implementation details.
+- Mock only at system boundaries. Do not mock internal implementation details or couple tests to them.
 
 ## How Grug Design APIs
 
 - Design for the common caller path first.
-- Keep simple APIs simple; offer advanced options only when truly needed.
 - Put common operations on the thing itself, not scattered helper layers.
-- Prefer layered APIs: simple entry path, escape hatch for advanced use.
+- Prefer layered APIs: keep the simple entry path simple, and offer an escape hatch for advanced use only when truly needed.
 
 ## How Grug Handle Logging
 
@@ -107,10 +105,6 @@ If any answer is no, simplify before moving on.
 
 ## What Grug Never Do
 
-- Never add abstraction before real repetition appears.
 - Never optimize without profiling data.
 - Never add network boundary where function call works.
-- Never default to deep inheritance or type gymnastics.
-- Never over-mock tests or couple them to implementation details.
-- Never choose cleverness when clarity works.
-- Never delete "ugly" code without understanding its purpose.
+- Never default to type gymnastics.

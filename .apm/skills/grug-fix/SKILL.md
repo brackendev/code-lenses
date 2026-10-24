@@ -14,7 +14,7 @@ user-invocable: true
 
 Fix bugs through [grug brain developer](https://grugbrain.dev/) philosophy.
 Primary mission: find root cause with smallest investigation, fix with smallest change, prove the fix.
-All output must be in grug voice. Quote raw commands, errors, logs, and stack traces verbatim; only commentary should be in grug voice.
+All output must be in grug voice.
 
 ## Grug Fix Laws
 
@@ -45,7 +45,7 @@ This skill operates on a problem, not a code scope, so it does not accept `all` 
 
 ## Scope
 
-When the bug entry point (error message, stack trace, or failing test) resolves into a vendored, generated, or dependency-locked path, the skill diagnoses but does not write. Reporting includes the file path and the reason. The operator may then pass the path explicitly to authorize the edit. The filter covers `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). A `<file>:<line>` argument that names a vendored file is informed consent and the filter does not apply.
+When the bug entry point (error message, stack trace, or failing test) resolves into a vendored, generated, or dependency-locked path, the skill diagnoses but does not write. Reporting includes the file path and the reason. The operator may then pass the path explicitly to authorize the edit. The filter covers `.gitignore` matches and a hardcoded floor (`node_modules/`, `vendor/`, `third_party/`, `.bundle/`, `target/`, `build/`, `dist/`, `out/`, `.shadow-cljs/`, `cljd-out/`, `*.lock`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `Gemfile.lock`, `Cargo.lock`, `poetry.lock`, `composer.lock`). A `<file>:<line>` argument that names a vendored file is informed consent and the filter does not apply. When the filter excludes any path, add a single "skipped N vendored or generated paths" line to the report. Under `--report`, list every skipped path.
 
 ## Fix Process
 
@@ -103,11 +103,10 @@ Based on evidence, state one clear hypothesis:
 
 Test the hypothesis with the smallest possible check:
 
-1. Use existing output, debugger, or REPL to confirm or refute.
-2. Add a focused assertion or log only if no existing path confirms.
-3. Run the reproduction.
-4. If refuted, return to Step 3 with new evidence. Do not guess again.
-5. If confirmed, proceed to fix.
+1. Confirm or refute it with the evidence sources from Step 3, in the same order of preference.
+2. Run the reproduction.
+3. If refuted, return to Step 3 with new evidence. Do not guess again.
+4. If confirmed, proceed to fix.
 
 ### 6) Fix Root Cause
 
@@ -161,15 +160,13 @@ Remove all temporary debug artifacts:
 ### Production-Only Bugs
 
 1. Work from logs, error reports, and stack traces.
-2. Mark all findings as artifact-based.
-3. Attempt to reproduce locally with equivalent data/config.
-4. If local repro is not possible, the outcome may be diagnosis-only.
+2. Attempt to reproduce locally with equivalent data/config.
+3. If local repro is not possible, the outcome may be diagnosis-only.
 
 ### Config, Build, and Cache Issues
 
 1. Check environment: versions, feature flags, build artifacts, cache state.
 2. Compare working and broken environments.
-3. The fix is often not a code change. Document what was wrong.
 
 ### Dependency Regressions
 
@@ -193,9 +190,7 @@ Watch for these temptations and resist:
 
 - Do not claim root cause without evidence from code, tests, or logs.
 - If uncertain, say so explicitly and list what evidence is missing.
-- Do not fix code that is not related to the bug.
 - Do not weaken tests to hide the bug. Fix the code, update the test expectation, or both when the fix changes correct behavior.
-- If the bug is in a dependency, confirm version and check known issues before patching around it.
 
 ## Voice
 

@@ -85,7 +85,7 @@ If evidence is insufficient to answer a check, say so explicitly and list what e
 
 ### 3) Detect Complexity Demons
 
-Use severity tiers below. Report only findings with concrete file evidence.
+Use severity tiers below.
 
 #### CLUB (High)
 
@@ -134,11 +134,10 @@ Also call out what is good:
 ## False-Positive Guardrails
 
 - Do not flag complexity that is required by protocol, security, correctness, or external constraints unless simpler viable alternative is clear.
-- Do not assume missing context; mark uncertain findings as uncertain.
+- Do not assume missing context or claim certainty without evidence from code, tests, or explicit constraints. Mark uncertain findings as uncertain.
 - Prefer fewer high-confidence findings over many weak findings.
 - Every finding must include specific file reference (`file:line`) and concrete symptom.
 - If uncertain why code exists, say so and reference Chesterton's Fence.
-- Do not claim certainty without evidence from code, tests, or explicit constraints.
 
 ## Voice
 
