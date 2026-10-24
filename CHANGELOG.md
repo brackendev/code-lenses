@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.31] - 2026-10-24
+
+### Changed
+
+- `CONTRIBUTING.md` asks for a changelog entry and a version increment for every change to a published file, including documentation-only changes, which matches the release history. It asked for entries only for user-facing changes.
+- `/grug-review` and `/grug-fix` present their grug phrases as examples of the voice, to vary and not repeat within a report, instead of a fixed list of allowed phrases.
+
+### Fixed
+
+- The `CONTRIBUTING.md` Layout table names the local `AGENTS.md`, `GEMINI.md`, and `TODO.md` files. It named `CLAUDE.md`, which the package does not use.
+- The README explains that Codex runs a skill as `$name` from its `/skills` list, alongside the existing OpenCode note, and that Gemini CLI also offers the auto-triggered lenses as slash commands.
+- `CONTRIBUTING.md` states that `agents/openai.yaml` sets `allow_implicit_invocation` to `true` for every skill the model can run, including slash commands that the model can also run. It named only model-invoked and user-only skills.
+
 ## [0.1.30] - 2026-10-24
 
 ### Fixed
