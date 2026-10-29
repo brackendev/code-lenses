@@ -23,7 +23,7 @@ Do not add `.claude-plugin/`, `.codex-plugin/`, `.agents/plugins/marketplace.jso
 
 1. Edit `.apm/skills/<name>/SKILL.md`.
 2. Update `README.md` if the change is user-facing.
-3. Add a `CHANGELOG.md` entry under `[Unreleased]` for every change to a published file, including documentation-only changes.
+3. Add a `CHANGELOG.md` entry for every change to a published file, including documentation-only changes, under a `## [x.y.z] - YYYY-MM-DD` heading for the new `apm.yml` version. Leave `## [Unreleased]` empty above it.
 4. Increment the `version` field in `apm.yml`.
 
 ## Validation

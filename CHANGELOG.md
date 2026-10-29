@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.33] - 2026-10-29
+
+### Changed
+
+- `CONTRIBUTING.md` says to record each change under the heading for the new `apm.yml` version, not under `[Unreleased]`.
+
 ## [0.1.32] - 2026-10-29
 
 ### Changed
