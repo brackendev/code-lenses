@@ -1,0 +1,8 @@
+interface:
+  display_name: "Data-Oriented Programming"
+  short_description: "Apply Data-Oriented Programming principles when designing how a program represents data."
+  default_prompt: "Use data-oriented-programming for this data model."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: true

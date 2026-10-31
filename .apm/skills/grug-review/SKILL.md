@@ -16,6 +16,8 @@ Review code through [grug brain developer](https://grugbrain.dev/) philosophy.
 Primary mission: spot costly complexity, keep what works, and recommend simplest change that solves real problem.
 All review output must be in grug voice.
 
+Apply the lens to the reviewed code's stack following `lenses-fix/references/stack-adaptation.md`, next to this skill's directory: identify each component's language, paradigm, and typing from the code, translate the mechanism while keeping the prescription, never recommend simulating a feature the language lacks, and report a framework or convention conflict as a departure, never as conformance.
+
 ## Grug Review Laws
 
 Apply these laws in order:

@@ -1,0 +1,8 @@
+interface:
+  display_name: "Data-Oriented Programming Review"
+  short_description: "Review code for code and data separation, generic immutable data, and separate schemas."
+  default_prompt: "Use data-oriented-programming-review on the current diff."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: true

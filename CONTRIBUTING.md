@@ -32,7 +32,7 @@ A lens whose source publishes a canonical rule file ships that file unchanged in
 
 To update the copy:
 
-1. Read the upstream commits since the pinned one. A new or renumbered principle can change the examples in `honest-code-review/SKILL.md` and the principle numbers cited in other lenses and in the Clojure-family lens translations.
+1. Read the upstream commits since the pinned one. A new or renumbered principle can change the examples in `honest-code-review/SKILL.md` and the principle numbers cited in the other lenses and in `lenses-fix/references/stack-adaptation.md`.
 2. Replace everything below the header comment with the upstream file, and update the URL, commit, and date in the header.
 3. Confirm the body matches upstream exactly: `tail -n +9 .apm/skills/honest-code/references/honest-code-principles.md | diff - <(gh api "repos/openhonest/honest-code-principles/contents/honest-code-principles.md?ref=<commit>" --jq .content | base64 -d)`.
 4. Search for cited principle numbers (`grep -rn "P[0-9][0-9]" .apm`) and update any that changed.

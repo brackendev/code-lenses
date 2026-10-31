@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.35] - 2026-10-31
+
+### Added
+
+- `data-oriented-programming` and `/data-oriented-programming-review` apply the four principles of Data-Oriented Programming by Yehonathan Sharvit: separate code from data, represent data with generic data structures, treat data as immutable, and separate the data schema from the data. Findings cite principles by number (`DOP #2`) and name the costs Sharvit gives for a principle where they apply. Severity tiers: ENTANGLED, CONFINED, IMPLICIT.
+- `lenses-fix/references/stack-adaptation.md` states how every lens applies its source to the stack under review: identify each component's language, framework, paradigm, typing, data representation, UI architecture, and test coverage from the code, keep the prescription while using the stack's own mechanism, never recommend simulating a feature the language lacks, report a framework or convention conflict as a departure, and check claims by reading code and library source without writing scratch files. Every review skill follows it.
+
+### Changed
+
+- `/lenses-fix` no longer runs a fixed set of lenses. It identifies the components in scope, chooses the lenses that fit each one by the rules in `lenses-fix/references/lens-selection.md`, and reports the evidence, the rule that chose each lens, and every lens that did not run with the reason and the `+name` argument that runs it. grug, Honest Code, and Tidy First? run for any code. Parse Don't Validate, Data-Oriented Programming, APOSD, and Legacy Code run where their subject is present and their central idea can apply.
+- `/lenses-fix` accepts `+<lens>` for any lens, not only `+aposd` and `+legacy-code`.
+- `/lenses-fix` groups every finding that would change a public contract, state ownership, persistence strategy, module responsibilities, or an established project convention, from any lens, under Architectural Departures, and reports them without applying them. `apply architectural`, or a later request that names findings, applies them. Only mixed-commit findings and architectural Honest Code findings were reported without being applied.
+- `/lenses-fix` runs the project's tests after applying fixes and reports the result in a Verification section.
+- `CONTRIBUTING.md` names `lenses-fix/references/stack-adaptation.md` among the files to check when an Honest Code principle number changes.
+
 ## [0.1.34] - 2026-10-31
 
 ### Changed

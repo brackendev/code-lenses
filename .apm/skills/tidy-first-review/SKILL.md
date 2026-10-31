@@ -16,6 +16,8 @@ Review code for tidying opportunities using the [Tidy First?](https://www.oreill
 
 All review output uses direct, professional voice. Reference tidyings by name and number.
 
+Apply the lens to the reviewed code's stack following `lenses-fix/references/stack-adaptation.md`, next to this skill's directory: identify each component's language, paradigm, and typing from the code, translate the mechanism while keeping the prescription, never recommend simulating a feature the language lacks, and report a framework or convention conflict as a departure, never as conformance.
+
 ## Arguments
 
 Interpret naturally. This skill is a pure report. It does not mutate the workspace and carries no `--report` flag (there is nothing to invert).

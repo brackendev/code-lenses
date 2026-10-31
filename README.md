@@ -1,8 +1,8 @@
 # code-lenses
 
-Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys the full set (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Legacy Code) to every runtime in APM's default target set: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, Windsurf, Kiro, and Grok Build. Antigravity is supported by naming it explicitly with `--target antigravity`.
+Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys the full set (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Data-Oriented Programming, Legacy Code) to every runtime in APM's default target set: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, Windsurf, Kiro, and Grok Build. Antigravity is supported by naming it explicitly with `--target antigravity`.
 
-Skills follow the [Agent Skills](https://agentskills.io) open standard. The review and fix skills are slash commands (`/grug-review`, `/lenses-fix`, and the rest), and the agent can also run each of them from a natural-language request. The six review skills are read-only reports. The fix skills (`/lenses-fix`, `/grug-fix`) edit files by default. The five implementation-guidance skills activate automatically from conversation context. See [CONVENTIONS.md](CONVENTIONS.md) for the canonical argument grammar, scope vocabulary, and mutation default that every user-invocable skill follows.
+Skills follow the [Agent Skills](https://agentskills.io) open standard. The review and fix skills are slash commands (`/grug-review`, `/lenses-fix`, and the rest), and the agent can also run each of them from a natural-language request. The review skills are read-only reports. The fix skills (`/lenses-fix`, `/grug-fix`) edit files by default. The implementation-guidance skills activate automatically from conversation context. See [CONVENTIONS.md](CONVENTIONS.md) for the canonical argument grammar, scope vocabulary, and mutation default that every user-invocable skill follows.
 
 Source: <https://github.com/brackendev/code-lenses>. APM shorthand: `brackendev/code-lenses`.
 
@@ -24,9 +24,9 @@ Update with `apm update [-g]`. Remove with `apm uninstall brackendev/code-lenses
 
 ## Quick start
 
-Slash commands run inside your agent runtime (Claude Code, Codex CLI, OpenCode, and the rest), not at a shell prompt. The shell-styled code blocks below are formatted that way for readability. Codex and OpenCode do not list skills as slash commands. In Codex, type `$grug-review` or pick the skill from the `/skills` list. In OpenCode, attach it with `@grug-review` or pick it from the `/skills` list, then type the arguments. Gemini CLI does not read the `user-invocable` setting, so it also offers the five auto-triggered lenses as slash commands.
+Slash commands run inside your agent runtime (Claude Code, Codex CLI, OpenCode, and the rest), not at a shell prompt. The shell-styled code blocks below are formatted that way for readability. Codex and OpenCode do not list skills as slash commands. In Codex, type `$grug-review` or pick the skill from the `/skills` list. In OpenCode, attach it with `@grug-review` or pick it from the `/skills` list, then type the arguments. Gemini CLI does not read the `user-invocable` setting, so it also offers the auto-triggered lenses as slash commands.
 
-Run every default lens in parallel against the current diff, aggregate findings, and apply non-conflicting fixes:
+Detect the stack of the current diff, run the lenses that fit it in parallel, aggregate findings, and apply the non-conflicting local fixes:
 
 ```bash
 /lenses-fix
@@ -45,13 +45,14 @@ Review changed files through a single lens (review skills never mutate):
 /honest-code-review
 /tidy-first-review
 /parse-dont-validate-review
+/data-oriented-programming-review
 ```
 
-Add an opt-in lens to the default set:
+Add a lens to the ones `/lenses-fix` selects:
 
 ```bash
 /lenses-fix +aposd
-/lenses-fix +legacy-code
+/lenses-fix +data-oriented-programming
 ```
 
 Fix a failing test through grug brain philosophy:
@@ -66,7 +67,7 @@ Diagnose without editing files:
 /grug-fix TypeError: Cannot read property 'id' of undefined --report
 ```
 
-The implementation-guidance lenses (`grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `aposd`) activate automatically when their domain comes up. They cannot be invoked directly.
+The implementation-guidance lenses (`grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `data-oriented-programming`, `aposd`) activate automatically when their domain comes up. They cannot be invoked directly.
 
 ## Command guide
 
@@ -74,12 +75,13 @@ A quick guide to every slash command. The detailed entries under [Skills](#skill
 
 | Command | Use it when | What it does |
 |---------|-------------------|--------------|
-| `/lenses-fix` | You want a multi-lens review with fixes applied | Runs the default lenses in parallel, prints one report, and applies non-conflicting findings |
+| `/lenses-fix` | You want a multi-lens review with fixes applied | Detects the stack, runs the lenses that fit it in parallel, prints one report, and applies non-conflicting local findings |
 | `/grug-fix` | A bug or failing test needs a careful fix | Fixes it through grug brain philosophy and adds a regression test |
 | `/grug-review` | Code feels too complex | Reviews for complexity demons (report only) |
 | `/honest-code-review` | Code may hide dishonest patterns | Reviews against the Honest Code Principles (report only) |
 | `/tidy-first-review` | Code needs tidying before a change | Reviews for tidying opportunities (report only) |
 | `/parse-dont-validate-review` | Types should make illegal states unrepresentable | Reviews for type-driven correctness (report only) |
+| `/data-oriented-programming-review` | Data is locked in objects or mutated in place | Reviews against Sharvit's Data-Oriented Programming principles (report only) |
 | `/aposd-review` | Modules feel shallow or leaky | Reviews module depth and information hiding (report only) |
 | `/legacy-code-review` | Untested code needs safe changes | Reviews for safe-modification seams (report only) |
 
@@ -89,15 +91,18 @@ A quick guide to every slash command. The detailed entries under [Skills](#skill
 
 Mutating skills that apply changes by default. Each accepts `--report` to preview the work without writing.
 
-#### `/lenses-fix [scope] [lenses] [+aposd|+legacy-code] [--report]`
+#### `/lenses-fix [scope] [lenses] [+lens] [apply architectural] [--report]`
 
-Run code lens reviews in parallel, print a unified report, then apply non-conflicting findings. Default lenses: `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`. Name lenses to run only those, including `aposd` and `legacy-code`. Prefix a lens with `+` to add it to the defaults (`+aposd`, `+legacy-code`). Fixes are applied in order: characterization tests first, then structural changes, then behavioral changes, each labeled by kind so they can be committed separately. Findings that need a commit split or a design decision are reported but not applied. Pass `--report` to aggregate findings and skip the apply phase.
+Detect the stack of each component in scope from the code (language, framework, paradigm, typing, data representation, UI architecture, and test coverage), choose the lenses that fit each component, run them in parallel, print a unified report, then apply the non-conflicting local findings. No lens list is fixed. grug, Honest Code, and Tidy First? run for any code, and Parse Don't Validate, Data-Oriented Programming, APOSD, and Legacy Code run where their subject is present and their central idea can apply. The report's Lens selection section shows the evidence for each component, the rule that chose each lens, and every lens that did not run, with the reason and the `+name` argument that runs it. Every lens applies its source to the component's stack: it keeps the source's prescription, uses the stack's own mechanism, and reports a framework or convention conflict as a departure, never as conformance.
+
+Name lenses to run only those. Prefix a lens with `+` to add it to the selection (`+aposd`, `+data-oriented-programming`). Findings that would change a public contract, state ownership, persistence strategy, module responsibilities, or an established project convention are grouped under Architectural Departures and reported, not applied, unless you pass `apply architectural` or ask for specific findings afterward. Local fixes are applied in order: characterization tests first, then structural changes, then behavioral changes, each labeled by kind so they can be committed separately. After the fixes, the project's tests run and the result is reported. Pass `--report` to aggregate findings and skip the apply phase.
 
 ```bash
 /lenses-fix
 /lenses-fix src/auth.ts
 /lenses-fix grug honest-code
 /lenses-fix +aposd
+/lenses-fix src/orders/ apply architectural
 /lenses-fix --report
 /lenses-fix src/api/ --report
 ```
@@ -132,6 +137,10 @@ Review code for tidying opportunities using [Tidy First?](https://www.oreilly.co
 
 Review code for type-driven correctness using [Parse, Don't Validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) and Make Illegal States Unrepresentable. Severity tiers: UNGUARDED, LEAKING, LOOSE.
 
+#### `/data-oriented-programming-review [scope]`
+
+Review code against the four principles of [Data-Oriented Programming](https://blog.klipse.tech/dop/2022/06/22/principles-of-dop.html) by Yehonathan Sharvit: separate code from data, represent data with generic data structures, treat data as immutable, and separate the data schema from the data. Findings cite principles by number (`DOP #2`) and name the costs Sharvit gives for each principle where they apply. Severity tiers: ENTANGLED, CONFINED, IMPLICIT.
+
 #### `/aposd-review [scope]`
 
 Review code for module depth, information hiding, and complexity using [A Philosophy of Software Design](https://web.stanford.edu/~ouster/cgi-bin/book.php) by John Ousterhout. Severity tiers: SHALLOW, EXPOSED, SURFACE.
@@ -150,6 +159,7 @@ These activate from conversation context when their domain comes up. They cannot
 | `honest-code` | "honest code", "declarative", "pure functions", "side effects", "no classes", "no inheritance", "mocks", "implicit defaults", "dishonest", "functional core", "imperative shell" |
 | `tidy-first` | "tidy", "clean up before", "refactor before", "messy code", "structural change", "reading order", "guard clauses", "extract helper", "dead code" |
 | `parse-dont-validate` | "parse don't validate", "illegal states", "unrepresentable", "type-driven", "branded type", "smart constructor", "parse at boundary" |
+| `data-oriented-programming` | "data-oriented programming", "DOP", "data as data", "generic data structures", "immutable data", "data schema", "separate code from data"; designing data models and entities |
 | `aposd` | Designing modules, interfaces, error handling; questions about deep modules, information hiding, complexity symptoms |
 
 ## Contributing
