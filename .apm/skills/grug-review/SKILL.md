@@ -85,7 +85,7 @@ If evidence is insufficient to answer a check, say so explicitly and list what e
 
 ### 3) Detect Complexity Demons
 
-Use severity tiers below.
+Use the severity tiers below. The tiers and their names are this package's review scale for ranking findings, not part of the grug brain essay. Cite the grug idea in each finding.
 
 #### CLUB (High)
 

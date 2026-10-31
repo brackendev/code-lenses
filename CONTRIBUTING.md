@@ -26,6 +26,19 @@ Do not add `.claude-plugin/`, `.codex-plugin/`, `.agents/plugins/marketplace.jso
 3. Add a `CHANGELOG.md` entry for every change to a published file, including documentation-only changes, under a `## [x.y.z] - YYYY-MM-DD` heading for the new `apm.yml` version. Leave `## [Unreleased]` empty above it.
 4. Increment the `version` field in `apm.yml`.
 
+## Vendored sources
+
+A lens whose source publishes a canonical rule file ships that file unchanged instead of a summary. `.apm/skills/honest-code/references/honest-code-principles.md` is the [Honest Code Principles](https://github.com/openhonest/honest-code-principles) file at a pinned commit, under the Apache License 2.0. The upstream README asks projects to depend on its repository and neither to paste the text into a project nor to summarize it, because copies drift. This package ships an exact copy anyway, because a skill has to work in sessions without network access. To keep the copy from drifting, it is pinned to one commit and compared with upstream before each release (step 3 below), and the skills never summarize it. They cite principles by number (`P15`), and their examples are short pointers to the cited principle, not definitions.
+
+To update the copy:
+
+1. Read the upstream commits since the pinned one. A new or renumbered principle can change the examples in `honest-code-review/SKILL.md` and the principle numbers cited in other lenses and in the Clojure-family lens translations.
+2. Replace everything below the header comment with the upstream file, and update the URL, commit, and date in the header.
+3. Confirm the body matches upstream exactly: `tail -n +9 .apm/skills/honest-code/references/honest-code-principles.md | diff - <(gh api "repos/openhonest/honest-code-principles/contents/honest-code-principles.md?ref=<commit>" --jq .content | base64 -d)`.
+4. Search for cited principle numbers (`grep -rn "P[0-9][0-9]" .apm`) and update any that changed.
+
+Rules that this package adds to a lens, such as the severity tiers in every review skill, are labeled as this package's own and never attributed to the source.
+
 ## Validation
 
 Configuration files:

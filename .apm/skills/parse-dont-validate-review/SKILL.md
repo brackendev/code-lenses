@@ -74,7 +74,7 @@ For each file in scope:
 
 ### 2) Detect Validation Anti-Patterns
 
-Map code against the anti-patterns below. Each finding references a specific principle.
+Map code against the anti-patterns below. Each finding references a specific principle. The severity tiers and their names are this package's review scale for ranking findings, not part of Alexis King's or Yaron Minsky's writing. 
 
 #### UNGUARDED (High)
 

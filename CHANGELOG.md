@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.34] - 2026-10-31
+
+### Changed
+
+- The `honest-code` and `honest-code-review` skills follow the [Honest Code Principles](https://github.com/openhonest/honest-code-principles) (P01-P25) from the Open Honest Foundation instead of a paraphrased summary of twelve constructs. The `honest-code` skill ships an unchanged copy of the principles file at commit `25a5b86` under the Apache License 2.0, and both skills cite principles by number. The upstream README asks projects not to copy the file, and the README, `CONTRIBUTING.md`, and both skills say that this package copies it so that the lens works without network access. Gary Bernhardt's Functional Core, Imperative Shell, which was listed as a twelfth construct, is now related background for P03.
+- `/honest-code-review` reports browser principles (P05, P06, P22) as not applicable to a scope with no browser interface, and reports code that departs from a principle because of a framework constraint as a departure, never as conformance.
+- `/lenses-fix`, `aposd`, and `parse-dont-validate` cite Honest Code principles by number.
+- Every review skill states that its severity tiers are this package's review scale, not part of the lens's source. `/tidy-first-review` reports a commit that mixes tidyings with behavior changes as TANGLED because it breaks Kent Beck's rule to separate them, and states that the tier is this package's.
+- The README's command table describes `/honest-code-review` as reviewing against the Honest Code Principles.
+- `CONTRIBUTING.md` explains how to update a vendored source file.
+
 ## [0.1.33] - 2026-10-29
 
 ### Changed

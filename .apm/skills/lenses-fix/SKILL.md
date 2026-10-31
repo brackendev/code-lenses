@@ -116,12 +116,12 @@ After all sub-agents complete, produce a unified report:
 
 [- **Abstraction timing:** Grug delays abstraction until three repetitions. Tidy First extracts helpers whenever it eases the next change.]
 [- **Type investment:** Grug wants the simplest type that works. Parse Don't Validate wants domain types that encode invariants. An option that satisfies both: use the cheapest type that permanently deletes a class of bugs.]
-[- **Data shape:** Honest Code wants data as plain records with no methods. Parse Don't Validate wants constrained values wrapped in newtypes or branded types that only a parse function can create. A plain record produced only by a parse function satisfies both.]
-[- **Data design (when APOSD included):** Honest Code wants flat, transparent data. APOSD wants data hidden behind module interfaces.]
+[- **Data shape:** Honest Code (P02) wants data as plain records with no methods. Parse Don't Validate wants constrained values wrapped in newtypes or branded types that only a parse function can create. A plain record produced only by a parse function satisfies both.]
+[- **Data design (when APOSD included):** Honest Code (P02) wants plain, transparent data. APOSD wants data hidden behind module interfaces.]
 [- **Design investment (when APOSD included):** Grug favors shipping the simplest working solution. APOSD favors investing 10-20% extra time in strategic design.]
 [- **Interface scope (when APOSD included):** Grug says design for current needs only. APOSD says design somewhat general-purpose interfaces.]
 [- **Test strategy (when Legacy Code included):** Legacy Code says write characterization tests to lock existing behavior. Tidy First says tidy the structure before changing behavior. When both apply, the user decides which unblocks the change.]
-[- **Seams vs composition (when Legacy Code included):** Legacy Code recommends object seams (subclass, Extract Interface) as tactical rescue techniques to enable testing. Honest Code avoids inheritance and deep hierarchies. These seams are temporary scaffolding for testability, not end-state design.]
+[- **Seams vs composition (when Legacy Code included):** Legacy Code recommends object seams (subclass, Extract Interface) as tactical rescue techniques to enable testing. Honest Code (P04) avoids inheritance. These seams are temporary scaffolding for testability, not end-state design, and P23 describes the same one-step-at-a-time migration.]
 
 [Only include conflicts that actually appeared in the review. Omit this section if no lenses contradicted each other.]
 
@@ -143,7 +143,7 @@ After presenting the unified report, apply the non-conflicting findings.
 Some findings are not code edits and are reported instead of applied:
 
 - **Mixed structural and behavioral changes** (Tidy First). The fix is to split the work into separate commits, which an edit cannot do.
-- **Architectural Honest Code findings.** Moving state to a single source of truth, changing performance architecture before profiling, and replacing a rewrite with a rescue all need a design decision beyond a local edit.
+- **Architectural Honest Code findings.** Moving client state to the DOM (P05), replacing a cache after profiling (P09), and planning a strangler migration (P23) all need a design decision beyond a local edit.
 
 Launch a sub-agent with:
 - The full unified report as context

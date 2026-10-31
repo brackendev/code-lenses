@@ -1,6 +1,6 @@
 interface:
   display_name: "Honest Code"
-  short_description: "Apply the Honest Code constructs during implementation."
+  short_description: "Apply the Honest Code Principles during implementation."
   default_prompt: "Use honest-code on this implementation."
   brand_color: "#F97316"
 

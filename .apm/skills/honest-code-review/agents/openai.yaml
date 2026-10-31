@@ -1,6 +1,6 @@
 interface:
   display_name: "Honest Code Review"
-  short_description: "Review code for dishonest patterns using the Honest Code constructs."
+  short_description: "Review code for dishonest patterns using the Honest Code Principles."
   default_prompt: "Use honest-code-review on the current diff."
   brand_color: "#F97316"
 

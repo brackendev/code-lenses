@@ -1,110 +1,41 @@
 ---
 name: honest-code
 description: >-
-  Apply the Honest Code constructs while writing or changing code: flat data
-  over classes, pure functions, flat composition over inheritance, errors
-  raised at the source, and effects pushed to the edges. Use when the user
-  asks for honest or declarative code, or mentions pure functions, side
-  effects, flat data, avoiding classes, inheritance, or state, "let it crash",
+  Apply the Honest Code Principles (P01-P25) while writing or changing code:
+  lookup polymorphism, pure functions over methods, I/O at the boundary,
+  composition over inheritance, typed exceptions at the boundary, no implicit
+  defaults, dispatch tables, and faults returned to the caller. Use when the
+  user asks for honest or declarative code, or mentions pure functions, side
+  effects, avoiding classes, inheritance, or state, mocks, implicit defaults,
   "dishonest" code, or "functional core, imperative shell".
 user-invocable: false
 ---
 
 # Honest Code
 
-Apply the [Honest Code](https://honestcode.software) constructs to the current task. Constructs 1 through 11 are by Adam Zachary Wasserman. Construct 12 extends the philosophy with Gary Bernhardt's Functional Core, Imperative Shell pattern. Honest software uses constructs that tell the truth about what they do.
+Apply the Honest Code Principles to the current task. The principles are maintained by the Open Honest Foundation (Adam Zachary Wasserman) as a single source file, and this skill ships an unchanged copy of it at a pinned commit: `references/honest-code-principles.md`. Its header records the upstream URL, commit, and license.
 
-## The Constructs
-
-Follow these constructs when writing or changing code.
-
-### 1. Data Is Data (Ch 3)
-
-**Instead of:** Class with fields and methods bundled together.
-**Use:** TypedDict, record, struct, or plain object with no behavior attached.
-
-Keep data structures flat. If you cannot serialize it to JSON, it is too complex. Separate data from the functions that operate on it.
-
-### 2. Input In, Output Out (Ch 4)
-
-**Instead of:** Methods that mutate `self` or `this`. Class hierarchies for polymorphism.
-**Use:** Pure functions. Dict-lookup polymorphism (`HANDLERS[type](data)`). Pass state as parameter, return new state.
-
-Test becomes: `assert f(input) == expected`. No setup, no teardown, no mocking.
-
-### 3. One Source of Truth (Ch 5)
-
-**Instead of:** Client-side state synchronized with server state (Redux, MobX, Zustand).
-**Use:** DOM or database as the single source. Server-rendered HTML with targeted swaps (HTMX, Turbo).
-
-When two sources disagree, users experience bugs. Eliminate one source.
-
-### 4. Declare, Don't Instruct (Ch 12)
-
-**Instead of:** Imperative DOM manipulation. Event listeners wiring behavior to elements. JavaScript formatting libraries.
-**Use:** HTML attributes (HTMX attributes, data attributes). Browser-native APIs (`Intl` for formatting). Declarative bindings.
-
-Let the platform do the work. Declarations are easier to read, test, and maintain than instructions.
-
-### 5. Compose Flat, Never Deep (Ch 6)
-
-**Instead of:** `class B extends A`. Handler hierarchies. Middleware stacks.
-**Use:** `pipe(a, b, c)`. Independent functions composed at call site. Hooks and dependency injection.
-
-Each function does one thing. Composition happens at the edges, not through inheritance chains.
-
-### 6. Let It Crash (Ch 7)
-
-**Instead of:** `catch (e) { return false }`. Nested try-catch. Inline retry logic.
-**Use:** Raise at source, handle at boundary. Typed exceptions. Supervision (let supervisor decide). Task queue with retry policy.
-
-Swallowed errors are lies. Crash early, crash loud, let the caller or supervisor decide what happens next.
-
-### 7. Profile First, Fix Architecture (Ch 8)
-
-**Instead of:** Application-level object cache. Three service calls where one query works.
-**Use:** Single SQL join under 3ms. Proper indexes. Measure before caching.
-
-Caching without profiling is premature architecture. Most performance problems are query problems.
-
-### 8. Boring Tests (Ch 9)
-
-**Instead of:** 9 `@MockBean` annotations. Mock store + 4 wrapper components to test a UI.
-**Use:** `assert f(input) == expected`. HTTP request + check HTML. Gherkin for features.
-
-If the test is interesting, the design is the bug. Honest architecture makes tests boring.
-
-### 9. Constrain AI (Ch 10)
-
-**Instead of:** Accepting AI-generated 500-line classes. Reviewing sprawling output.
-**Use:** Honest architecture as the prompt. Five 10-line functions instead of one 500-line class.
-
-AI generates the most statistically common code. That code is a crime scene. Constrain with honest architecture: review cost drops from an hour to five minutes.
-
-### 10. Declare What, Not How (Ch 11)
-
-**Instead of:** Mutable variables and side effects. Imperative validation.
-**Use:** Declarations (what) over instructions (how). Pure functions and typed data. Type declarations enforced by the system.
-
-Let the type system and runtime enforce constraints instead of writing validation code.
-
-### 11. Rescue, Don't Rewrite (Ch 13)
-
-**Instead of:** Big-bang rewrite. "We need to start over."
-**Use:** Extract one pure function this sprint. Strangler pattern: wrap old, build new alongside. Show faster tests, fewer bugs. Find one ally. Let it spread.
-
-Rewrites fail. Incremental rescue succeeds.
-
-### 12. Push Effects to the Edges
-
-**Instead of:** Business logic interleaved with database calls, HTTP requests, file I/O, and logging. Functions that are half calculation, half side effect.
-**Use:** Functional core: pure functions that take data and return data. Imperative shell: a thin outer layer that performs I/O, calls the core, and writes results.
-
-Structure each feature as: read inputs (shell) -> compute decision (core) -> write outputs (shell). The core is easy to test (`assert f(input) == expected`) because it has no I/O. The shell is thin enough to verify by inspection. Based on Gary Bernhardt's [Boundaries](https://www.destroyallsoftware.com/talks/boundaries) talk. Extends Constructs 2 and 3 from function-level purity to architecture-level separation.
+Read `references/honest-code-principles.md` before applying the lens. The file is the rule text. This skill cites principles by number and does not restate them. The upstream README asks projects not to copy the file and not to summarize it, because copies drift. This package ships the exact file anyway so that the lens works without network access, and it keeps the copy pinned to one commit.
 
 ## Application Rules
 
-- When detecting code that matches an "instead of" pattern, suggest the corresponding "use" pattern. Reference the construct by name and number.
-- Consider the project's language when suggesting alternatives. The constructs apply across Python, TypeScript, Go, Java, and others.
-- Honest Code provides specific construct-level guidance. The grug skill provides general anti-complexity instinct. Both can apply to the same code.
-- Direct users to [honestcode.software](https://honestcode.software) for full examples and reasoning.
+- Cite a principle by its number (`P15`), never by its title alone. Upstream keeps each number permanently and has renamed titles.
+- Each principle names the category of defect it removes. When suggesting a change, name that defect for the code at hand, then the honest alternative the principle gives.
+- Apply the principle as written. When a project or framework constraint prevents it (for example, an ORM that requires entity classes), say that the code departs from the principle and why. Do not describe the departure as conforming, and do not restate the principle in weaker terms.
+- P05 (DOM as State), P06 (HTML attributes), and P22 (declarative lifecycle) concern browser interfaces. When the work has no browser interface, they do not apply. When it does and uses another client-state design, they apply, and the disagreement is stated.
+- P02 says how to write honest code in Java and C#, which do not allow standalone functions. Follow that text rather than inventing another translation.
+- The "Enforced by" lines name upstream's own checkers (`honest-check`, `honest-test`, `feature-gate.sh`). They describe upstream's tooling. Do not claim a project is checked by them unless it runs them.
+
+## Related Background
+
+Gary Bernhardt's [Boundaries](https://www.destroyallsoftware.com/talks/boundaries) talk (Functional Core, Imperative Shell) argues for the same separation as P03. It is background reading, not one of the principles.
+
+The book *Honest Code* (<https://honestcode.software>) gives the longer reasoning and examples. When the book and the principles file disagree, follow the principles file, which upstream calls the single source.
+
+## Composition With Other Lenses
+
+These notes are this package's guidance, not part of the principles.
+
+- The grug skill provides general instinct against complexity. Both can apply to the same code.
+- Parse Don't Validate and P11 and P14 agree on validating once at the boundary. Parse Don't Validate adds parsed domain types, which P02's plain data can carry when only a parse function produces them.
+- APOSD prefers defining errors out of existence. Where an error remains, P08 and P24 govern how it travels.

@@ -87,13 +87,13 @@ For each file in scope:
 
 Primary check: are structural and behavioral changes separated?
 
-**When reviewing commits** (recent history or PR): Use `git show <sha>` to inspect each commit. A commit that contains both structural moves (renaming, reordering, extracting) and behavioral changes (new logic, changed conditions, different return values) is always TANGLED.
+**When reviewing commits** (recent history or PR): Use `git show <sha>` to inspect each commit. A commit that contains both structural moves (renaming, reordering, extracting) and behavioral changes (new logic, changed conditions, different return values) breaks Beck's rule to keep tidyings and behavior changes in separate commits. Report it as TANGLED, this package's highest tier, because a reviewer cannot check either change on its own.
 
 **When reviewing uncommitted changes** (staged + unstaged diff): Scan diff hunks for regions that mix structural and behavioral changes in the same file or logical unit. Flag hunks where tidyings and new behavior are interleaved. Recommend splitting into separate commits before pushing.
 
 ### 3) Detect Tidying Opportunities
 
-Map code against tidying signals. Classify by severity:
+Map code against tidying signals. Classify by severity. The severity tiers and their names are this package's review scale for ranking findings, not part of *Tidy First?*. Cite the tidying in each finding.
 
 #### TANGLED (High)
 

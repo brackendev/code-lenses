@@ -84,6 +84,8 @@ For each module, class, or significant abstraction:
 
 ### 3) Apply Severity Tiers
 
+The severity tiers and their names are this package's review scale for ranking findings, not part of *A Philosophy of Software Design*. Cite the APOSD principle in each finding.
+
 #### SHALLOW (High)
 
 Active complexity problems causing real cost:

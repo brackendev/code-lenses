@@ -77,7 +77,7 @@ A quick guide to every slash command. The detailed entries under [Skills](#skill
 | `/lenses-fix` | You want a multi-lens review with fixes applied | Runs the default lenses in parallel, prints one report, and applies non-conflicting findings |
 | `/grug-fix` | A bug or failing test needs a careful fix | Fixes it through grug brain philosophy and adds a regression test |
 | `/grug-review` | Code feels too complex | Reviews for complexity demons (report only) |
-| `/honest-code-review` | Code may hide dishonest patterns | Reviews against the Honest Code constructs (report only) |
+| `/honest-code-review` | Code may hide dishonest patterns | Reviews against the Honest Code Principles (report only) |
 | `/tidy-first-review` | Code needs tidying before a change | Reviews for tidying opportunities (report only) |
 | `/parse-dont-validate-review` | Types should make illegal states unrepresentable | Reviews for type-driven correctness (report only) |
 | `/aposd-review` | Modules feel shallow or leaky | Reviews module depth and information hiding (report only) |
@@ -122,7 +122,7 @@ Review code for complexity demons through [grug brain developer](https://grugbra
 
 #### `/honest-code-review [scope]`
 
-Review code for dishonest patterns using the [Honest Code](https://honestcode.software/) constructs (11 from honestcode.software, 1 extended from Gary Bernhardt's Functional Core, Imperative Shell). Severity tiers: CRIME SCENE, SUSPECT, WITNESS.
+Review code for dishonest patterns using the [Honest Code Principles](https://github.com/openhonest/honest-code-principles) (P01-P25) from the Open Honest Foundation. Findings cite principles by number. The `honest-code` skill ships an unchanged copy of the principles file at a pinned commit, so reviews work offline. Upstream asks projects not to copy the file, and this package copies it only so that reviews do not need network access. The copy is pinned to one commit and compared with upstream before each release. Severity tiers: CRIME SCENE, SUSPECT, WITNESS.
 
 #### `/tidy-first-review [scope]`
 
@@ -147,7 +147,7 @@ These activate from conversation context when their domain comes up. They cannot
 | Skill | Activates on |
 |-------|--------------|
 | `grug` | Implementing features, refactoring, designing architecture, choosing abstractions, "keep it simple", "too complex", "complexity demon" |
-| `honest-code` | "honest code", "declarative", "pure functions", "no classes", "no inheritance", "let it crash", "functional core", "imperative shell", "push effects" |
+| `honest-code` | "honest code", "declarative", "pure functions", "side effects", "no classes", "no inheritance", "mocks", "implicit defaults", "dishonest", "functional core", "imperative shell" |
 | `tidy-first` | "tidy", "clean up before", "refactor before", "messy code", "structural change", "reading order", "guard clauses", "extract helper", "dead code" |
 | `parse-dont-validate` | "parse don't validate", "illegal states", "unrepresentable", "type-driven", "branded type", "smart constructor", "parse at boundary" |
 | `aposd` | Designing modules, interfaces, error handling; questions about deep modules, information hiding, complexity symptoms |
@@ -159,3 +159,5 @@ To work on the plugin source, see [CONTRIBUTING.md](CONTRIBUTING.md). The argume
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+`.apm/skills/honest-code/references/honest-code-principles.md` is an unchanged copy of the [Honest Code Principles](https://github.com/openhonest/honest-code-principles) by the Open Honest Foundation, distributed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). Its header records the source commit.

@@ -84,5 +84,5 @@ Design interfaces that are somewhat general-purpose, even for specific use cases
 
 - When detecting code that conflicts with a principle above, suggest the change that principle describes. Reference the principle by name.
 - APOSD provides module-level design guidance. The grug skill provides anti-complexity instinct. Both can apply to the same code.
-- **Error handling composition with honest-code:** Honest Code says "raise at source, handle at boundary." APOSD says "define errors out of existence." Apply APOSD first: if the interface can be redesigned so the error cannot occur, do that. When errors remain, apply honest-code: raise at source, handle at the boundary, never swallow.
+- **Error handling composition with honest-code:** APOSD says "define errors out of existence." Apply APOSD first: if the interface can be redesigned so the error cannot occur, do that. When errors remain, Honest Code P08 and P24 govern how they travel to the boundary, and neither allows swallowing them.
 - For the full treatment, see "A Philosophy of Software Design" by John Ousterhout.

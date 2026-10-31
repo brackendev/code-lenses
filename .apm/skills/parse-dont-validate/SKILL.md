@@ -78,4 +78,4 @@ Shotgun validation is a symptom of unstructured types. The fix is a better type,
 - When detecting code that matches an "Instead of" pattern, suggest the corresponding "Use" pattern. Reference the principle by name and number.
 - Consider the project's language when suggesting types. The principle applies everywhere, but the mechanism differs.
 - **Composition with APOSD:** APOSD says "define errors out of existence." Parse Don't Validate says "make invalid states unconstructable." These reinforce each other: parse at the boundary to eliminate errors, design deep module interfaces that accept only parsed types.
-- **Composition with honest-code:** Honest Code Construct 10 says "Declare What, Not How." Parsed types are declarations of what valid data looks like. They complement each other.
+- **Composition with honest-code:** Honest Code P11 prefers declared types and schemas over hand-written validation, and P14 trusts the contract in the interior once the boundary has checked it. Parsed types are those declarations, so the two lenses agree.

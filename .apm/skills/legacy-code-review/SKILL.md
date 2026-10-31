@@ -86,6 +86,8 @@ Evaluate each file or module:
 
 ### 3) Apply Severity Tiers
 
+The severity tiers and their names are this package's review scale for ranking findings, not part of *Working Effectively with Legacy Code*. Cite the Feathers technique in each finding.
+
 #### UNTESTED (High)
 
 Code with active risk due to missing test coverage:
