@@ -1,6 +1,6 @@
 # code-lenses
 
-Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys the full set (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Data-Oriented Programming, Legacy Code) to every runtime in APM's default target set: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, Windsurf, Kiro, and Grok Build. Antigravity is supported by naming it explicitly with `--target antigravity`.
+Software design lenses for code review and implementation guidance, packaged as an [APM](https://github.com/microsoft/apm) plugin. One install deploys the full set (grug brain, Honest Code, Tidy First?, A Philosophy of Software Design, Parse Don't Validate, Data-Oriented Programming, Simple Made Easy, Legacy Code) to every runtime in APM's default target set: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini, Windsurf, Kiro, and Grok Build. Antigravity is supported by naming it explicitly with `--target antigravity`.
 
 Skills follow the [Agent Skills](https://agentskills.io) open standard. The review and fix skills are slash commands (`/grug-review`, `/lenses-fix`, and the rest), and the agent can also run each of them from a natural-language request. The review skills are read-only reports. The fix skills (`/lenses-fix`, `/grug-fix`) edit files by default. The implementation-guidance skills activate automatically from conversation context. See [CONVENTIONS.md](CONVENTIONS.md) for the canonical argument grammar, scope vocabulary, and mutation default that every user-invocable skill follows.
 
@@ -46,6 +46,7 @@ Review changed files through a single lens (review skills never mutate):
 /tidy-first-review
 /parse-dont-validate-review
 /data-oriented-programming-review
+/simple-made-easy-review
 ```
 
 Add a lens to the ones `/lenses-fix` selects:
@@ -67,7 +68,7 @@ Diagnose without editing files:
 /grug-fix TypeError: Cannot read property 'id' of undefined --report
 ```
 
-The implementation-guidance lenses (`grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `data-oriented-programming`, `aposd`) activate automatically when their domain comes up. They cannot be invoked directly.
+The implementation-guidance lenses (`grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `data-oriented-programming`, `simple-made-easy`, `aposd`) activate automatically when their domain comes up. They cannot be invoked directly.
 
 ## Command guide
 
@@ -82,6 +83,7 @@ A quick guide to every slash command. The detailed entries under [Skills](#skill
 | `/tidy-first-review` | Code needs tidying before a change | Reviews for tidying opportunities (report only) |
 | `/parse-dont-validate-review` | Types should make illegal states unrepresentable | Reviews for type-driven correctness (report only) |
 | `/data-oriented-programming-review` | Data is locked in objects or mutated in place | Reviews against Sharvit's Data-Oriented Programming principles (report only) |
+| `/simple-made-easy-review` | Concerns that could change independently are tied together | Reviews against the design ideas of Rich Hickey's talk Simple Made Easy (report only) |
 | `/aposd-review` | Modules feel shallow or leaky | Reviews module depth and information hiding (report only) |
 | `/legacy-code-review` | Untested code needs safe changes | Reviews for safe-modification seams (report only) |
 
@@ -93,7 +95,7 @@ Mutating skills that apply changes by default. Each accepts `--report` to previe
 
 #### `/lenses-fix [scope] [lenses] [+lens] [apply architectural] [--report]`
 
-Detect the stack of each component in scope from the code (language, framework, paradigm, typing, data representation, UI architecture, and test coverage), choose the lenses that fit each component, run them in parallel, print a unified report, then apply the non-conflicting local findings. No lens list is fixed. grug, Honest Code, and Tidy First? run for any code, and Parse Don't Validate, Data-Oriented Programming, APOSD, and Legacy Code run where their subject is present and their central idea can apply. The report's Lens selection section shows the evidence for each component, the rule that chose each lens, and every lens that did not run, with the reason and the `+name` argument that runs it. Every lens applies its source to the component's stack: it keeps the source's prescription, uses the stack's own mechanism, and reports a framework or convention conflict as a departure, never as conformance.
+Detect the stack of each component in scope from the code (language, framework, paradigm, typing, data representation, UI architecture, and test coverage), choose the lenses that fit each component, run them in parallel, print a unified report, then apply the non-conflicting local findings. No lens list is fixed. grug, Honest Code, and Tidy First? run for any code, and Parse Don't Validate, Data-Oriented Programming, Simple Made Easy, APOSD, and Legacy Code run where their subject is present and their central idea can apply. The report's Lens selection section shows the evidence for each component, the rule that chose each lens, and every lens that did not run, with the reason and the `+name` argument that runs it. Every lens applies its source to the component's stack: it keeps the source's prescription, uses the stack's own mechanism, and reports a framework or convention conflict as a departure, never as conformance.
 
 Name lenses to run only those. Prefix a lens with `+` to add it to the selection (`+aposd`, `+data-oriented-programming`). Findings that would change a public contract, state ownership, persistence strategy, module responsibilities, or an established project convention are grouped under Architectural Departures and reported, not applied, unless you pass `apply architectural` or ask for specific findings afterward. Local fixes are applied in order: characterization tests first, then structural changes, then behavioral changes, each labeled by kind so they can be committed separately. After the fixes, the project's tests run and the result is reported. Pass `--report` to aggregate findings and skip the apply phase.
 
@@ -141,6 +143,10 @@ Review code for type-driven correctness using [Parse, Don't Validate](https://le
 
 Review code against the four principles of [Data-Oriented Programming](https://blog.klipse.tech/dop/2022/06/22/principles-of-dop.html) by Yehonathan Sharvit: separate code from data, represent data with generic data structures, treat data as immutable, and separate the data schema from the data. Findings cite principles by number (`DOP #2`) and name the costs Sharvit gives for each principle where they apply. Severity tiers: ENTANGLED, CONFINED, IMPLICIT.
 
+#### `/simple-made-easy-review [scope]`
+
+Review code for entangled concerns using the design ideas of Rich Hickey's talk [Simple Made Easy](https://www.infoq.com/presentations/Simple-Made-Easy/). In the talk, simple means not entangled, which differs from easy. Its ideas include values over state, plain data for information, open polymorphism over inheritance and repeated branching, data over syntax, and keeping what, who, when, and why separate. The talk has no numbered list, so the `simple-made-easy` skill holds this package's own numbered summaries and quotes nothing from the talk. Findings cite a summary by number (`SME #3`) and name the two concerns that the code ties together. Severity tiers: BRAIDED, COUPLED, CONVENIENT.
+
 #### `/aposd-review [scope]`
 
 Review code for module depth, information hiding, and complexity using [A Philosophy of Software Design](https://web.stanford.edu/~ouster/cgi-bin/book.php) by John Ousterhout. Severity tiers: SHALLOW, EXPOSED, SURFACE.
@@ -160,6 +166,7 @@ These activate from conversation context when their domain comes up. They cannot
 | `tidy-first` | "tidy", "clean up before", "refactor before", "messy code", "structural change", "reading order", "guard clauses", "extract helper", "dead code" |
 | `parse-dont-validate` | "parse don't validate", "illegal states", "unrepresentable", "type-driven", "branded type", "smart constructor", "parse at boundary" |
 | `data-oriented-programming` | "data-oriented programming", "DOP", "data as data", "generic data structures", "immutable data", "data schema", "separate code from data"; designing data models and entities |
+| `simple-made-easy` | "Simple Made Easy", "Rich Hickey", "complect", "decomplect", "simple vs easy", "entangled", "untangle"; asking which concerns a construct or a design ties together |
 | `aposd` | Designing modules, interfaces, error handling; questions about deep modules, information hiding, complexity symptoms |
 
 ## Contributing

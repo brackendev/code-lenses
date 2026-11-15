@@ -11,6 +11,7 @@ Part of `/lenses-fix`. These rules choose which lenses run for each component id
 | Tidy First? | `tidy-first-review` | Any code |
 | Parse Don't Validate | `parse-dont-validate-review` | Data entering from outside the component, such as requests, files, messages, or configuration |
 | Data-Oriented Programming | `data-oriented-programming-review` | Application data the component represents and changes |
+| Simple Made Easy | `simple-made-easy-review` | State that outlives one call, dispatch over variants, or connections between components |
 | APOSD | `aposd-review` | Modules, namespaces, or classes behind interfaces |
 | Legacy Code | `legacy-code-review` | Code without tests that the change touches |
 
@@ -21,6 +22,7 @@ Part of `/lenses-fix`. These rules choose which lenses run for each component id
 3. **Run a lens by default when its subject is present and its central idea can apply to the component.** Examples:
    - Parse Don't Validate runs when data enters the component from outside. In a dynamically typed component its central idea still applies through parse functions at the boundary (`references/stack-adaptation.md`, rule 3).
    - Data-Oriented Programming runs when the component already represents its application data with generic structures such as maps and lists.
+   - Simple Made Easy runs when the component holds state that outlives one call, or when the change alters how components connect: the calls between them, the dispatch over variants, or the data they share. A change confined to functions that only compute from their arguments does not select it.
    - APOSD runs when the component's design is organized around classes and the interfaces between them, and in any component whenever the change alters a public interface or module boundary.
    - Legacy Code runs when the change touches code that has no tests.
 4. **Skip a lens by default when the part of it that matters most cannot apply to the component, and the selected lenses already cover the rest.** Example: in a component built on statically typed domain classes, Data-Oriented Programming's central idea (generic data structures) runs against the established representation, and Honest Code P02 and Parse Don't Validate cover its remaining guidance on plain, checked data. A skip is a default, not a judgment of the lens: the report says how to run it.

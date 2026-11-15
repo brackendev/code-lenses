@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.36] - 2026-11-15
+
+### Added
+
+- `simple-made-easy` and `/simple-made-easy-review` apply the design ideas of Rich Hickey's talk Simple Made Easy. In the talk, simple means not entangled, which differs from easy. Its ideas include values over state, plain data for information, functions and namespaces over methods, open polymorphism over inheritance and repeated branching, data over syntax, declarative forms over loops and scattered conditionals, and keeping what, who, how, when, where, and why separate. The talk has no numbered list, so the skill holds this package's own numbered summaries, which quote nothing from the talk. Findings cite a summary by number (`SME #3`) and name the two concerns that the code ties together. Severity tiers: BRAIDED, COUPLED, CONVENIENT.
+
+### Changed
+
+- `/lenses-fix` selects Simple Made Easy when a component holds state that outlives one call, or when the change alters how components connect. `+simple-made-easy` adds it to any selection.
+- `lenses-fix/references/stack-adaptation.md` records whether tests cover the code in scope. It said "the code the change touches", which did not fit a review of a path.
+- The `/lenses-fix` Conflicts section names four tensions that involve Simple Made Easy: the number of parts (grug), open extension against closed input (Honest Code P16), small interfaces against deep modules (APOSD), and plain data against information hiding (APOSD).
+
 ## [0.1.35] - 2026-10-31
 
 ### Added

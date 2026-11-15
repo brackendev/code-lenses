@@ -1,0 +1,8 @@
+interface:
+  display_name: "Simple Made Easy"
+  short_description: "Apply Simple Made Easy when choosing constructs and designing components."
+  default_prompt: "Use simple-made-easy for this design."
+  brand_color: "#F97316"
+
+policy:
+  allow_implicit_invocation: true

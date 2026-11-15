@@ -13,7 +13,7 @@ A component is a group of files in scope that share a language, framework, and r
 | Typing | Whether a compiler or type checker enforces types (static), or types are checked only at run time (dynamic) |
 | Data representation | Specific classes or records per entity, or generic maps and lists |
 | UI architecture | Server-rendered HTML, a client-side single-page app, or no browser interface |
-| Tests | Whether tests cover the code the change touches |
+| Tests | Whether tests cover the code in scope |
 
 Judge each property from the code, not from the language alone. A C# component can be written in a functional style, and a Clojure component can be built on records and protocols. When the evidence is thin or the component mixes styles, write "mixed" or "unknown" instead of guessing.
 

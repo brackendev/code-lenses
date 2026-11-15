@@ -3,8 +3,8 @@ name: lenses-fix
 description: >-
   Detect the stack of the code in scope, choose the code lenses that fit it
   (grug, Honest Code, Tidy First, Parse Don't Validate, Data-Oriented
-  Programming, APOSD, Legacy Code), run them in parallel, and apply the
-  non-conflicting local fixes. Use when the user asks to run the code lenses
+  Programming, Simple Made Easy, APOSD, Legacy Code), run them in parallel,
+  and apply the non-conflicting local fixes. Use when the user asks to run the code lenses
   and apply the results, or to fix the findings from a lens review. Writes
   fixes by default. Use --report to aggregate findings without writing.
 argument-hint: "[scope] [lenses] [+lens] [apply architectural] [--report]"
@@ -26,7 +26,7 @@ Interpret naturally. This skill mutates by default. Pass `--report` to aggregate
 | (no argument) | Select lenses for the changed files (staged + unstaged) and apply their local fixes |
 | `all` | Select lenses across the full codebase (sampled for high-risk and high-traffic modules) and apply their local fixes |
 | `<path>` `<glob>` | Select lenses for the path or pattern and apply their local fixes |
-| `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `data-oriented-programming`, `aposd`, `legacy-code` |
+| `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `data-oriented-programming`, `simple-made-easy`, `aposd`, `legacy-code` |
 | `+<lens>` | Add a lens to the selected set, for example `+aposd` or `+data-oriented-programming` (documented exemption) |
 | `apply architectural` | Also apply the architectural findings in scope, which are otherwise reported only |
 | `--report` | Aggregate findings and print the report; skip the apply phase |
@@ -66,6 +66,7 @@ Read `references/stack-adaptation.md` and `references/lens-selection.md`.
 | Tidy First? | `tidy-first-review` | Structural tidying, mixed commits, reading order |
 | Parse Don't Validate | `parse-dont-validate-review` | Boundary parsing, illegal states |
 | Data-Oriented Programming | `data-oriented-programming-review` | Code and data separation, generic immutable data, separate schemas |
+| Simple Made Easy | `simple-made-easy-review` | Entangled concerns: state tied to time, repeated branching, fixed collaborators, direct calls between components |
 | APOSD | `aposd-review` | Module depth, information hiding, interface design |
 | Legacy Code | `legacy-code-review` | Missing tests, seams, safe modification of untested code |
 
@@ -104,6 +105,7 @@ After all sub-agents complete, produce a unified report:
 | Tidy First? (if run) | [structural health level] | [one-sentence summary] |
 | Parse Don't Validate (if run) | [type safety level] | [one-sentence summary] |
 | Data-Oriented Programming (if run) | [data orientation level] | [one-sentence summary] |
+| Simple Made Easy (if run) | [simplicity level] | [one-sentence summary] |
 | APOSD (if run) | [module depth level] | [one-sentence summary] |
 | Legacy Code (if run) | [change safety level] | [one-sentence summary] |
 
@@ -136,6 +138,10 @@ After all sub-agents complete, produce a unified report:
 [- **Test strategy (when Legacy Code included):** Legacy Code says write characterization tests to lock existing behavior. Tidy First says tidy the structure before changing behavior. When both apply, the user decides which unblocks the change.]
 [- **Generic data vs domain types (when Data-Oriented Programming included):** Data-Oriented Programming (DOP #2, #4) keeps data in generic structures with a separate schema. Parse Don't Validate wants a distinct parsed type that carries the proof. In a dynamically typed component a parse function that returns schema-checked generic data satisfies both. In a statically typed component they disagree about the representation.]
 [- **Open data vs information hiding (when Data-Oriented Programming and APOSD included):** DOP #1 lets any function read any data, a cost Sharvit names himself. APOSD hides data structures behind module interfaces.]
+[- **Number of parts (when Simple Made Easy included):** Grug prefers fewer parts, local behavior, and no abstraction before the third repetition. Simple Made Easy (SME #2, #9) accepts more parts, smaller interfaces, and a queue between components when they separate concerns that are entangled today. An option that satisfies both: separate only the concerns that the current change shows changing independently.]
+[- **Open extension vs closed input (when Simple Made Easy included):** Honest Code (P16) wants the set of dispatch keys written out in one place, so the input space can be listed. Simple Made Easy (SME #6) wants a variant added without editing a central place.]
+[- **Small interfaces vs deep modules (when Simple Made Easy and APOSD included):** Simple Made Easy (SME #9) wants many small sets of functions and more components. APOSD wants fewer, deeper modules behind somewhat general-purpose interfaces.]
+[- **Plain data vs information hiding (when Simple Made Easy and APOSD included):** Simple Made Easy (SME #4) leaves information as plain data that any function can read. APOSD hides data structures behind module interfaces.]
 [- **Seams vs composition (when Legacy Code included):** Legacy Code recommends object seams (subclass, Extract Interface) as tactical rescue techniques to enable testing. Honest Code (P04) avoids inheritance. These seams are temporary scaffolding for testability, not end-state design, and P23 describes the same one-step-at-a-time migration.]
 
 [Only include conflicts that actually appeared in the review. Omit this section if no lenses contradicted each other.]

@@ -2,7 +2,7 @@
 
 This document defines the canonical argument grammar, scope vocabulary, and mutation default for user-invocable skills in this plugin. A reader who learns one skill should be able to predict the argument shape and runtime behavior of every other skill.
 
-Model-auto-triggered skills (the implementation-guidance lenses `aposd`, `data-oriented-programming`, `grug`, `honest-code`, `parse-dont-validate`, `tidy-first`) are out of scope. They have no user-facing argument surface.
+Model-auto-triggered skills (the implementation-guidance lenses `aposd`, `data-oriented-programming`, `grug`, `honest-code`, `parse-dont-validate`, `simple-made-easy`, `tidy-first`) are out of scope. They have no user-facing argument surface.
 
 ## Four Rules
 
@@ -57,7 +57,7 @@ The boundary statement: Rule 4 applies to mutating skills that discover candidat
 
 **Reporting.** The skill includes a single "skipped N vendored or generated paths" line in its results when the filter excluded any path. Under `--report`, the skill emits the full list so the operator can audit scope.
 
-**Scope of Rule 4 in this plugin.** Applies to `/lenses-fix` and `/grug-fix`, both of which discover candidate files from the workspace. The pure-report skills (`/grug-review`, `/honest-code-review`, `/tidy-first-review`, `/parse-dont-validate-review`, `/data-oriented-programming-review`, `/aposd-review`, `/legacy-code-review`) read the workspace but never mutate, so the filter is advisory: they may still report findings against vendored code, since reading is not modification.
+**Scope of Rule 4 in this plugin.** Applies to `/lenses-fix` and `/grug-fix`, both of which discover candidate files from the workspace. The pure-report skills (`/grug-review`, `/honest-code-review`, `/tidy-first-review`, `/parse-dont-validate-review`, `/data-oriented-programming-review`, `/simple-made-easy-review`, `/aposd-review`, `/legacy-code-review`) read the workspace but never mutate, so the filter is advisory: they may still report findings against vendored code, since reading is not modification.
 
 The file-aware mutating skills include a one-line reference to Rule 4 in their own `## Mutation` or `## Scope` section.
 
@@ -91,7 +91,7 @@ Each user-invocable skill that takes arguments uses these headings in this order
 | (no argument) | Select lenses for the changed files (staged + unstaged) and apply their local fixes |
 | `all` | Select lenses across the full codebase (sampled for high-risk and high-traffic modules) and apply their local fixes |
 | `<path>` `<glob>` | Select lenses for the path or pattern and apply their local fixes |
-| `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `data-oriented-programming`, `aposd`, `legacy-code` |
+| `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `data-oriented-programming`, `simple-made-easy`, `aposd`, `legacy-code` |
 | `+<lens>` | Add a lens to the selected set, for example `+aposd` or `+data-oriented-programming` (documented exemption) |
 | `apply architectural` | Also apply the architectural findings in scope, which are otherwise reported only |
 | `--report` | Aggregate findings and print the report; skip the apply phase |
