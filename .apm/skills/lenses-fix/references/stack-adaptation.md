@@ -4,18 +4,18 @@ Part of `/lenses-fix`. Every review skill in this package applies its lens to th
 
 ## 1. Identify each component
 
-A component is a group of files in scope that share a language, framework, and role, such as a C# web API project, a ClojureScript front end, or a Python worker. For each component, record what the code shows, with file references:
+A component is a group of files in scope that share a language, framework, and role, such as a C# web API project, a ClojureScript front end, or a Python worker. The role is the program or deployable unit that the files belong to, not a layer inside it. Test code is not a component of its own. It belongs to the component it tests, even when it lives in a separate project or directory, and it is the evidence for that component's Tests property. A test that exercises several components belongs to each one that is in scope. Test support code, such as fixtures and a test launcher, is test code. Prose documentation belongs to no component. For each component, record what the code shows, with file references:
 
 | Property | Evidence |
 |---|---|
 | Language and framework | Build and dependency files (`*.csproj`, `deps.edn`, `package.json`, `pyproject.toml`, and others), imports, and source extensions |
-| Paradigm | Whether classes or objects own mutable state and the methods that change it, or functions transform plain data passed to them |
+| Paradigm | Whether classes or objects own mutable state and the methods that change it, or functions transform plain data passed to them. Describe any other pattern, such as functions that change module-level variables, in its own words |
 | Typing | Whether a compiler or type checker enforces types (static), or types are checked only at run time (dynamic) |
 | Data representation | Specific classes or records per entity, or generic maps and lists |
 | UI architecture | Server-rendered HTML, a client-side single-page app, or no browser interface |
-| Tests | Whether tests cover the code in scope |
+| Tests | Which code in scope has tests that exercise it, judged by reading the tests |
 
-Judge each property from the code, not from the language alone. A C# component can be written in a functional style, and a Clojure component can be built on records and protocols. When the evidence is thin or the component mixes styles, write "mixed" or "unknown" instead of guessing.
+Judge each property from the code, not from the language alone. A C# component can be written in a functional style, and a Clojure component can be built on records and protocols. When the evidence is thin or the component mixes styles, write "mixed" or "unknown" instead of guessing. When the subject of a property is absent, such as application data in a component that holds none, write "none".
 
 ## 2. Translate the mechanism, keep the prescription
 

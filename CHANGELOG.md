@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.37] - 2026-11-15
+
+### Changed
+
+- `/lenses-fix` selects Parse Don't Validate, Data-Oriented Programming, Simple Made Easy, APOSD, and Legacy Code by the code under review, not by the whole component. For the default scope, the code under review is the changed lines and the smallest function or top-level definition that contains each of them. For a path, a glob, or `all`, it is every file in scope. A component that reads outside data in one file no longer selects Parse Don't Validate for a change that reads none.
+- Each of those five lenses has a narrower condition, and `lenses-fix/references/lens-selection.md` defines the terms the conditions use (module, outside data, application data, state that outlives one call, a dispatch over variants, and a tested function):
+  - Parse Don't Validate needs code that interprets outside data. Code that forwards the data without using the content of its values does not select it. In a statically typed component, the lens also runs for a type that represents application data.
+  - Data-Oriented Programming needs a change that adds a kind of application data, or adds, renames, or removes a field of one. It was selected for every change to a component that holds its data in generic structures.
+  - Simple Made Easy needs state that outlives one call, or a change to a dispatch over variants. For a path, a glob, or `all`, modules that depend on each other also select it. It is skipped by default in a component where classes own mutable state, because Honest Code reports the same designs there.
+  - APOSD needs a change that adds or removes a module, or changes a public function, method, or interface. For a path, a glob, or `all`, it runs when the scope holds two or more modules and one uses another's public names, whatever the paradigm. It was skipped for those scopes in a component without classes.
+  - Legacy Code needs a function that no test checks on its main path, and it receives only the files that hold one and their tests.
+- For the default scope, a lens selected by its subject receives the files whose code selected it, the files in scope that call that code or that it calls, and their tests.
+- Test code is reviewed with the component it tests and is not a component of its own. Prose documentation and comment-only changes select no lens.
+- `lenses-fix/references/lens-selection.md` states why grug, Honest Code, and Tidy First? run for any code. grug is the only lens that argues against added structure, so it stays in the selection when another selected lens is likely to disagree with it. The report lists the disagreement under Conflicts, and the finding is not applied automatically.
+- The Lens Selection section of the report names the code that selected each lens.
+- The `/lenses-fix` Conflicts section names one more tension: whether a setting is passed in as an argument (Honest Code P13, Simple Made Easy) or decided inside the module (APOSD, grug).
+- `lenses-fix/references/stack-adaptation.md` defines a component's role as the program or deployable unit, records which code has tests instead of whether tests exist, and uses "none" for a property whose subject is absent.
+
 ## [0.1.36] - 2026-11-15
 
 ### Added

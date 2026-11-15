@@ -13,7 +13,7 @@ user-invocable: true
 
 # Lenses Fix
 
-Identify the stack of each component in scope, choose the code lenses that fit each component, run the reviews in parallel using the host runtime's sub-agent mechanism, aggregate findings into a unified report, then apply the non-conflicting local findings. No lens list is fixed: `references/lens-selection.md` chooses lenses from what the code shows, and `references/stack-adaptation.md` tells every lens how to apply its source to the component's stack.
+Identify the stack of each component in scope, choose the code lenses that fit each component, run the reviews in parallel using the host runtime's sub-agent mechanism, aggregate findings into a unified report, then apply the non-conflicting local findings. No lens list is fixed: `references/lens-selection.md` chooses lenses from what the code under review shows, and `references/stack-adaptation.md` tells every lens how to apply its source to the component's stack.
 
 **Review Scope (optional):** "$ARGUMENTS"
 
@@ -27,7 +27,7 @@ Interpret naturally. This skill mutates by default. Pass `--report` to aggregate
 | `all` | Select lenses across the full codebase (sampled for high-risk and high-traffic modules) and apply their local fixes |
 | `<path>` `<glob>` | Select lenses for the path or pattern and apply their local fixes |
 | `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `data-oriented-programming`, `simple-made-easy`, `aposd`, `legacy-code` |
-| `+<lens>` | Add a lens to the selected set, for example `+aposd` or `+data-oriented-programming` (documented exemption) |
+| `+<lens>` | Add a lens to the selected set for every component, for example `+aposd` or `+data-oriented-programming` (documented exemption) |
 | `apply architectural` | Also apply the architectural findings in scope, which are otherwise reported only |
 | `--report` | Aggregate findings and print the report; skip the apply phase |
 
@@ -44,20 +44,20 @@ This skill excludes vendored, generated, and dependency-locked paths from the fi
 Identify what to review:
 
 - If the user provided a scope argument, use it as-is
-- If no argument, run `git diff --name-only` and `git diff --cached --name-only` to identify changed files
-- If no changed files and no argument, ask the user what to review
+- If no scope argument, run `git diff --name-only` and `git diff --cached --name-only` to identify changed files
+- If no changed files and no scope argument, ask the user what to review
 - If the arguments contain `--report`, enable report-only mode and remember to skip Step 5
 - If the arguments contain `apply architectural`, remember to apply architectural findings in Step 5
 
-Build a scope summary string (for example: "changed files: src/auth.ts, src/middleware.ts" or "path: src/api/") to pass to each sub-agent.
+Build a scope summary string (for example: "changed files: src/auth.ts, src/middleware.ts", "path: src/api/", or "all: sampled files src/orders/, src/billing/") to pass to each sub-agent.
 
 ### 2. Identify Components and Select Lenses
 
 Read `references/stack-adaptation.md` and `references/lens-selection.md`.
 
 1. Group the files in scope into components and record each component's language, framework, paradigm, typing, data representation, UI architecture, and test coverage, with file references (`stack-adaptation.md`, section 1).
-2. Apply the selection rules in `lens-selection.md` to each component. Explicitly named lenses always run.
-3. Keep the result for the report's Lens selection section: each component with its evidence, the lenses run and the rule that chose each, and the lenses not run with the reason.
+2. Apply the selection rules in `lens-selection.md` to each component. The rules judge the code under review: the changed lines and the smallest named function or top-level definition that contains each of them for the default scope, every file in scope for a path or a glob, and every sampled file for `all`. Prose documentation and comment-only changes select no lens. Explicitly named lenses always run, for every component.
+3. Keep the result for the report's Lens Selection section: each component with its evidence, the lenses run with the rule that chose each and the file reference of the code that selected each rule 3 lens, and the lenses not run with the reason.
 
 | Lens | Review skill | Focus |
 |------|--------------|-------|
@@ -81,7 +81,7 @@ For each lens:
 - Tell the sub-agent to return the full output contract for that lens
 - Tell the sub-agent not to edit files
 
-Launch only the lenses selected in Step 2. When a lens runs for some components but not others, limit its scope summary to the files of the components it was selected for.
+Launch only the lenses selected in Step 2. When a lens runs for some components but not others, limit its scope summary to the files of the components it was selected for. For the default scope, limit the scope summary of a rule 3 lens further, as `lens-selection.md` states under "What each lens receives".
 
 ### 4. Aggregate Results
 
@@ -94,7 +94,9 @@ After all sub-agents complete, produce a unified report:
 
 | Component | Evidence | Lenses run (rule) | Not run (reason; how to run) |
 |-----------|----------|-------------------|------------------------------|
-| [name and files] | [language, framework, paradigm, typing, data representation, UI, tests, with file references] | [lens (rule from lens-selection.md)] | [lens (reason; `+name`)] |
+| [name and files] | [language, framework, paradigm, typing, data representation, UI, tests, with file references] | [lens (rule from lens-selection.md, with the file reference that selected a rule 3 lens)] | [lens (reason; `+name`)] |
+
+[Prose documentation and comment-only changes, which no lens reviews: the file names in one line. Omit this line when there are none.]
 
 ### Verdicts
 
@@ -142,6 +144,7 @@ After all sub-agents complete, produce a unified report:
 [- **Open extension vs closed input (when Simple Made Easy included):** Honest Code (P16) wants the set of dispatch keys written out in one place, so the input space can be listed. Simple Made Easy (SME #6) wants a variant added without editing a central place.]
 [- **Small interfaces vs deep modules (when Simple Made Easy and APOSD included):** Simple Made Easy (SME #9) wants many small sets of functions and more components. APOSD wants fewer, deeper modules behind somewhat general-purpose interfaces.]
 [- **Plain data vs information hiding (when Simple Made Easy and APOSD included):** Simple Made Easy (SME #4) leaves information as plain data that any function can read. APOSD hides data structures behind module interfaces.]
+[- **Where a decision is made (when APOSD included):** Honest Code (P13) and Simple Made Easy (SME #9) pass a setting or a collaborator in as an argument, so the caller decides. APOSD pulls the decision down into the module, so no caller can get it wrong, and grug agrees when the value never varies.]
 [- **Seams vs composition (when Legacy Code included):** Legacy Code recommends object seams (subclass, Extract Interface) as tactical rescue techniques to enable testing. Honest Code (P04) avoids inheritance. These seams are temporary scaffolding for testability, not end-state design, and P23 describes the same one-step-at-a-time migration.]
 
 [Only include conflicts that actually appeared in the review. Omit this section if no lenses contradicted each other.]

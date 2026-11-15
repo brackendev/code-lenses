@@ -92,7 +92,7 @@ Each user-invocable skill that takes arguments uses these headings in this order
 | `all` | Select lenses across the full codebase (sampled for high-risk and high-traffic modules) and apply their local fixes |
 | `<path>` `<glob>` | Select lenses for the path or pattern and apply their local fixes |
 | `<lens-names>` | Run only the named lenses from `grug`, `honest-code`, `tidy-first`, `parse-dont-validate`, `data-oriented-programming`, `simple-made-easy`, `aposd`, `legacy-code` |
-| `+<lens>` | Add a lens to the selected set, for example `+aposd` or `+data-oriented-programming` (documented exemption) |
+| `+<lens>` | Add a lens to the selected set for every component, for example `+aposd` or `+data-oriented-programming` (documented exemption) |
 | `apply architectural` | Also apply the architectural findings in scope, which are otherwise reported only |
 | `--report` | Aggregate findings and print the report; skip the apply phase |
 
